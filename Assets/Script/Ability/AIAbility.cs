@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class AIAbility : BaseAbility
 {
-    public AIAbility(AbilityManager abilityMgr, Actor actor) : base(abilityMgr, actor)
-    {
 
-    }
 }

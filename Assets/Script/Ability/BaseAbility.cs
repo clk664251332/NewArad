@@ -6,10 +6,9 @@ public class BaseAbility
 {
     public Actor m_owner;
 
-    public BaseAbility(AbilityManager abilityManager, Actor owner)
+    public void SetOwner(Actor actor)
     {
-        abilityManager.AddAbility(this);
-        m_owner = owner;
+        m_owner = actor;
     }
 
     public virtual void Initialize()

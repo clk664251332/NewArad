@@ -11,8 +11,7 @@ public class Actor : Entity
     {
         base.Initialize();
         m_AbilityManager = new AbilityManager();
-        //m_AbilityManager.AddAbility<AnimationAbility>(this);
-        m_AnimationAbility = new AnimationAbility(m_AbilityManager, this);
+        m_AbilityManager.AddAbility<AnimationAbility>(this);
     }
 
     public override void Update()

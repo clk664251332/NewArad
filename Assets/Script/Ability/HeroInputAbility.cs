@@ -4,11 +4,6 @@ using UnityEngine;
 
 public class HeroInputAbility : BaseAbility
 {
-    public HeroInputAbility(AbilityManager abilityMgr, Actor actor) : base(abilityMgr, actor)
-    {
-
-    }
-
     public override void Initialize()
     {
         base.Initialize();

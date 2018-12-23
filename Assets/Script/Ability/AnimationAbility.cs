@@ -4,8 +4,5 @@ using UnityEngine;
 
 public class AnimationAbility : BaseAbility
 {
-    public AnimationAbility(AbilityManager abilityMgr, Actor actor) : base(abilityMgr, actor)
-    {
 
-    }
 }

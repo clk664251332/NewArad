@@ -9,6 +9,6 @@ public class Hero : Actor
     public override void Initialize()
     {
         base.Initialize();
-        m_HeroInputAbility = new HeroInputAbility(m_AbilityManager, this);
+        m_AbilityManager.AddAbility<HeroInputAbility>(this);
     }
 }
