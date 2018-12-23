@@ -17,14 +17,16 @@ public class App : MonoSingleton<App>
     {
         m_listSystem = new List<BaseSystem>();
         //创建各个系统
-        var characterFactory = CreateAddSystem<CharacterFactory>();   
+        var characterFactory = CreateAddSystem<CharacterManager>();   
         //最后进行初始化
         for (int i = 0; i < m_listSystem.Count; i++)
         {
             m_listSystem[i].Initialize();
         }
         //一定要在初始化之后再调用
+        //创建一个玩家角色和一个怪物，后面不要在这里写
         characterFactory.CreateActor<Hero>();
+        characterFactory.CreateActor<Monster>();
     }
 
     public void Update()

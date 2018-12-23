@@ -97,7 +97,7 @@
     <Compile Include="Assets\Script\State\NormalMotionState.cs" />
     <Compile Include="Assets\Script\System\App.cs" />
     <Compile Include="Assets\Script\System\BaseSystem.cs" />
-    <Compile Include="Assets\Script\System\CharacterFactory.cs" />
+    <Compile Include="Assets\Script\System\CharacterManager.cs" />
     <Compile Include="Assets\Script\System\MonoSingleton.cs" />
     <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCamera.cs" />
     <Compile Include="Assets\TK2DROOT\tk2d\Code\Camera\tk2dCameraAnchor.cs" />

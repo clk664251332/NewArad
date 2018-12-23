@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Hero : Actor
 {
-    private HeroInputAbility m_HeroInputAbility;
+    public override void AddAbility()
+    {
+        base.AddAbility();
+        m_AbilityManager.AddAbility<HeroInputAbility>(this);
+    }
 
     public override void Initialize()
     {
         base.Initialize();
-        m_AbilityManager.AddAbility<HeroInputAbility>(this);
     }
 }

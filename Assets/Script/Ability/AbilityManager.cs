@@ -29,6 +29,14 @@ public class AbilityManager
         return null;
     }
 
+    public void Initialize()
+    {
+        for (int i = 0; i < m_listAbilityList.Count; i++)
+        {
+            m_listAbilityList[i].Initialize();
+        }
+    }
+
     public void Update()
     {
         for (int i = 0; i < m_listAbilityList.Count; i++)

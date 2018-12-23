@@ -5,13 +5,19 @@ using UnityEngine;
 public class Actor : Entity
 {
     protected AbilityManager m_AbilityManager;
-    private AnimationAbility m_AnimationAbility;
+
+    public virtual void AddAbility()
+    {
+        m_AbilityManager.AddAbility<AnimationAbility>(this);
+        m_AbilityManager.AddAbility<SoundAbility>(this);
+    }
 
     public override void Initialize()
     {
         base.Initialize();
         m_AbilityManager = new AbilityManager();
-        m_AbilityManager.AddAbility<AnimationAbility>(this);
+        AddAbility();
+        m_AbilityManager.Initialize();
     }
 
     public override void Update()
