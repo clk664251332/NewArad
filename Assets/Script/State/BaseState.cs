@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseState : MonoBehaviour {
+//状态分类：站立/走/跑/跳/技能
+//有些技能状态可以被其他动作强制打断
+public class BaseState
+{
+    public virtual void OnEnter()
+    {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+    public virtual void OnUpdate()
+    {
+
+    }
+
+    public virtual void OnExit()
+    {
+
+    }
 }
