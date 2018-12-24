@@ -23,6 +23,7 @@ public class Hero : Actor
     {
         base.Initialize();
         m_AbilityManager.GetAbility<AnimationAbility>().CreatSprite("Player");
+        m_stateMgr.EnterState(EActionState.Idle);
     }
 
     public override void Update()
