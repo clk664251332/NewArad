@@ -43,11 +43,6 @@ public class Actor : Entity
             gameObject = new GameObject();
             m_transform = gameObject.transform;
         }
-        else
-        {
-            gameObject = m_transform.gameObject;
-            gameObject.SetActive(true);
-        }
 
         gameObject = m_transform.gameObject;
         gameObject.SetActive(true);
@@ -72,8 +67,6 @@ public class Actor : Entity
         base.Initialize();
         InitGameObject();
         InitAbility();
-        //根据配置调用ability的功能
-
     }
 
     public override void Update()

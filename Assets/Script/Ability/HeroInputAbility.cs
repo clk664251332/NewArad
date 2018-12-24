@@ -12,11 +12,19 @@ public class HeroInputAbility : BaseAbility
     private float m_fLastArrowKeyDownTime;
     private float m_fLastArrowKeyUpTime;
 
+    private Rigidbody2D rig2d;
+    private Vector2 m_velocity = Vector2.zero;
+    private float m_speed = 1.0f;
+
     public override void Initialize()
     {
         base.Initialize();
         m_fLastArrowKeyDownTime = -1f;
         m_fLastArrowKeyUpTime = -1f;
+
+        rig2d = Common.GetOrAddComponent<Rigidbody2D>(m_owner.Transform.gameObject);
+        rig2d.gravityScale = 0;
+        rig2d.bodyType = RigidbodyType2D.Kinematic;
     }
 
     public override void Update()
@@ -26,6 +34,8 @@ public class HeroInputAbility : BaseAbility
             return;
 
         InputLogic();
+
+        rig2d.velocity = m_velocity;
     }
 
     private bool GetKeyDown(KeyCode keyCode)
@@ -63,36 +73,40 @@ public class HeroInputAbility : BaseAbility
     {
         if (GetKeyDown(KeyCode.LeftArrow))
         {
-            Debug.Log("Press: Left");
+            //Debug.Log("Press: Left");
+            m_velocity = new Vector2(-m_speed, 0);
         }
         else if (GetKeyDown(KeyCode.RightArrow))
         {
-            Debug.Log("Press: Right");
+            //Debug.Log("Press: Right");
+            m_velocity = new Vector2(m_speed, 0);
         }
         else if (GetKeyDown(KeyCode.UpArrow))
         {
-            Debug.Log("Press: Up");
+            //Debug.Log("Press: Up");
+            m_velocity = new Vector2(0, m_speed);
         }
         else if (GetKeyDown(KeyCode.DownArrow))
         {
-            Debug.Log("Press: Down");
+            //Debug.Log("Press: Down");
+            m_velocity = new Vector2(0, -m_speed);
         }
 
         if (GetKeyUp(KeyCode.LeftArrow))
         {
-            Debug.Log("Release: Left");
+            //Debug.Log("Release: Left");
         }
         else if (GetKeyUp(KeyCode.RightArrow))
         {
-            Debug.Log("Release: Right");
+            //Debug.Log("Release: Right");
         }
         else if (GetKeyUp(KeyCode.UpArrow))
         {
-            Debug.Log("Release: Up");
+            //Debug.Log("Release: Up");
         }
         else if (GetKeyUp(KeyCode.DownArrow))
         {
-            Debug.Log("Release: Down");
+            //Debug.Log("Release: Down");
         }
     }
 
