@@ -18,4 +18,15 @@ public class AnimationAbility : BaseAbility
     {
         base.Update();
     }
+
+    public void CreatSprite(string spritePath)
+    {
+        GameObject go = new GameObject("AnimationAbility");
+        go.transform.position = Vector3.zero;
+        go.transform.parent = m_owner.Transform;
+        var spriteRenderer = Common.GetOrAddComponent<SpriteRenderer>(go);
+        var texture2d = Resources.Load<Texture2D>(spritePath);
+        Sprite sprite = Sprite.Create(texture2d, new Rect(0, 0, texture2d.width, texture2d.height), new Vector2(0, 0));
+        spriteRenderer.sprite = sprite;
+    }
 }

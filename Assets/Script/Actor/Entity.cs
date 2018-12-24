@@ -35,7 +35,7 @@ public class Entity
 
     public Entity()
     {
-        Initialize();
+        //Initialize();
     }
 
     public virtual void Initialize()

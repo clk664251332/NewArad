@@ -6,7 +6,7 @@ public abstract class BaseSystem
 {
     public BaseSystem()
     {
-        App.Instance.AddSystem(this);
+        //ClientMain.Instance.AddSystem(this);
     }
 
     public virtual void Initialize() { }

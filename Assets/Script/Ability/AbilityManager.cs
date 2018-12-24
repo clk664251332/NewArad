@@ -11,11 +11,12 @@ public class AbilityManager
         m_listAbilityList = new List<BaseAbility>();
     }
 
-    public void AddAbility<T>(Actor actor) where T : BaseAbility, new()
+    public T AddAbility<T>(Actor actor) where T : BaseAbility, new()
     {
         BaseAbility abilitty = new T();
         abilitty.SetOwner(actor);
         m_listAbilityList.Add(abilitty);
+        return abilitty as T;
     }
 
     public T GetAbility<T>() where T : BaseAbility

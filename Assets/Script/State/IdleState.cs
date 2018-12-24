@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class IdleState : BaseState
 {
-    public override void OnEnter()
+    public IdleState(Actor actor) : base(actor, EActionState.Idle)
     {
-        base.OnEnter();
+
     }
 
-    public override void OnExit()
+    public override void EnterState(EActionState eState)
     {
-        base.OnExit();
+        base.EnterState(eState);
+    }
+
+    public override void BreakState(EActionState eState)
+    {
+        base.BreakState(eState);
     }
 
     public override void OnUpdate()

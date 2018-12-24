@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class WalkState : BaseState
 {
-    public override void OnEnter()
+    public WalkState(Actor actor) : base(actor, EActionState.Walk)
     {
-        base.OnEnter();
+
     }
 
-    public override void OnExit()
+    public override void EnterState(EActionState eState)
     {
-        base.OnExit();
+        base.EnterState(eState);
+    }
+
+    public override void BreakState(EActionState eState)
+    {
+        base.BreakState(eState);
     }
 
     public override void OnUpdate()

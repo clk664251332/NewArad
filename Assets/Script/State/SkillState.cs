@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class SkillState : BaseState
 {
-    public override void OnEnter()
+    public SkillState(Actor actor) : base(actor, EActionState.Skill)
     {
-        base.OnEnter();
+
     }
 
-    public override void OnExit()
+    public override void EnterState(EActionState eState)
     {
-        base.OnExit();
+        base.EnterState(eState);
+    }
+
+    public override void BreakState(EActionState eState)
+    {
+        base.BreakState(eState);
     }
 
     public override void OnUpdate()
