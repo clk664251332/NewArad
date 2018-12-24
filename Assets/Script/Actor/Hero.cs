@@ -24,4 +24,15 @@ public class Hero : Actor
         base.Initialize();
         m_AbilityManager.GetAbility<AnimationAbility>().CreatSprite("Player");
     }
+
+    public override void Update()
+    {
+        base.Update();
+        m_stateMgr.Update();
+    }
+
+    public override void Release()
+    {
+        base.Release();
+    }
 }
