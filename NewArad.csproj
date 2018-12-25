@@ -102,6 +102,8 @@
     <Compile Include="Assets\Script\ConfigSystem\StaticData\AudioLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\BackgroundMusicLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\GuitextLoader.cs" />
+    <Compile Include="Assets\Script\State\BaseBattleState.cs" />
+    <Compile Include="Assets\Script\State\BaseMovementState.cs" />
     <Compile Include="Assets\Script\State\BaseState.cs" />
     <Compile Include="Assets\Script\State\IdleState.cs" />
     <Compile Include="Assets\Script\State\JumpState.cs" />
@@ -112,11 +114,12 @@
     <Compile Include="Assets\Script\System\BaseSystem.cs" />
     <Compile Include="Assets\Script\System\CharacterManager.cs" />
     <Compile Include="Assets\Script\System\ClientMain.cs" />
-    <Compile Include="Assets\Script\System\Common.cs" />
-    <Compile Include="Assets\Script\System\Enum.cs" />
     <Compile Include="Assets\Script\System\SingletonBehaviour.cs" />
     <Compile Include="Assets\Script\System\SingletonInstances.cs" />
     <Compile Include="Assets\Script\System\SingletonObject.cs" />
+    <Compile Include="Assets\Script\Utils\Common.cs" />
+    <Compile Include="Assets\Script\Utils\Enum.cs" />
+    <Compile Include="Assets\Script\Utils\GameObjectGroupHandler.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,15 +10,24 @@ public class CharacterManager : SingletonObject<CharacterManager>
     public  void Initialize()
     {
         //角色的添加暂时先在这里
-        CreateActor<Hero>("玩家");
-        CreateActor<Monster>("怪物");
+        if (string.IsNullOrEmpty(SingletonObject<Hero>.Instance.Name))
+            CreateActor<Hero>("神枪手");
+        CreateActor<Monster>("哥布林");
     }
 
     public Actor CreateActor<T>(string name) where T : Actor, new()
     {
-        Actor actor = new T();
+        Actor actor;
+
+        Type t = typeof(T);
+        if (t.Name.Equals("Hero"))
+            actor = SingletonObject<Hero>.Instance as Actor;
+        else
+            actor = new T();
+
         actor.Name = name;
         m_lstCharacterList.Add(actor);
+        //角色创建出来立刻进行初始化
         actor.Initialize();
         return actor;
     }

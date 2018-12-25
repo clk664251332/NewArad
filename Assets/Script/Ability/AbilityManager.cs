@@ -30,11 +30,20 @@ public class AbilityManager
         return null;
     }
 
+    //初始化还是不能与构造函数在一起运行
     public void Initialize()
     {
         for (int i = 0; i < m_listAbilityList.Count; i++)
         {
             m_listAbilityList[i].Initialize();
+        }
+    }
+    //用于Ability创建完组件之后，其他Ability相互获得组件
+    public void GetComponent()
+    {
+        for (int i = 0; i < m_listAbilityList.Count; i++)
+        {
+            m_listAbilityList[i].GetComponent();
         }
     }
 

@@ -16,6 +16,8 @@ public class BaseAbility
 
     }
 
+    public virtual void GetComponent() { }
+
     public virtual void Update()
     {
 

@@ -8,6 +8,14 @@ public class Actor : Entity
     private Vector3 m_position = Vector3.zero;
     protected AbilityManager m_AbilityManager;
 
+    public Actor() : base()
+    {
+        //对象的创建要放在构造函数中去
+        m_AbilityManager = new AbilityManager();
+        //Ability对象也在构造函数中创建
+        AddAbility();
+    }
+
     public Vector3 Position
     {
         get
@@ -33,8 +41,10 @@ public class Actor : Entity
             m_transform = value;
         }
     }
-
-    protected virtual void InitGameObject()
+    /// <summary>
+    /// 在场景中创建游戏对象，并把物体放到合适的位置
+    /// </summary>
+    protected void InitModel()
     {
         GameObject gameObject;
 
@@ -48,12 +58,12 @@ public class Actor : Entity
         gameObject.SetActive(true);
         gameObject.transform.position = Position;
         gameObject.name = Name;
-    }
-    private void InitAbility()
-    {
-        m_AbilityManager = new AbilityManager();
-        AddAbility();
-        m_AbilityManager.Initialize();
+
+        GameObject objGroup = GameObjectGroupHandler.GetActorDetailGroup(GetType());
+        if (objGroup != null)
+        {
+            m_transform.parent = objGroup.transform;
+        }
     }
 
     public virtual void AddAbility()
@@ -67,11 +77,23 @@ public class Actor : Entity
         return m_AbilityManager;
     }
 
+    public T GetAbility<T>() where T : BaseAbility
+    {
+        if (m_AbilityManager != null)
+        {
+            return m_AbilityManager.GetAbility<T>();
+        }
+
+        return null;
+    }
+
     public override void Initialize()
     {
         base.Initialize();
-        InitGameObject();
-        InitAbility();
+        InitModel();
+        //必须先把物体创建出来，ability才能在物体上面创建组件
+        m_AbilityManager.Initialize();
+        m_AbilityManager.GetComponent();
     }
 
     public override void Update()
@@ -84,5 +106,15 @@ public class Actor : Entity
     {
         base.Release();
         m_AbilityManager.Release();
+    }
+
+    public GameObject GetObject()
+    {
+        if (m_transform != null)
+        {
+            return m_transform.gameObject;
+        }
+
+        return null;
     }
 }

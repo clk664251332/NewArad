@@ -16,7 +16,7 @@ public abstract class BaseMovementState : BaseState
 
         if (m_inputAbility == null)
         {
-            m_inputAbility = m_owner.GetAbilityManager().GetAbility<HeroInputAbility>();
+            m_inputAbility = m_owner.GetAbility<HeroInputAbility>();
         }
     }
 
