@@ -33,7 +33,7 @@ public class HeroInputAbility : BaseAbility
         if ((m_owner is Hero) == false)
             return;
 
-        InputLogic();
+        //InputLogic();
 
         rig2d.velocity = m_velocity;
     }
@@ -69,7 +69,7 @@ public class HeroInputAbility : BaseAbility
         return false;  
     }
 
-    private void InputLogic()
+    public void InputLogic()
     {
         if (GetKeyDown(KeyCode.LeftArrow))
         {

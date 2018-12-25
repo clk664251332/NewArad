@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class JumpState : BaseState
+public class JumpState : BaseMovementState
 {
     public JumpState(Actor actor) : base(actor, EActionState.Jump)
     {

@@ -62,6 +62,11 @@ public class Actor : Entity
         m_AbilityManager.AddAbility<SoundAbility>(this);
     }
 
+    public AbilityManager GetAbilityManager()
+    {
+        return m_AbilityManager;
+    }
+
     public override void Initialize()
     {
         base.Initialize();

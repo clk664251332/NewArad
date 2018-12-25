@@ -10,6 +10,7 @@ public class Hero : Actor
 
     public Hero() : base()
     {
+        //状态机是构造函数是创建的，比Ability组件要早，会不会出现问题？
         m_stateMgr = new StateManager(this as Actor);
     }
 

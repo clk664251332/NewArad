@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : BaseState
+public class IdleState : BaseMovementState
 {
     public IdleState(Actor actor) : base(actor, EActionState.Idle)
     {

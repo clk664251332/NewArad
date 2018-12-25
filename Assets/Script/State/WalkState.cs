@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WalkState : BaseState
+public class WalkState : BaseMovementState
 {
     public WalkState(Actor actor) : base(actor, EActionState.Walk)
     {

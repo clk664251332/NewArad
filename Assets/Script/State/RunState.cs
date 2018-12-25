@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RunState : BaseState
+public class RunState : BaseMovementState
 {
     public RunState(Actor actor) : base(actor, EActionState.Run)
     {

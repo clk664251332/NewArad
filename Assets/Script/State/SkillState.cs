@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillState : BaseState
+public class SkillState : BaseBattleState
 {
     public SkillState(Actor actor) : base(actor, EActionState.Skill)
     {
