@@ -8,6 +8,63 @@ public class Actor : Entity
     private Vector3 m_position = Vector3.zero;
     protected AbilityManager m_AbilityManager;
 
+    private bool m_bCanMove;
+    private bool m_bCanJump;
+    private bool m_bCanAttack;
+    private bool m_bCanSkill;
+
+    public bool CanMove
+    {
+        get
+        {
+            return m_bCanMove;
+        }
+
+        set
+        {
+            m_bCanMove = value;
+        }
+    }
+
+    public bool CanJump
+    {
+        get
+        {
+            return m_bCanJump;
+        }
+
+        set
+        {
+            m_bCanJump = value;
+        }
+    }
+
+    public bool CanAttack
+    {
+        get
+        {
+            return m_bCanAttack;
+        }
+
+        set
+        {
+            m_bCanAttack = value;
+        }
+    }
+
+    public bool CanSkill
+    {
+        get
+        {
+            return m_bCanSkill;
+        }
+
+        set
+        {
+            m_bCanSkill = value;
+        }
+    }
+
     public Actor() : base()
     {
         //对象的创建要放在构造函数中去
@@ -41,6 +98,8 @@ public class Actor : Entity
             m_transform = value;
         }
     }
+
+
     /// <summary>
     /// 在场景中创建游戏对象，并把物体放到合适的位置
     /// </summary>

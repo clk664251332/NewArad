@@ -38,7 +38,8 @@ public class AnimationAbility : BaseAbility
     public void CreatSprite(string spritePath)
     {
         var texture2d = Resources.Load<Texture2D>(spritePath);
-        Sprite sprite = Sprite.Create(texture2d, new Rect(0, 0, texture2d.width, texture2d.height), new Vector2(0, 0));
+        //精灵的Pivot在中间为（0.5，0.5）
+        Sprite sprite = Sprite.Create(texture2d, new Rect(0, 0, texture2d.width, texture2d.height), new Vector2(0.58f, 0f));
         m_spriteRenderer.sprite = sprite;
     }
 }

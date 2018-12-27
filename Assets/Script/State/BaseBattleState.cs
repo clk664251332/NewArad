@@ -11,6 +11,11 @@ public abstract class BaseBattleState : BaseState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
+
+        m_owner.CanMove = false;
+        m_owner.CanJump = false;
+        m_owner.CanAttack = false;
+        m_owner.CanSkill = false;
     }
 
     public override void OnUpdate()

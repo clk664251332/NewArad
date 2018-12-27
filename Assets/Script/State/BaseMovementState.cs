@@ -14,6 +14,13 @@ public abstract class BaseMovementState : BaseState
     {
         base.EnterState(eState);
 
+        //这里先进行预设，后面最好根据配置表在具体的状态中来设置这些状态。
+        m_owner.CanMove = true;
+        m_owner.CanJump = true;
+        m_owner.CanAttack = true;
+        m_owner.CanSkill = true;
+
+
         if (m_inputAbility == null)
         {
             m_inputAbility = m_owner.GetAbility<HeroInputAbility>();

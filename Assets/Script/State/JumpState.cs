@@ -12,6 +12,11 @@ public class JumpState : BaseMovementState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
+
+        m_owner.CanMove = true;
+        m_owner.CanJump = false;
+        m_owner.CanAttack = true;
+        m_owner.CanSkill = false;
     }
 
     public override void BreakState(EActionState eState)
