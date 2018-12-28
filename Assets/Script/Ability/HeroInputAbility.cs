@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class HeroInputAbility : BaseAbility
 {
-    private const float ClickDeltaTime = 0.5f;
+    private const float m_fClickDeltaTime = 0.1f;
 
     private float m_fLeftArrowKeyUpTime;
     private float m_fRightArrowKeyUpTime;
@@ -57,8 +57,8 @@ public class HeroInputAbility : BaseAbility
 
         if (h != 0 || v != 0)
         {
-            if ((h > 0 && Time.time - m_fRightArrowKeyUpTime < 0.1f) ||
-                (h < 0 && Time.time - m_fLeftArrowKeyUpTime < 0.1f))
+            if ((h > 0 && Time.time - m_fRightArrowKeyUpTime < m_fClickDeltaTime) ||
+                (h < 0 && Time.time - m_fLeftArrowKeyUpTime < m_fClickDeltaTime))
             {
                 SingletonObject<Hero>.Instance.GetStateMgr().EnterState(EActionState.Run);
                 m_speed = 1.6f;
