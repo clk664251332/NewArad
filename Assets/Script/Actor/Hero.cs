@@ -36,4 +36,9 @@ public class Hero : Actor
     {
         base.Release();
     }
+
+    public StateManager GetStateMgr()
+    {
+        return m_stateMgr;
+    }
 }

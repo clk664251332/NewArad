@@ -33,6 +33,7 @@ public class AnimationAbility : BaseAbility
     public override void Update()
     {
         base.Update();
+        SetSpriteFlip();
     }
 
     public void CreatSprite(string spritePath)
@@ -41,5 +42,13 @@ public class AnimationAbility : BaseAbility
         //精灵的Pivot在中间为（0.5，0.5）
         Sprite sprite = Sprite.Create(texture2d, new Rect(0, 0, texture2d.width, texture2d.height), new Vector2(0.58f, 0f));
         m_spriteRenderer.sprite = sprite;
+    }
+
+    private void SetSpriteFlip()
+    {
+        if (m_owner.Direction == 1)
+            m_spriteRenderer.flipX = false;
+        else
+            m_spriteRenderer.flipX = true;
     }
 }

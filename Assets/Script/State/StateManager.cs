@@ -21,6 +21,12 @@ public class StateManager
 
     public void EnterState(EActionState eState)
     {
+        if(m_currState != null)
+        {
+            if (m_currState.GetState() == eState)
+                return;
+        }
+        
         EActionState eLastState = EActionState.None;
 
         if (m_currState != null)

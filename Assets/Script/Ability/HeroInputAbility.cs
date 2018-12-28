@@ -13,7 +13,6 @@ public class HeroInputAbility : BaseAbility
     private float m_fLastArrowKeyUpTime;
 
     private Rigidbody2D m_rig2d;
-    private SpriteRenderer m_spriteRenderer;
     private Vector2 m_velocity = Vector2.zero;
     private float m_speed = 1.0f;
 
@@ -34,7 +33,6 @@ public class HeroInputAbility : BaseAbility
     public override void GetComponent()
     {
         base.GetComponent();
-        m_spriteRenderer = m_owner.GetAbility<AnimationAbility>().GetSpriteRenderer();
     }
 
     public override void Update()
@@ -85,7 +83,16 @@ public class HeroInputAbility : BaseAbility
         float v = Input.GetAxisRaw("Vertical");
 
         m_rig2d.velocity = new Vector2(h * m_speed, v * m_speed);
-        m_spriteRenderer.flipX = h < 0;
+
+        if (h > 0)
+            m_owner.Direction = 1;
+        else if (h < 0)
+            m_owner.Direction = -1;
+
+        if (h != 0 || v != 0)
+            SingletonObject<Hero>.Instance.GetStateMgr().EnterState(EActionState.Walk);
+        else
+            SingletonObject<Hero>.Instance.GetStateMgr().EnterState(EActionState.Idle);
     }
 
     private void CheckDoubleClick()

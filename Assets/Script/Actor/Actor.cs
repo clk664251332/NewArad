@@ -7,6 +7,7 @@ public class Actor : Entity
     private Transform m_transform = null;
     private Vector3 m_position = Vector3.zero;
     protected AbilityManager m_AbilityManager;
+    private int m_direction = 1;
 
     private bool m_bCanMove;
     private bool m_bCanJump;
@@ -96,6 +97,19 @@ public class Actor : Entity
         set
         {
             m_transform = value;
+        }
+    }
+
+    public int Direction
+    {
+        get
+        {
+            return m_direction;
+        }
+
+        set
+        {
+            m_direction = value;
         }
     }
 

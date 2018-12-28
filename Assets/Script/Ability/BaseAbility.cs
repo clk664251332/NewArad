@@ -15,7 +15,9 @@ public class BaseAbility
     {
 
     }
-
+    /// <summary>
+    /// 在初始化之后调用，防止空指针；用于Abllity之间相互获得对象
+    /// </summary>
     public virtual void GetComponent() { }
 
     public virtual void Update()

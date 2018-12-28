@@ -30,4 +30,11 @@ public class ClientMain : SingletonBehaviour<ClientMain>
         ConfigManager.Instance.Release();
         CharacterManager.Instance.Release();
     }
+
+    public void OnGUI()
+    {
+        EActionState state = SingletonObject<Hero>.Instance.GetStateMgr().GetCurrActionState();
+        GUI.Label(new Rect(30, 10, 100, 200), state.ToString());
+        
+    }
 }
