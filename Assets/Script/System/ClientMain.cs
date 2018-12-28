@@ -25,6 +25,11 @@ public class ClientMain : SingletonBehaviour<ClientMain>
         CharacterManager.Instance.Update();
     }
 
+    public void FixedUpdate()
+    {
+        CharacterManager.Instance.FixedUpdate();
+    }
+
     public void Release()
     {
         ConfigManager.Instance.Release();

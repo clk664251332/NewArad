@@ -40,6 +40,14 @@ public class CharacterManager : SingletonObject<CharacterManager>
         }
     }
 
+    public void FixedUpdate()
+    {
+        for (int i = 0; i < m_lstCharacterList.Count; i++)
+        {
+            m_lstCharacterList[i].FixedUpdate();
+        }
+    }
+
     public void Release()
     {
         for (int i = 0; i < m_lstCharacterList.Count; i++)

@@ -48,6 +48,11 @@ public class Entity
 
     }
 
+    public virtual void FixedUpdate()
+    {
+
+    }
+
     public virtual void Release()
     {
 

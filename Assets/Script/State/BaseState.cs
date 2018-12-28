@@ -34,6 +34,11 @@ public abstract class BaseState
     {
 
     }
+
+    public virtual void OnFixedUpdate()
+    {
+
+    }
     /// <summary>
     /// 
     /// </summary>

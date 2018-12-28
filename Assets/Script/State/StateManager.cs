@@ -77,6 +77,12 @@ public class StateManager
             m_currState.OnUpdate();
     }
 
+    public void FixedUpdate()
+    {
+        if (m_currState != null)
+            m_currState.OnFixedUpdate();
+    }
+
     public void Release()
     {
         if (m_currState != null)

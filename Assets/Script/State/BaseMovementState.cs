@@ -30,7 +30,11 @@ public abstract class BaseMovementState : BaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+    }
 
+    public override void OnFixedUpdate()
+    {
+        base.OnFixedUpdate();
         m_inputAbility.InputLogic();
     }
 

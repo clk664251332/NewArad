@@ -12,11 +12,13 @@ public class RunState : BaseMovementState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
+        SingletonObject<Hero>.Instance.IsRun = true;
     }
 
     public override void BreakState(EActionState eState)
     {
         base.BreakState(eState);
+        SingletonObject<Hero>.Instance.IsRun = false;
     }
 
     public override void OnUpdate()

@@ -7,6 +7,20 @@ public class Hero : Actor
     protected StateManager m_stateMgr;
     //protected BuffManager m_buffMgr;
     //protected SkillManager m_skillMgr;
+    private bool m_bIsRun = false;
+
+    public bool IsRun
+    {
+        get
+        {
+            return m_bIsRun;
+        }
+
+        set
+        {
+            m_bIsRun = value;
+        }
+    }
 
     public Hero() : base()
     {
@@ -30,6 +44,12 @@ public class Hero : Actor
     {
         base.Update();
         m_stateMgr.Update();
+    }
+
+    public override void FixedUpdate()
+    {
+        base.FixedUpdate();
+        m_stateMgr.FixedUpdate();
     }
 
     public override void Release()
