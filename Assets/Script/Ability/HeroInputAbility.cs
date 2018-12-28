@@ -11,7 +11,7 @@ public class HeroInputAbility : BaseAbility
 
     private Rigidbody2D m_rig2d;
     private Vector2 m_velocity = Vector2.zero;
-    private float m_speed = 1.0f;
+    private float m_speed = 100f;
 
     public override void Initialize()
     {
@@ -61,12 +61,12 @@ public class HeroInputAbility : BaseAbility
                 (h < 0 && Time.time - m_fLeftArrowKeyUpTime < m_fClickDeltaTime))
             {
                 SingletonObject<Hero>.Instance.GetStateMgr().EnterState(EActionState.Run);
-                m_speed = 1.6f;
+                m_speed = 160f;
             }
             else if (!SingletonObject<Hero>.Instance.IsRun)
             {
                 SingletonObject<Hero>.Instance.GetStateMgr().EnterState(EActionState.Walk);
-                m_speed = 1f;
+                m_speed = 100f;
             } 
         }
         else

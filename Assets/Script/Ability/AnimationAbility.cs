@@ -4,20 +4,36 @@ using UnityEngine;
 
 public class AnimationAbility : BaseAbility
 {
-    private SpriteRenderer m_spriteRenderer;
+    private tk2dSprite m_tk2dSprite;
+    private tk2dSpriteAnimator m_tk2dSpriteAnimator;
 
-    public SpriteRenderer GetSpriteRenderer()
+    public tk2dSprite GetTk2dSprite()
     {
-        return m_spriteRenderer;
+        return m_tk2dSprite;
+    }
+
+    public tk2dSpriteAnimator GetTk2dSpriteAnimator()
+    {
+        return m_tk2dSpriteAnimator;
     }
 
     public override void Initialize()
     {
         base.Initialize();
-        GameObject go = new GameObject("AnimationAbility");
+
+        GameObject loadGameObject = Resources.Load<GameObject>("Prefab/PayerAnimator");
+        if (loadGameObject == null)
+        {
+            Debug.LogError("未找到资源!");
+            return;
+        }
+        var go = GameObject.Instantiate<GameObject>(loadGameObject);
         go.transform.position = Vector3.zero;
         go.transform.parent = m_owner.Transform;
-        m_spriteRenderer = Common.GetOrAddComponent<SpriteRenderer>(go);
+        go.name = "AnimationAbility";
+
+        m_tk2dSprite = go.GetComponent<tk2dSprite>();
+        m_tk2dSpriteAnimator = go.GetComponent<tk2dSpriteAnimator>();
     }
 
     public override void GetComponent()
@@ -36,19 +52,11 @@ public class AnimationAbility : BaseAbility
         SetSpriteFlip();
     }
 
-    public void CreatSprite(string spritePath)
-    {
-        var texture2d = Resources.Load<Texture2D>(spritePath);
-        //精灵的Pivot在中间为（0.5，0.5）
-        Sprite sprite = Sprite.Create(texture2d, new Rect(0, 0, texture2d.width, texture2d.height), new Vector2(0.58f, 0f));
-        m_spriteRenderer.sprite = sprite;
-    }
-
     private void SetSpriteFlip()
     {
         if (m_owner.Direction == 1)
-            m_spriteRenderer.flipX = false;
+            m_tk2dSprite.FlipX = false;
         else
-            m_spriteRenderer.flipX = true;
+            m_tk2dSprite.FlipX = true;
     }
 }

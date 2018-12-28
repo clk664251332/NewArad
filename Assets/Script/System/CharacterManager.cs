@@ -11,8 +11,8 @@ public class CharacterManager : SingletonObject<CharacterManager>
     {
         //角色的添加暂时先在这里
         if (string.IsNullOrEmpty(SingletonObject<Hero>.Instance.Name))
-            CreateActor<Hero>("神枪手");
-        CreateActor<Monster>("哥布林");
+            CreateActor<Hero>("鬼剑士");
+       // CreateActor<Monster>("哥布林");
     }
 
     public Actor CreateActor<T>(string name) where T : Actor, new()

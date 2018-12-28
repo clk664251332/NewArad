@@ -36,7 +36,6 @@ public class Hero : Actor
     public override void Initialize()
     {
         base.Initialize();
-        m_AbilityManager.GetAbility<AnimationAbility>().CreatSprite("Pic/player");
         m_stateMgr.EnterState(EActionState.Idle);
     }
 
