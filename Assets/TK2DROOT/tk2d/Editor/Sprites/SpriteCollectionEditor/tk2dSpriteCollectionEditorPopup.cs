@@ -691,10 +691,38 @@ public class tk2dSpriteCollectionEditorPopup : EditorWindow, IEditorHost
 		return EditorUtility.DisplayDialog(title, message, "Ignore", "Create Copy");
 	}
 	
+    int SortList(Object obj1,Object obj2)
+    {
+        int obj1name = int.Parse(obj1.name);
+        int obj2name = int.Parse(obj2.name);
+
+        if (obj1name > obj2name)
+        {
+            return 1;
+        }
+        else if (obj1name < obj2name)
+        {
+            return -1;
+        }
+        else
+            return 0;
+    }
+
 	void HandleDroppedPayload(Object[] objects)
 	{
-		bool hasDuplicates = false;
-		foreach (var obj in objects)
+        //需要对传进来的objects按照名字的序号进行排序
+        List<Object> lstObj = new List<Object>(objects);
+        try
+        {
+            lstObj.Sort(SortList);
+        }
+        catch
+        {
+            Debug.LogWarning("当前无法根据名字自动进行排序！");
+        }
+
+        bool hasDuplicates = false;
+		foreach (var obj in lstObj)
 		{
 			Texture2D tex = obj as Texture2D;
 			if (tex != null) {
@@ -712,7 +740,7 @@ public class tk2dSpriteCollectionEditorPopup : EditorWindow, IEditorHost
 		}
 
 		List<int> addedIndices = new List<int>();
-		foreach (var obj in objects)
+		foreach (var obj in lstObj)
 		{
 			Texture2D tex = obj as Texture2D;
 			if ((tex != null) && (cloneDuplicates || spriteCollectionProxy.FindSpriteBySource(tex) == -1)) {
