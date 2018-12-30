@@ -210,8 +210,10 @@ public class tk2dSpriteDefinition
 	/// v0 and v1 are center and size respectively for box colliders when colliderType is Box.
 	/// It is an array of vertices, and the geometry defined by indices when colliderType is Mesh.
 	/// </summary>
-	public Vector3[] colliderVertices; 
-	public int[] colliderIndicesFwd;
+	public Vector3[] bodyColliderVertices;
+    public Vector3[] attackColliderVertices;
+
+    public int[] colliderIndicesFwd;
 	public int[] colliderIndicesBack;
 	public bool colliderConvex;
 	public bool colliderSmoothSphereCollisions;

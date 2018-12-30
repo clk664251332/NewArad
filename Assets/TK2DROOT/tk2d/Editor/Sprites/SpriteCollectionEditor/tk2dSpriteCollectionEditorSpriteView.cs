@@ -262,34 +262,34 @@ namespace tk2dEditor.SpriteCollectionEditor
 			{
 				HandleMultiSelection(entries, (a,b) => a.anchor == b.anchor, (a,b) => b.anchor = a.anchor);
 			}
-	
-			var newColliderType = (tk2dSpriteCollectionDefinition.ColliderType)EditorGUILayout.EnumPopup("Collider Type", param.colliderType);
-			if (param.colliderType != newColliderType)
+            #region bodyÅö×²Ñ¡Ôñ   
+            var newBodyColliderType = (tk2dSpriteCollectionDefinition.ColliderType)EditorGUILayout.EnumPopup("Body Collider Type", param.bodyColliderType);
+			if (param.bodyColliderType != newBodyColliderType)
 			{
 				// when switching to custom collider mode, automatically switch editor mode
-				if (newColliderType == tk2dSpriteCollectionDefinition.ColliderType.BoxCustom ||
-					newColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
+				if (newBodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Body_BoxCustom ||
+                    newBodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
 					textureEditor.SetMode(tk2dEditor.SpriteCollectionEditor.TextureEditor.Mode.Collider);
-				param.colliderType = newColliderType;
+				param.bodyColliderType = newBodyColliderType;
 			}
 
-			if (param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.BoxCustom)
+			if (param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Body_BoxCustom)
 			{
 				EditorGUI.indentLevel++;
-				param.boxColliderMin = EditorGUILayout.Vector2Field("Min", param.boxColliderMin);
-				param.boxColliderMax = EditorGUILayout.Vector2Field("Max", param.boxColliderMax);
+				param.bodyBoxColliderMin = EditorGUILayout.Vector2Field("Min", param.bodyBoxColliderMin);
+				param.bodyBoxColliderMax = EditorGUILayout.Vector2Field("Max", param.bodyBoxColliderMax);
 				EditorGUI.indentLevel--;
 				EditorGUILayout.Separator();
 
 				HandleMultiSelection(entries, 
-					(a,b) => (a.colliderType == b.colliderType && a.boxColliderMin == b.boxColliderMin && a.boxColliderMax == b.boxColliderMax),
+					(a,b) => (a.bodyColliderType == b.bodyColliderType && a.bodyBoxColliderMin == b.bodyBoxColliderMin && a.bodyBoxColliderMax == b.bodyBoxColliderMax),
 					delegate(tk2dSpriteCollectionDefinition a, tk2dSpriteCollectionDefinition b) {
-						b.colliderType = a.colliderType;
-						b.boxColliderMin = a.boxColliderMin;
-						b.boxColliderMax = a.boxColliderMax;
+						b.bodyColliderType = a.bodyColliderType;
+						b.bodyBoxColliderMin = a.bodyBoxColliderMin;
+						b.bodyBoxColliderMax = a.bodyBoxColliderMax;
 					});				
 			}
-			else if (param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
+			else if (param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
 			{
 				EditorGUI.indentLevel++;
 				param.polyColliderCap = (tk2dSpriteCollectionDefinition.PolygonColliderCap)EditorGUILayout.EnumPopup("Collider Cap", param.polyColliderCap);
@@ -299,11 +299,11 @@ namespace tk2dEditor.SpriteCollectionEditor
 				EditorGUILayout.Separator();
 
 				HandleMultiSelection(entries, 
-					(a,b) => (a.colliderType == b.colliderType && a.polyColliderCap == b.polyColliderCap 
+					(a,b) => (a.bodyColliderType == b.bodyColliderType && a.polyColliderCap == b.polyColliderCap 
 							&& a.colliderConvex == b.colliderConvex && a.colliderSmoothSphereCollisions == b.colliderSmoothSphereCollisions
 							&& ComparePolyCollider(a.polyColliderIslands, b.polyColliderIslands)),
 					delegate(tk2dSpriteCollectionDefinition a, tk2dSpriteCollectionDefinition b) {
-						b.colliderType = a.colliderType;
+						b.bodyColliderType = a.bodyColliderType;
 						b.polyColliderCap = a.polyColliderCap;
 						b.colliderConvex = a.colliderConvex;
 						b.colliderSmoothSphereCollisions = a.colliderSmoothSphereCollisions;
@@ -312,11 +312,65 @@ namespace tk2dEditor.SpriteCollectionEditor
 			}
 			else
 			{
-				HandleMultiSelection(entries, (a,b) => a.colliderType == b.colliderType, (a,b) => b.colliderType = a.colliderType);				
+				HandleMultiSelection(entries, (a,b) => a.bodyColliderType == b.bodyColliderType, (a,b) => b.bodyColliderType = a.bodyColliderType);				
 			}
-			
-			// Mesh type
-			if (param.dice && param.customSpriteGeometry) // sanity check
+            #endregion
+            #region attackÅö×²Ñ¡Ôñ   
+            var newAtatckColliderType = (tk2dSpriteCollectionDefinition.ColliderType)EditorGUILayout.EnumPopup("Attack Collider Type", param.attackColliderType);
+            if (param.attackColliderType != newAtatckColliderType)
+            {
+                // when switching to custom collider mode, automatically switch editor mode
+                if (newAtatckColliderType == tk2dSpriteCollectionDefinition.ColliderType.Attack_BoxCustom ||
+                    newAtatckColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
+                    textureEditor.SetMode(tk2dEditor.SpriteCollectionEditor.TextureEditor.Mode.Collider);
+                param.attackColliderType = newAtatckColliderType;
+            }
+
+            if (param.attackColliderType == tk2dSpriteCollectionDefinition.ColliderType.Attack_BoxCustom)
+            {
+                EditorGUI.indentLevel++;
+                param.attackBoxColiderMin = EditorGUILayout.Vector2Field("Min", param.attackBoxColiderMin);
+                param.attackBoxColiderMax = EditorGUILayout.Vector2Field("Max", param.attackBoxColiderMax);
+                EditorGUI.indentLevel--;
+                EditorGUILayout.Separator();
+
+                HandleMultiSelection(entries,
+                    (a, b) => (a.attackColliderType == b.attackColliderType && a.attackBoxColiderMin == b.attackBoxColiderMin && a.attackBoxColiderMax == b.attackBoxColiderMax),
+                    delegate (tk2dSpriteCollectionDefinition a, tk2dSpriteCollectionDefinition b) {
+                        b.attackColliderType = a.attackColliderType;
+                        b.attackBoxColiderMin = a.attackBoxColiderMin;
+                        b.attackBoxColiderMax = a.attackBoxColiderMax;
+                    });
+            }
+            else if (param.attackColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
+            {
+                EditorGUI.indentLevel++;
+                param.polyColliderCap = (tk2dSpriteCollectionDefinition.PolygonColliderCap)EditorGUILayout.EnumPopup("Collider Cap", param.polyColliderCap);
+                param.colliderConvex = EditorGUILayout.Toggle("Convex", param.colliderConvex);
+                param.colliderSmoothSphereCollisions = EditorGUILayout.Toggle(new GUIContent("SmoothSphereCollisions", "Smooth Sphere Collisions"), param.colliderSmoothSphereCollisions);
+                EditorGUI.indentLevel--;
+                EditorGUILayout.Separator();
+
+                HandleMultiSelection(entries,
+                    (a, b) => (a.attackColliderType == b.attackColliderType && a.polyColliderCap == b.polyColliderCap
+                            && a.colliderConvex == b.colliderConvex && a.colliderSmoothSphereCollisions == b.colliderSmoothSphereCollisions
+                            && ComparePolyCollider(a.polyColliderIslands, b.polyColliderIslands)),
+                    delegate (tk2dSpriteCollectionDefinition a, tk2dSpriteCollectionDefinition b) {
+                        b.attackColliderType = a.attackColliderType;
+                        b.polyColliderCap = a.polyColliderCap;
+                        b.colliderConvex = a.colliderConvex;
+                        b.colliderSmoothSphereCollisions = a.colliderSmoothSphereCollisions;
+                        CopyPolyCollider(a.polyColliderIslands, ref b.polyColliderIslands);
+                    });
+            }
+            else
+            {
+                HandleMultiSelection(entries, (a, b) => a.attackColliderType == b.attackColliderType, (a, b) => b.attackColliderType = a.attackColliderType);
+            }
+            #endregion
+            // Mesh type
+            EditorGUILayout.Separator();
+            if (param.dice && param.customSpriteGeometry) // sanity check
 				{ param.dice = false; param.customSpriteGeometry = false; }
 			CustomMeshType meshType = CustomMeshType.Default;
 			if (param.customSpriteGeometry) meshType = CustomMeshType.Custom;

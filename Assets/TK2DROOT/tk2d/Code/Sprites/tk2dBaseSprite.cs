@@ -461,14 +461,30 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 		                  new Vector3(sprite.boundsData[1].x * Mathf.Abs(_scale.x), sprite.boundsData[1].y * Mathf.Abs(_scale.y), sprite.boundsData[1].z * Mathf.Abs(_scale.z) ));
 	}
 	
-	/// <summary>
-	/// Gets untrimmed local space bounds of the sprite. This is the size of the sprite before 2D Toolkit trims away empty space in the sprite.
-	/// Use this when you need to position sprites in a grid, etc, when the trimmed bounds is not sufficient.
-	/// </summary>
-	/// <returns>
-	/// Local space untrimmed bounds
-	/// </returns>
-	public Bounds GetUntrimmedBounds()
+    public Bounds GetBodyColiderBounds()
+    {
+        InitInstance();
+        var sprite = collectionInst.spriteDefinitions[_spriteId];
+        return new Bounds(new Vector3(sprite.bodyColliderVertices[0].x * _scale.x, sprite.bodyColliderVertices[0].y * _scale.y, sprite.bodyColliderVertices[0].z * _scale.z),
+                          new Vector3(sprite.bodyColliderVertices[1].x * Mathf.Abs(_scale.x), sprite.bodyColliderVertices[1].y * Mathf.Abs(_scale.y), sprite.bodyColliderVertices[1].z * Mathf.Abs(_scale.z)));
+    }
+
+    public Bounds GetAttackColiderBounds()
+    {
+        InitInstance();
+        var sprite = collectionInst.spriteDefinitions[_spriteId];
+        return new Bounds(new Vector3(sprite.attackColliderVertices[0].x * _scale.x, sprite.attackColliderVertices[0].y * _scale.y, sprite.attackColliderVertices[0].z * _scale.z),
+                          new Vector3(sprite.attackColliderVertices[1].x * Mathf.Abs(_scale.x), sprite.attackColliderVertices[1].y * Mathf.Abs(_scale.y), sprite.attackColliderVertices[1].z * Mathf.Abs(_scale.z)));
+
+    }
+    /// <summary>
+    /// Gets untrimmed local space bounds of the sprite. This is the size of the sprite before 2D Toolkit trims away empty space in the sprite.
+    /// Use this when you need to position sprites in a grid, etc, when the trimmed bounds is not sufficient.
+    /// </summary>
+    /// <returns>
+    /// Local space untrimmed bounds
+    /// </returns>
+    public Bounds GetUntrimmedBounds()
 	{
 		InitInstance();
 		var sprite = collectionInst.spriteDefinitions[_spriteId];
@@ -541,8 +557,8 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 			{
 				if (sprite.colliderType == tk2dSpriteDefinition.ColliderType.Box)
 				{
-					boxCollider.center = new Vector3(sprite.colliderVertices[0].x * _scale.x, sprite.colliderVertices[0].y * _scale.y, sprite.colliderVertices[0].z * _scale.z);
-					boxCollider.size = new Vector3(2 * sprite.colliderVertices[1].x * _scale.x, 2 * sprite.colliderVertices[1].y * _scale.y, 2 * sprite.colliderVertices[1].z * _scale.z);
+					boxCollider.center = new Vector3(sprite.bodyColliderVertices[0].x * _scale.x, sprite.bodyColliderVertices[0].y * _scale.y, sprite.bodyColliderVertices[0].z * _scale.z);
+					boxCollider.size = new Vector3(2 * sprite.bodyColliderVertices[1].x * _scale.x, 2 * sprite.bodyColliderVertices[1].y * _scale.y, 2 * sprite.bodyColliderVertices[1].z * _scale.z);
 				}
 				else if (sprite.colliderType == tk2dSpriteDefinition.ColliderType.Unset)
 				{
@@ -596,9 +612,9 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 #if (UNITY_3_5 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9)
 					boxCollider2D.center = new Vector2(sprite.colliderVertices[0].x * _scale.x, sprite.colliderVertices[0].y * _scale.y);
 #else
-					boxCollider2D.offset = new Vector2(sprite.colliderVertices[0].x * _scale.x, sprite.colliderVertices[0].y * _scale.y);
+					boxCollider2D.offset = new Vector2(sprite.bodyColliderVertices[0].x * _scale.x, sprite.bodyColliderVertices[0].y * _scale.y);
 #endif
-					boxCollider2D.size = new Vector2(Mathf.Abs(2 * sprite.colliderVertices[1].x * _scale.x), Mathf.Abs(2 * sprite.colliderVertices[1].y * _scale.y));
+					boxCollider2D.size = new Vector2(Mathf.Abs(2 * sprite.bodyColliderVertices[1].x * _scale.x), Mathf.Abs(2 * sprite.bodyColliderVertices[1].y * _scale.y));
 				}
 				else if (sprite.colliderType == tk2dSpriteDefinition.ColliderType.Mesh)
 				{
@@ -734,9 +750,9 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 				
 				meshColliderMesh.Clear();
 				
-				meshColliderPositions = new Vector3[sprite.colliderVertices.Length];
+				meshColliderPositions = new Vector3[sprite.bodyColliderVertices.Length];
 				for (int i = 0; i < meshColliderPositions.Length; ++i)
-					meshColliderPositions[i] = new Vector3(sprite.colliderVertices[i].x * _scale.x, sprite.colliderVertices[i].y * _scale.y, sprite.colliderVertices[i].z * _scale.z);
+					meshColliderPositions[i] = new Vector3(sprite.bodyColliderVertices[i].x * _scale.x, sprite.bodyColliderVertices[i].y * _scale.y, sprite.bodyColliderVertices[i].z * _scale.z);
 				meshColliderMesh.vertices = meshColliderPositions;
 				
 				float s = _scale.x * _scale.y * _scale.z;

@@ -34,7 +34,7 @@ namespace tk2dEditor.SpriteCollectionBuilder
 					newDefs[i].additive = gen.defaults.additive;
 					newDefs[i].anchor = gen.defaults.anchor;
 					newDefs[i].scale = gen.defaults.scale;
-					newDefs[i].colliderType = gen.defaults.colliderType;
+					newDefs[i].bodyColliderType = gen.defaults.colliderType;
 				}
 				gen.textureParams = newDefs;
 	        }
@@ -97,9 +97,9 @@ namespace tk2dEditor.SpriteCollectionBuilder
 								gen.DoNotUse__TextureRefs[i] = null;
 								gen.textureParams[i].fromSpriteSheet = false;
 								gen.textureParams[i].extractRegion = false;
-								gen.textureParams[i].colliderType = tk2dSpriteCollectionDefinition.ColliderType.UserDefined;
-								gen.textureParams[i].boxColliderMin = Vector3.zero;
-								gen.textureParams[i].boxColliderMax = Vector3.zero;
+								gen.textureParams[i].bodyColliderType = tk2dSpriteCollectionDefinition.ColliderType.UserDefined;
+								gen.textureParams[i].bodyBoxColliderMin = Vector3.zero;
+								gen.textureParams[i].bodyBoxColliderMax = Vector3.zero;
 							}
 						}
 					}
@@ -109,9 +109,9 @@ namespace tk2dEditor.SpriteCollectionBuilder
 						gen.DoNotUse__TextureRefs[i] = null;
 						gen.textureParams[i].fromSpriteSheet = false;
 						gen.textureParams[i].extractRegion = false;
-						gen.textureParams[i].colliderType = tk2dSpriteCollectionDefinition.ColliderType.UserDefined;
-						gen.textureParams[i].boxColliderMin = Vector3.zero;
-						gen.textureParams[i].boxColliderMax = Vector3.zero;
+						gen.textureParams[i].bodyColliderType = tk2dSpriteCollectionDefinition.ColliderType.UserDefined;
+						gen.textureParams[i].bodyBoxColliderMin = Vector3.zero;
+						gen.textureParams[i].bodyBoxColliderMax = Vector3.zero;
 					}
 				}
 			}
@@ -219,9 +219,9 @@ namespace tk2dEditor.SpriteCollectionBuilder
 						// Let the user tweak individually
 						if (foundInCollection)
 						{
-							param.colliderType = gen.textureParams[textureIdx].colliderType;
-							param.boxColliderMin = gen.textureParams[textureIdx].boxColliderMin;
-							param.boxColliderMax = gen.textureParams[textureIdx].boxColliderMax;
+							param.bodyColliderType = gen.textureParams[textureIdx].bodyColliderType;
+							param.bodyBoxColliderMin = gen.textureParams[textureIdx].bodyBoxColliderMin;
+							param.bodyBoxColliderMax = gen.textureParams[textureIdx].bodyBoxColliderMax;
 							param.polyColliderIslands = gen.textureParams[textureIdx].polyColliderIslands;
 							param.colliderConvex = gen.textureParams[textureIdx].colliderConvex;
 							param.colliderSmoothSphereCollisions = gen.textureParams[textureIdx].colliderSmoothSphereCollisions;
@@ -229,7 +229,7 @@ namespace tk2dEditor.SpriteCollectionBuilder
 						}
 						else
 						{
-							param.colliderType = spriteSheet.colliderType;
+							param.bodyColliderType = spriteSheet.colliderType;
 						}
 
 						gen.textureParams[textureIdx] = param;

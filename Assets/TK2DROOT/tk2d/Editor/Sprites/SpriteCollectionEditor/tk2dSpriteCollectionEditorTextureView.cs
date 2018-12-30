@@ -41,11 +41,15 @@ namespace tk2dEditor.SpriteCollectionEditor
 			new Color32(96, 0, 0, 255),
 		};
 		
-		tk2dSpriteCollectionDefinition.ColliderColor currentColliderColor = tk2dSpriteCollectionDefinition.ColliderColor.Default;
-		Color handleInactiveColor { get { return _handleInactiveColors[(int)currentColliderColor]; } }
-		Color handleActiveColor { get { return _handleActiveColors[(int)currentColliderColor]; } }
+		tk2dSpriteCollectionDefinition.ColliderColor currentBodyColliderColor = tk2dSpriteCollectionDefinition.ColliderColor.Default;
+		Color body_HandleInactiveColor { get { return _handleInactiveColors[(int)currentBodyColliderColor]; } }
+		Color body_HandleActiveColor { get { return _handleActiveColors[(int)currentBodyColliderColor]; } }
 
-		IEditorHost host;
+        tk2dSpriteCollectionDefinition.ColliderColor currentAttackColliderColor = tk2dSpriteCollectionDefinition.ColliderColor.Red;
+        Color attack_HandleInactiveColor { get { return _handleInactiveColors[(int)currentAttackColliderColor]; } }
+        Color attack_HandleActiveColor { get { return _handleActiveColors[(int)currentAttackColliderColor]; } }
+
+        IEditorHost host;
 		public TextureEditor(IEditorHost host)
 		{
 			this.host = host;
@@ -142,7 +146,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 				
 				var island = islands[islandId];
 		
-				Handles.color = handleInactiveColor;
+				Handles.color = body_HandleInactiveColor;
 	
 				Vector2 ov = (island.points.Length>0)?island.points[island.points.Length-1]:Vector2.zero;
 				for (int i = 0; i < island.points.Length; ++i)
@@ -301,25 +305,25 @@ namespace tk2dEditor.SpriteCollectionEditor
 			}
 		}		
 		
-		void DrawCustomBoxColliderEditor(Rect r, tk2dSpriteCollectionDefinition param, Texture2D tex)
+		void DrawCustomBox_BodyColliderEditor(Rect r, tk2dSpriteCollectionDefinition param, Texture2D tex)
 		{
 			Vector2 origin = new Vector2(r.x, r.y);
 			
 			// sanitize
-			if (param.boxColliderMin == Vector2.zero && param.boxColliderMax == Vector2.zero)
+			if (param.bodyBoxColliderMin == Vector2.zero && param.bodyBoxColliderMax == Vector2.zero)
 			{
-				param.boxColliderMax = new Vector2(tex.width, tex.height);
+				param.bodyBoxColliderMax = new Vector2(tex.width, tex.height);
 			}
 			
 			Vector3[] pt = new Vector3[] {
-				new Vector3(param.boxColliderMin.x * editorDisplayScale + origin.x, param.boxColliderMin.y * editorDisplayScale + origin.y, 0.0f),
-				new Vector3(param.boxColliderMax.x * editorDisplayScale + origin.x, param.boxColliderMin.y * editorDisplayScale + origin.y, 0.0f),
-				new Vector3(param.boxColliderMax.x * editorDisplayScale + origin.x, param.boxColliderMax.y * editorDisplayScale + origin.y, 0.0f),
-				new Vector3(param.boxColliderMin.x * editorDisplayScale + origin.x, param.boxColliderMax.y * editorDisplayScale + origin.y, 0.0f),
+				new Vector3(param.bodyBoxColliderMin.x * editorDisplayScale + origin.x, param.bodyBoxColliderMin.y * editorDisplayScale + origin.y, 0.0f),
+				new Vector3(param.bodyBoxColliderMax.x * editorDisplayScale + origin.x, param.bodyBoxColliderMin.y * editorDisplayScale + origin.y, 0.0f),
+				new Vector3(param.bodyBoxColliderMax.x * editorDisplayScale + origin.x, param.bodyBoxColliderMax.y * editorDisplayScale + origin.y, 0.0f),
+				new Vector3(param.bodyBoxColliderMin.x * editorDisplayScale + origin.x, param.bodyBoxColliderMax.y * editorDisplayScale + origin.y, 0.0f),
 			};
-			Color32 transparentColor = handleInactiveColor;
+			Color32 transparentColor = body_HandleInactiveColor;
 			transparentColor.a = 10;
-			Handles.DrawSolidRectangleWithOutline(pt, transparentColor, handleInactiveColor);
+			Handles.DrawSolidRectangleWithOutline(pt, transparentColor, body_HandleInactiveColor);
 			
 			// Draw grab handles
 			Vector3 handlePos;
@@ -329,45 +333,111 @@ namespace tk2dEditor.SpriteCollectionEditor
 			// Draw top handle
 			handlePos = (pt[0] + pt[1]) * 0.5f;
 			handlePos = (tk2dGuiUtility.PositionHandle(id + 0, handlePos) - origin) / editorDisplayScale;
-			param.boxColliderMin.y = handlePos.y;
-			if (param.boxColliderMin.y > param.boxColliderMax.y) param.boxColliderMin.y = param.boxColliderMax.y;
+			param.bodyBoxColliderMin.y = handlePos.y;
+			if (param.bodyBoxColliderMin.y > param.bodyBoxColliderMax.y) param.bodyBoxColliderMin.y = param.bodyBoxColliderMax.y;
 	
 			// Draw bottom handle
 			handlePos = (pt[2] + pt[3]) * 0.5f;
 			handlePos = (tk2dGuiUtility.PositionHandle(id + 1, handlePos) - origin) / editorDisplayScale;
-			param.boxColliderMax.y = handlePos.y;
-			if (param.boxColliderMax.y < param.boxColliderMin.y) param.boxColliderMax.y = param.boxColliderMin.y;
+			param.bodyBoxColliderMax.y = handlePos.y;
+			if (param.bodyBoxColliderMax.y < param.bodyBoxColliderMin.y) param.bodyBoxColliderMax.y = param.bodyBoxColliderMin.y;
 	
 			// Draw left handle
 			handlePos = (pt[0] + pt[3]) * 0.5f;
 			handlePos = (tk2dGuiUtility.PositionHandle(id + 2, handlePos) - origin) / editorDisplayScale;
-			param.boxColliderMin.x = handlePos.x;
-			if (param.boxColliderMin.x > param.boxColliderMax.x) param.boxColliderMin.x = param.boxColliderMax.x;
+			param.bodyBoxColliderMin.x = handlePos.x;
+			if (param.bodyBoxColliderMin.x > param.bodyBoxColliderMax.x) param.bodyBoxColliderMin.x = param.bodyBoxColliderMax.x;
 	
 			// Draw right handle
 			handlePos = (pt[1] + pt[2]) * 0.5f;
 			handlePos = (tk2dGuiUtility.PositionHandle(id + 3, handlePos) - origin) / editorDisplayScale;
-			param.boxColliderMax.x = handlePos.x;
-			if (param.boxColliderMax.x < param.boxColliderMin.x) param.boxColliderMax.x = param.boxColliderMin.x;
+			param.bodyBoxColliderMax.x = handlePos.x;
+			if (param.bodyBoxColliderMax.x < param.bodyBoxColliderMin.x) param.bodyBoxColliderMax.x = param.bodyBoxColliderMin.x;
 	
-			param.boxColliderMax.x = Mathf.Round(param.boxColliderMax.x);
-			param.boxColliderMax.y = Mathf.Round(param.boxColliderMax.y);
-			param.boxColliderMin.x = Mathf.Round(param.boxColliderMin.x);
-			param.boxColliderMin.y = Mathf.Round(param.boxColliderMin.y);		
+			param.bodyBoxColliderMax.x = Mathf.Round(param.bodyBoxColliderMax.x);
+			param.bodyBoxColliderMax.y = Mathf.Round(param.bodyBoxColliderMax.y);
+			param.bodyBoxColliderMin.x = Mathf.Round(param.bodyBoxColliderMin.x);
+			param.bodyBoxColliderMin.y = Mathf.Round(param.bodyBoxColliderMin.y);		
 	
 			// constrain
-			param.boxColliderMax.x = Mathf.Clamp(param.boxColliderMax.x, 0.0f, tex.width);
-			param.boxColliderMax.y = Mathf.Clamp(param.boxColliderMax.y, 0.0f, tex.height);
-			param.boxColliderMin.x = Mathf.Clamp(param.boxColliderMin.x, 0.0f, tex.width);
-			param.boxColliderMin.y = Mathf.Clamp(param.boxColliderMin.y, 0.0f, tex.height);
+			param.bodyBoxColliderMax.x = Mathf.Clamp(param.bodyBoxColliderMax.x, 0.0f, tex.width);
+			param.bodyBoxColliderMax.y = Mathf.Clamp(param.bodyBoxColliderMax.y, 0.0f, tex.height);
+			param.bodyBoxColliderMin.x = Mathf.Clamp(param.bodyBoxColliderMin.x, 0.0f, tex.width);
+			param.bodyBoxColliderMin.y = Mathf.Clamp(param.bodyBoxColliderMin.y, 0.0f, tex.height);
 
-			tk2dGuiUtility.SetPositionHandleValue(id + 0, new Vector2(0, param.boxColliderMin.y));
-			tk2dGuiUtility.SetPositionHandleValue(id + 1, new Vector2(0, param.boxColliderMax.y));
-			tk2dGuiUtility.SetPositionHandleValue(id + 2, new Vector2(param.boxColliderMin.x, 0));
-			tk2dGuiUtility.SetPositionHandleValue(id + 3, new Vector2(param.boxColliderMax.x, 0));
+			tk2dGuiUtility.SetPositionHandleValue(id + 0, new Vector2(0, param.bodyBoxColliderMin.y));
+			tk2dGuiUtility.SetPositionHandleValue(id + 1, new Vector2(0, param.bodyBoxColliderMax.y));
+			tk2dGuiUtility.SetPositionHandleValue(id + 2, new Vector2(param.bodyBoxColliderMin.x, 0));
+			tk2dGuiUtility.SetPositionHandleValue(id + 3, new Vector2(param.bodyBoxColliderMax.x, 0));
 		}
 
-		static int advancedColliderEditorControlBase = "AdvancedColliderEditor".GetHashCode();
+        void DrawCustomBox_AttackColliderEditor(Rect r, tk2dSpriteCollectionDefinition param, Texture2D tex)
+        {
+            Vector2 origin = new Vector2(r.x, r.y);
+
+            // sanitize
+            if (param.attackBoxColiderMin == Vector2.zero && param.attackBoxColiderMax == Vector2.zero)
+            {
+                param.attackBoxColiderMax = new Vector2(tex.width, tex.height);
+            }
+
+            Vector3[] pt = new Vector3[] {
+                new Vector3(param.attackBoxColiderMin.x * editorDisplayScale + origin.x, param.attackBoxColiderMin.y * editorDisplayScale + origin.y, 0.0f),
+                new Vector3(param.attackBoxColiderMax.x * editorDisplayScale + origin.x, param.attackBoxColiderMin.y * editorDisplayScale + origin.y, 0.0f),
+                new Vector3(param.attackBoxColiderMax.x * editorDisplayScale + origin.x, param.attackBoxColiderMax.y * editorDisplayScale + origin.y, 0.0f),
+                new Vector3(param.attackBoxColiderMin.x * editorDisplayScale + origin.x, param.attackBoxColiderMax.y * editorDisplayScale + origin.y, 0.0f),
+            };
+            Color32 transparentColor = attack_HandleInactiveColor;
+            transparentColor.a = 10;
+            Handles.DrawSolidRectangleWithOutline(pt, transparentColor, attack_HandleInactiveColor);
+
+            // Draw grab handles
+            Vector3 handlePos;
+
+            int id = 16533;
+
+            // Draw top handle
+            handlePos = (pt[0] + pt[1]) * 0.5f;
+            handlePos = (tk2dGuiUtility.PositionHandle(id + 0, handlePos) - origin) / editorDisplayScale;
+            param.attackBoxColiderMin.y = handlePos.y;
+            if (param.attackBoxColiderMin.y > param.attackBoxColiderMax.y) param.attackBoxColiderMin.y = param.attackBoxColiderMax.y;
+
+            // Draw bottom handle
+            handlePos = (pt[2] + pt[3]) * 0.5f;
+            handlePos = (tk2dGuiUtility.PositionHandle(id + 1, handlePos) - origin) / editorDisplayScale;
+            param.attackBoxColiderMax.y = handlePos.y;
+            if (param.attackBoxColiderMax.y < param.attackBoxColiderMin.y) param.attackBoxColiderMax.y = param.attackBoxColiderMin.y;
+
+            // Draw left handle
+            handlePos = (pt[0] + pt[3]) * 0.5f;
+            handlePos = (tk2dGuiUtility.PositionHandle(id + 2, handlePos) - origin) / editorDisplayScale;
+            param.attackBoxColiderMin.x = handlePos.x;
+            if (param.attackBoxColiderMin.x > param.attackBoxColiderMax.x) param.attackBoxColiderMin.x = param.attackBoxColiderMax.x;
+
+            // Draw right handle
+            handlePos = (pt[1] + pt[2]) * 0.5f;
+            handlePos = (tk2dGuiUtility.PositionHandle(id + 3, handlePos) - origin) / editorDisplayScale;
+            param.attackBoxColiderMax.x = handlePos.x;
+            if (param.attackBoxColiderMax.x < param.attackBoxColiderMin.x) param.attackBoxColiderMax.x = param.attackBoxColiderMin.x;
+
+            param.attackBoxColiderMax.x = Mathf.Round(param.attackBoxColiderMax.x);
+            param.attackBoxColiderMax.y = Mathf.Round(param.attackBoxColiderMax.y);
+            param.attackBoxColiderMin.x = Mathf.Round(param.attackBoxColiderMin.x);
+            param.attackBoxColiderMin.y = Mathf.Round(param.attackBoxColiderMin.y);
+
+            // constrain
+            param.attackBoxColiderMax.x = Mathf.Clamp(param.attackBoxColiderMax.x, 0.0f, tex.width);
+            param.attackBoxColiderMax.y = Mathf.Clamp(param.attackBoxColiderMax.y, 0.0f, tex.height);
+            param.attackBoxColiderMin.x = Mathf.Clamp(param.attackBoxColiderMin.x, 0.0f, tex.width);
+            param.attackBoxColiderMin.y = Mathf.Clamp(param.attackBoxColiderMin.y, 0.0f, tex.height);
+
+            tk2dGuiUtility.SetPositionHandleValue(id + 0, new Vector2(0, param.attackBoxColiderMin.y));
+            tk2dGuiUtility.SetPositionHandleValue(id + 1, new Vector2(0, param.attackBoxColiderMax.y));
+            tk2dGuiUtility.SetPositionHandleValue(id + 2, new Vector2(param.attackBoxColiderMin.x, 0));
+            tk2dGuiUtility.SetPositionHandleValue(id + 3, new Vector2(param.attackBoxColiderMax.x, 0));
+        }
+
+        static int advancedColliderEditorControlBase = "AdvancedColliderEditor".GetHashCode();
 		tk2dSpriteCollectionDefinition.ColliderData currentInspectedColliderData = null;
 		tk2dSpriteCollectionDefinition.ColliderData editingColliderDataName = null;
 
@@ -392,7 +462,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 			// catalog all names
 			HashSet<string> apHashSet = new HashSet<string>();
 			foreach (tk2dSpriteCollectionDefinition def in SpriteCollection.textureParams) {
-				if (def.colliderType != tk2dSpriteCollectionDefinition.ColliderType.Advanced) {
+				if (def.attackColliderType != tk2dSpriteCollectionDefinition.ColliderType.Advanced) {
 					continue;
 				}
 				foreach ( tk2dSpriteCollectionDefinition.ColliderData cd in def.colliderData) {
@@ -658,7 +728,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 			if (editorDisplayScale <= 1.0f) editorDisplayScale = 1.0f;
 			
 			// mirror data
-			currentColliderColor = param.colliderColor;
+			currentBodyColliderColor = param.colliderColor;
 			
 			GUILayout.BeginVertical(tk2dEditorSkin.SC_BodyBackground, GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 		
@@ -670,9 +740,10 @@ namespace tk2dEditor.SpriteCollectionEditor
 			else
 			{
 				bool allowAnchor = param.anchor == tk2dSpriteCollectionDefinition.Anchor.Custom;
-				bool allowCollider = (param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon ||
-					param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.BoxCustom ||
-					param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced);
+				bool allowCollider = (param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon ||
+					param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Body_BoxCustom ||
+                    param.attackColliderType == tk2dSpriteCollectionDefinition.ColliderType.Attack_BoxCustom ||
+                    param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced);
 				if (mode == Mode.Anchor && !allowAnchor) mode = Mode.Texture;
 				if (mode == Mode.Collider && !allowCollider) mode = Mode.Texture;
 
@@ -705,11 +776,13 @@ namespace tk2dEditor.SpriteCollectionEditor
 
 				if (mode == Mode.Collider)
 				{
-					if (param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.BoxCustom)
-						DrawCustomBoxColliderEditor(textureRect, param, texture);
-					if (param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
+					if (param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Body_BoxCustom)
+						DrawCustomBox_BodyColliderEditor(textureRect, param, texture);
+                    if (param.attackColliderType == tk2dSpriteCollectionDefinition.ColliderType.Attack_BoxCustom)
+                        DrawCustomBox_AttackColliderEditor(textureRect, param, texture);
+                    if (param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
 						DrawPolygonColliderEditor(textureRect, ref param.polyColliderIslands, texture, false);
-					if (param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced)
+					if (param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced)
 						DrawAdvancedColliderEditor(textureRect, param, texture);
 				}
 				
@@ -857,9 +930,9 @@ namespace tk2dEditor.SpriteCollectionEditor
 		public void DrawToolbar(tk2dSpriteCollectionDefinition param, Texture2D texture)
 		{
 			bool allowAnchor = param.anchor == tk2dSpriteCollectionDefinition.Anchor.Custom;
-			bool allowCollider = (param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon ||
-				param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.BoxCustom ||
-				param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced);
+			bool allowCollider = (param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon ||
+				param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Body_BoxCustom ||
+				param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced);
 			bool allowAttachPoint = true;
 
 			GUILayout.BeginHorizontal(EditorStyles.toolbar, GUILayout.ExpandWidth(true));
@@ -878,7 +951,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 				GUILayout.Label(str, EditorStyles.toolbarTextField);
 			}
 			
-			if ((mode == Mode.Collider && param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon) ||
+			if ((mode == Mode.Collider && param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon) ||
 				(mode == Mode.Texture && param.customSpriteGeometry))
 			{
 				drawColliderNormals = GUILayout.Toggle(drawColliderNormals, new GUIContent("Show Normals", "Shift+N"), EditorStyles.toolbarButton);
@@ -1024,7 +1097,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 
 		public void DrawTextureInspector(tk2dSpriteCollectionDefinition param, Texture2D texture)
 		{
-			if (mode == Mode.Collider && param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
+			if (mode == Mode.Collider && param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
 			{
 				param.colliderColor = (tk2dSpriteCollectionDefinition.ColliderColor)EditorGUILayout.EnumPopup("Display Color", param.colliderColor);
 				
@@ -1039,7 +1112,7 @@ namespace tk2dEditor.SpriteCollectionEditor
 							              "\nClick hold point + T - toggle connected" +
 							              "\nClick hold point + F - flip island", tk2dGuiUtility.WarningLevel.Info);
 			}
-			else if (mode == Mode.Collider && param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced) {
+			else if (mode == Mode.Collider && param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced) {
 				DrawAdvancedColliderInspector(param, texture);
 			}
 			if (mode == Mode.Texture && param.customSpriteGeometry)

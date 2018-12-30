@@ -79,10 +79,11 @@ public class tk2dSpriteCollectionDefinition
 		UserDefined,		// don't try to create or destroy anything
 		ForceNone,			// nothing will be created, if something exists, it will be destroyed
 		BoxTrimmed, 		// box, trimmed to cover visible region
-		BoxCustom, 			// box, with custom values provided by user
-		Polygon, 			// polygon, can be concave
+        Polygon, 			// polygon, can be concave
 		Advanced,			// advanced colliders - set up multiple oriented boxes
-	}
+        Body_BoxCustom, 			// box, with custom values provided by user
+        Attack_BoxCustom,
+    }
 	
 	public enum PolygonColliderCap
 	{
@@ -182,10 +183,12 @@ public class tk2dSpriteCollectionDefinition
 	public int regionX, regionY, regionW, regionH;
 	public int regionId;
 	
-	public ColliderType colliderType = ColliderType.UserDefined;
-	public List<ColliderData> colliderData = new List<ColliderData>();
-	public Vector2 boxColliderMin, boxColliderMax;
-	public tk2dSpriteColliderIsland[] polyColliderIslands;
+	public ColliderType bodyColliderType = ColliderType.UserDefined;
+    public ColliderType attackColliderType = ColliderType.UserDefined;
+    public List<ColliderData> colliderData = new List<ColliderData>();
+	public Vector2 bodyBoxColliderMin, bodyBoxColliderMax;
+    public Vector2 attackBoxColiderMin, attackBoxColiderMax;
+    public tk2dSpriteColliderIsland[] polyColliderIslands;
 	public PolygonColliderCap polyColliderCap = PolygonColliderCap.FrontAndBack;
 	public bool colliderConvex = false;
 	public bool colliderSmoothSphereCollisions = false;
@@ -230,10 +233,15 @@ public class tk2dSpriteCollectionDefinition
 		regionH = src.regionH;
 		regionId = src.regionId;
 		
-		colliderType = src.colliderType;
-		boxColliderMin = src.boxColliderMin;
-		boxColliderMax = src.boxColliderMax;
-		polyColliderCap = src.polyColliderCap;
+		bodyColliderType = src.bodyColliderType;
+		bodyBoxColliderMin = src.bodyBoxColliderMin;
+		bodyBoxColliderMax = src.bodyBoxColliderMax;
+
+        attackColliderType = src.attackColliderType;
+        attackBoxColiderMin = src.attackBoxColiderMin;
+        attackBoxColiderMax = src.attackBoxColiderMax;
+        
+        polyColliderCap = src.polyColliderCap;
 		
 		colliderColor = src.colliderColor;
 		colliderConvex = src.colliderConvex;
@@ -334,11 +342,15 @@ public class tk2dSpriteCollectionDefinition
 		if (regionH != src.regionH) return false;
 		if (regionId != src.regionId) return false;
 		
-		if (colliderType != src.colliderType) return false;
-		if (boxColliderMin != src.boxColliderMin) return false;
-		if (boxColliderMax != src.boxColliderMax) return false;
-		
-		if (polyColliderIslands != src.polyColliderIslands) return false;
+		if (bodyColliderType != src.bodyColliderType) return false;
+		if (bodyBoxColliderMin != src.bodyBoxColliderMin) return false;
+		if (bodyBoxColliderMax != src.bodyBoxColliderMax) return false;
+
+        if (attackColliderType != src.attackColliderType) return false;
+        if (attackBoxColiderMin != src.attackBoxColiderMin) return false;
+        if (attackBoxColiderMax != src.attackBoxColiderMax) return false;
+
+        if (polyColliderIslands != src.polyColliderIslands) return false;
 		if (polyColliderIslands != null && src.polyColliderIslands != null)
 		{
 			if (polyColliderIslands.Length != src.polyColliderIslands.Length) return false;

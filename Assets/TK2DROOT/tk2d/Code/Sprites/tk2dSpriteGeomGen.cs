@@ -504,9 +504,9 @@ public static class tk2dSpriteGeomGen
 	
 	public static void SetSpriteDefinitionMeshData(Vector3[] pos, int[] indices, int posOffset, int indicesOffset, int vStart, tk2dSpriteDefinition spriteDef, Matrix4x4 mat, Vector3 baseScale)
 	{
-		for (int i = 0; i < spriteDef.colliderVertices.Length; ++i)
+		for (int i = 0; i < spriteDef.bodyColliderVertices.Length; ++i)
 		{
-			Vector3 p = Vector3.Scale (spriteDef.colliderVertices[i], baseScale);
+			Vector3 p = Vector3.Scale (spriteDef.bodyColliderVertices[i], baseScale);
 			p = mat.MultiplyPoint (p);
 			pos[posOffset + i] = p;
 		}

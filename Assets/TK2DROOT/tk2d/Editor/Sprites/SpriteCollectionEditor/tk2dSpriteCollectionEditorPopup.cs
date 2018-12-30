@@ -747,8 +747,9 @@ public class tk2dSpriteCollectionEditorPopup : EditorWindow, IEditorHost
 				string name = spriteCollectionProxy.FindUniqueTextureName(tex.name);
 				int slot = spriteCollectionProxy.FindOrCreateEmptySpriteSlot();
 				spriteCollectionProxy.textureParams[slot].name = name;
-				spriteCollectionProxy.textureParams[slot].colliderType = tk2dSpriteCollectionDefinition.ColliderType.UserDefined;
-				spriteCollectionProxy.textureParams[slot].texture = (Texture2D)obj;
+				spriteCollectionProxy.textureParams[slot].bodyColliderType = tk2dSpriteCollectionDefinition.ColliderType.UserDefined;
+                spriteCollectionProxy.textureParams[slot].attackColliderType = tk2dSpriteCollectionDefinition.ColliderType.UserDefined;
+                spriteCollectionProxy.textureParams[slot].texture = (Texture2D)obj;
 				addedIndices.Add(slot);
 			}
 		}

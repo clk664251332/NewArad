@@ -175,7 +175,7 @@ namespace tk2dEditor.SpriteCollectionBuilder
 						param.diceUnitY = (int)(param.diceUnitY * scale);
 					}
 
-					if (param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
+					if (param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
 					{
 						foreach (tk2dSpriteColliderIsland geom in param.polyColliderIslands)
 						{
@@ -183,10 +183,10 @@ namespace tk2dEditor.SpriteCollectionBuilder
 								geom.points[p] *= scale;
 						}
 					}
-					else if (param.colliderType == tk2dSpriteCollectionDefinition.ColliderType.BoxCustom)
+					else if (param.bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Body_BoxCustom)
 					{
-						param.boxColliderMax *= scale;
-						param.boxColliderMin *= scale;
+						param.bodyBoxColliderMax *= scale;
+						param.bodyBoxColliderMin *= scale;
 					}
 
 					for (int i = 0; i < param.attachPoints.Count; ++i) {

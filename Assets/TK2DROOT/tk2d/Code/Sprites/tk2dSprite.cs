@@ -253,12 +253,23 @@ public class tk2dSprite : tk2dBaseSprite
 	void OnDrawGizmos() {
 		if (collectionInst != null && spriteId >= 0 && spriteId < collectionInst.Count) {
 			var sprite = collectionInst.spriteDefinitions[spriteId];
-			Gizmos.color = Color.clear;
-			Gizmos.matrix = transform.localToWorldMatrix;
-			Gizmos.DrawCube(Vector3.Scale(sprite.untrimmedBoundsData[0], _scale), Vector3.Scale(sprite.untrimmedBoundsData[1], _scale));
-			Gizmos.matrix = Matrix4x4.identity;
-			Gizmos.color = Color.white;
-		}
+            //Gizmos.color = Color.clear;
+            Gizmos.matrix = transform.localToWorldMatrix;
+            //Gizmos.DrawWireCube(Vector3.Scale(sprite.untrimmedBoundsData[0], _scale), Vector3.Scale(sprite.untrimmedBoundsData[1], _scale));
+            //Gizmos.matrix = Matrix4x4.identity;
+            //Gizmos.color = Color.white;
+            if (sprite.bodyColliderVertices.Length != 0)
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawWireCube(Vector3.Scale(sprite.bodyColliderVertices[0], _scale), Vector3.Scale(sprite.bodyColliderVertices[1], _scale));
+            }
+            if (sprite.attackColliderVertices.Length != 0)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawWireCube(Vector3.Scale(sprite.attackColliderVertices[0], _scale), Vector3.Scale(sprite.attackColliderVertices[1], _scale));
+            }
+            Gizmos.matrix = Matrix4x4.identity;
+        }
 	}
 #endif
 	

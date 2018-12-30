@@ -2068,11 +2068,12 @@ public class tk2dSpriteCollectionBuilder
 
 	static void UpdateColliderData(tk2dSpriteCollection gen, float scale, tk2dSpriteCollectionData coll, int spriteIndex, Vector3 origin)
 	{
-		var colliderType = gen.textureParams[spriteIndex].colliderType;
-		var def = coll.spriteDefinitions[spriteIndex];
+		var bodyColliderType = gen.textureParams[spriteIndex].bodyColliderType;
+        var attackColliderType = gen.textureParams[spriteIndex].attackColliderType;
+        var def = coll.spriteDefinitions[spriteIndex];
 		var src = gen.textureParams[spriteIndex];
 		
-		def.colliderVertices = null;
+		def.bodyColliderVertices = null;
 		def.colliderIndicesFwd = null;
 		def.colliderIndicesBack = null;
 		def.physicsEngine = gen.physicsEngine;
@@ -2087,26 +2088,26 @@ public class tk2dSpriteCollectionBuilder
 			texHeight = gen.textureParams[spriteIndex].texture?gen.textureParams[spriteIndex].texture.height:2.0f;
 		}
 		
-		if (colliderType == tk2dSpriteCollectionDefinition.ColliderType.BoxTrimmed)
+		if (bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.BoxTrimmed)
 		{
-			def.colliderVertices = new Vector3[2];
-			def.colliderVertices[0] = def.boundsData[0];
-			def.colliderVertices[1] = def.boundsData[1] * 0.5f; // extents is 1/2x size
-			def.colliderVertices[1].z = gen.physicsDepth;
+			def.bodyColliderVertices = new Vector3[2];
+			def.bodyColliderVertices[0] = def.boundsData[0];
+			def.bodyColliderVertices[1] = def.boundsData[1] * 0.5f; // extents is 1/2x size
+			def.bodyColliderVertices[1].z = gen.physicsDepth;
 			def.colliderType = tk2dSpriteDefinition.ColliderType.Box;
 		}
-		else if (colliderType == tk2dSpriteCollectionDefinition.ColliderType.BoxCustom)
+		else if (bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Body_BoxCustom)
 		{
-			Vector2 v0 = new Vector3(src.boxColliderMin.x * src.scale.x, (texHeight - src.boxColliderMax.y) * src.scale.y) * scale + origin;
-			Vector2 v1 = new Vector3(src.boxColliderMax.x * src.scale.x, (texHeight - src.boxColliderMin.y) * src.scale.y) * scale + origin;
+			Vector2 v0 = new Vector3(src.bodyBoxColliderMin.x * src.scale.x, (texHeight - src.bodyBoxColliderMax.y) * src.scale.y) * scale + origin;
+			Vector2 v1 = new Vector3(src.bodyBoxColliderMax.x * src.scale.x, (texHeight - src.bodyBoxColliderMin.y) * src.scale.y) * scale + origin;
 			
-			def.colliderVertices = new Vector3[2];
-			def.colliderVertices[0] = (v0 + v1) * 0.5f;
-			def.colliderVertices[1] = (v1 - v0) * 0.5f;
-			def.colliderVertices[1].z = gen.physicsDepth;
+			def.bodyColliderVertices = new Vector3[2];
+			def.bodyColliderVertices[0] = (v0 + v1) * 0.5f;
+			def.bodyColliderVertices[1] = (v1 - v0) * 0.5f;
+			def.bodyColliderVertices[1].z = gen.physicsDepth;
 			def.colliderType = tk2dSpriteDefinition.ColliderType.Box;
 		}
-		else if (colliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
+		else if (bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Polygon)
 		{
 			List<Vector3> meshVertices = new List<Vector3>();
 			List<int> meshIndicesFwd = new List<int>();
@@ -2216,7 +2217,7 @@ public class tk2dSpriteCollectionBuilder
 				meshIndicesBack[i + 2] = meshIndicesFwd[i + 0];
 			}
 			
-			def.colliderVertices = meshVertices.ToArray();
+			def.bodyColliderVertices = meshVertices.ToArray();
 			def.colliderIndicesFwd = meshIndicesFwd.ToArray();
 			def.colliderIndicesBack = meshIndicesBack;
 			def.colliderConvex = src.colliderConvex;
@@ -2225,7 +2226,7 @@ public class tk2dSpriteCollectionBuilder
 			def.edgeCollider2D = edgeCollider2D.ToArray();
 			def.polygonCollider2D = polygonCollider2D.ToArray();
 		}
-		else if (colliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced) {
+		else if (bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.Advanced) {
 			List<tk2dSpriteColliderDefinition> colliders = new List<tk2dSpriteColliderDefinition>();
 			foreach (tk2dSpriteCollectionDefinition.ColliderData rawCollider in src.colliderData) {
 				Vector3 colliderOrigin = new Vector3(rawCollider.origin.x * src.scale.x, (texHeight - rawCollider.origin.y) * src.scale.y, 0) * scale + origin;
@@ -2256,14 +2257,26 @@ public class tk2dSpriteCollectionBuilder
 			}
 			def.customColliders = colliders.ToArray();
 		}
-		else if (colliderType == tk2dSpriteCollectionDefinition.ColliderType.ForceNone)
+		else if (bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.ForceNone)
 		{
 			def.colliderType = tk2dSpriteDefinition.ColliderType.None;
 		}
-		else if (colliderType == tk2dSpriteCollectionDefinition.ColliderType.UserDefined)
+		else if (bodyColliderType == tk2dSpriteCollectionDefinition.ColliderType.UserDefined)
 		{
 			def.colliderType = tk2dSpriteDefinition.ColliderType.Unset;
 		}
+
+        if (attackColliderType == tk2dSpriteCollectionDefinition.ColliderType.Attack_BoxCustom)
+        {
+            Vector2 v0 = new Vector3(src.attackBoxColiderMin.x * src.scale.x, (texHeight - src.attackBoxColiderMax.y) * src.scale.y) * scale + origin;
+            Vector2 v1 = new Vector3(src.attackBoxColiderMax.x * src.scale.x, (texHeight - src.attackBoxColiderMin.y) * src.scale.y) * scale + origin;
+
+            def.attackColliderVertices = new Vector3[2];
+            def.attackColliderVertices[0] = (v0 + v1) * 0.5f;
+            def.attackColliderVertices[1] = (v1 - v0) * 0.5f;
+            def.attackColliderVertices[1].z = gen.physicsDepth;
+            def.colliderType = tk2dSpriteDefinition.ColliderType.Box;
+        }
 	}
 }
 

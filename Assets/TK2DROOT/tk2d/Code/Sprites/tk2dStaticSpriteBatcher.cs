@@ -743,7 +743,7 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, tk2dRuntime.ISpriteCollect
 			if (buildSpriteDefinitionMesh)
 			{
 				numIndices += spriteDef.colliderIndicesFwd.Length;
-				numVertices += spriteDef.colliderVertices.Length;
+				numVertices += spriteDef.bodyColliderVertices.Length;
 				numEdgeColliders += spriteDef.edgeCollider2D.Length;
 				numEdgeColliders += spriteDef.polygonCollider2D.Length;
 			}
@@ -887,8 +887,8 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, tk2dRuntime.ISpriteCollect
 				if (spriteDef != null && spriteDef.colliderType == tk2dSpriteDefinition.ColliderType.Box)
 				{
 					buildBox = true;
-					boxOrigin = spriteDef.colliderVertices[0];
-					boxExtents = spriteDef.colliderVertices[1];
+					boxOrigin = spriteDef.bodyColliderVertices[0];
+					boxExtents = spriteDef.bodyColliderVertices[1];
 				}
 				break;
 			case tk2dBatchedSprite.Type.ClippedSprite:
@@ -991,8 +991,8 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, tk2dRuntime.ISpriteCollect
 				if (spriteDef != null && spriteDef.colliderType == tk2dSpriteDefinition.ColliderType.Box)
 				{
 					buildBox = true;
-					boxOrigin = spriteDef.colliderVertices[0];
-					boxExtents = spriteDef.colliderVertices[1];
+					boxOrigin = spriteDef.bodyColliderVertices[0];
+					boxExtents = spriteDef.bodyColliderVertices[1];
 				}
 				break;
 			case tk2dBatchedSprite.Type.ClippedSprite:
@@ -1016,7 +1016,7 @@ public class tk2dStaticSpriteBatcher : MonoBehaviour, tk2dRuntime.ISpriteCollect
 			if (buildSpriteDefinitionMesh)
 			{
 				tk2dSpriteGeomGen.SetSpriteDefinitionMeshData(vertices, indices, currVertex, currIndex, currVertex, spriteDef, mat, bs.baseScale);
-				currVertex += spriteDef.colliderVertices.Length;
+				currVertex += spriteDef.bodyColliderVertices.Length;
 				currIndex += spriteDef.colliderIndicesFwd.Length;
 			}
 			else if (buildBox)
