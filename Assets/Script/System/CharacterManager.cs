@@ -11,11 +11,11 @@ public class CharacterManager : SingletonObject<CharacterManager>
     {
         //角色的添加暂时先在这里
         if (string.IsNullOrEmpty(SingletonObject<Hero>.Instance.Name))
-            CreateActor<Hero>("鬼剑士");
+            CreateActor<Hero>(1000, "鬼剑士");
        // CreateActor<Monster>("哥布林");
     }
 
-    public Actor CreateActor<T>(string name) where T : Actor, new()
+    public Actor CreateActor<T>(uint partCongfigId, string name) where T : Actor, new()
     {
         Actor actor;
 
@@ -26,6 +26,7 @@ public class CharacterManager : SingletonObject<CharacterManager>
             actor = new T();
 
         actor.Name = name;
+        actor.PartConfigId = partCongfigId;
         m_lstCharacterList.Add(actor);
         //角色创建出来立刻进行初始化
         actor.Initialize();

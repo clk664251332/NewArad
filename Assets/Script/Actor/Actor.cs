@@ -8,6 +8,7 @@ public class Actor : Entity
     private Vector3 m_position = Vector3.zero;
     protected AbilityManager m_AbilityManager;
     private int m_direction = 1;
+    private uint m_partConfigId;
 
     private bool m_bCanMove;
     private bool m_bCanJump;
@@ -110,6 +111,19 @@ public class Actor : Entity
         set
         {
             m_direction = value;
+        }
+    }
+
+    public uint PartConfigId
+    {
+        get
+        {
+            return m_partConfigId;
+        }
+
+        set
+        {
+            m_partConfigId = value;
         }
     }
 

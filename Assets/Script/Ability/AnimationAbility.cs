@@ -34,6 +34,8 @@ public class AnimationAbility : BaseAbility
 
         m_tk2dSprite = go.GetComponent<tk2dSprite>();
         m_tk2dSpriteAnimator = go.GetComponent<tk2dSpriteAnimator>();
+        //要从配置中获得装扮配置，m_tk2dSpriteAnimator图集为skin
+        //创建子物体添加sprite组件,显示为其他部件
     }
 
     public override void GetComponent()
