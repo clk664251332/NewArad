@@ -34,6 +34,9 @@ public class ConfigManager: SingletonObject<ConfigManager>
     {
         m_dic.Add("GuitextLoader.asset", typeof(GuitextLoader));
         m_dic.Add("AudioLoader.asset", typeof(AudioLoader));
+        m_dic.Add("FashionLoader.asset", typeof(FashionLoader));
+        m_dic.Add("PartLoader.asset", typeof(PartLoader));
+        m_dic.Add("PlayerLoader.asset", typeof(PlayerLoader));
     }
     private void LoadFile(string strPath)
     {

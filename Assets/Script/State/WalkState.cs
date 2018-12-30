@@ -13,7 +13,7 @@ public class WalkState : BaseMovementState
     {
         base.EnterState(eState);
         SingletonObject<Hero>.Instance.IsRun = false;
-        m_owner.GetAbility<AnimationAbility>().GetTk2dSpriteAnimator().Play("Walk_normal");
+        tk2DSpriteAnimator.Play("Walk");
     }
 
     public override void BreakState(EActionState eState)

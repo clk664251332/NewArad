@@ -12,7 +12,7 @@ public class IdleState : BaseMovementState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
-        m_owner.GetAbility<AnimationAbility>().GetTk2dSpriteAnimator().Play("Idle_normal");
+        tk2DSpriteAnimator.Play("Idle");
     }
 
     public override void BreakState(EActionState eState)

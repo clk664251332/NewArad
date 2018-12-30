@@ -101,7 +101,10 @@
     <Compile Include="Assets\Script\ConfigSystem\Expand\GuitextLoaderData.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\AudioLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\BackgroundMusicLoader.cs" />
+    <Compile Include="Assets\Script\ConfigSystem\StaticData\FashionLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\GuitextLoader.cs" />
+    <Compile Include="Assets\Script\ConfigSystem\StaticData\PartLoader.cs" />
+    <Compile Include="Assets\Script\ConfigSystem\StaticData\PlayerLoader.cs" />
     <Compile Include="Assets\Script\State\BaseBattleState.cs" />
     <Compile Include="Assets\Script\State\BaseMovementState.cs" />
     <Compile Include="Assets\Script\State\BaseState.cs" />

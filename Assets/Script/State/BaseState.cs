@@ -10,6 +10,7 @@ public abstract class BaseState
     protected EActionState m_eState;
     protected float m_fStartTime = 0;
     protected float m_fActionSpeed = 1.0f;
+    protected tk2dSpriteAnimator tk2DSpriteAnimator;
 
     public BaseState(Actor actor, EActionState eState)
     {
@@ -27,7 +28,8 @@ public abstract class BaseState
     /// <param name="eState">进入新状态后上一个状态</param>
     public virtual void EnterState(EActionState eState)
     {
-
+        if (tk2DSpriteAnimator == null)
+            tk2DSpriteAnimator = m_owner.GetAbility<AnimationAbility>().GetTk2dSpriteAnimator();
     }
 
     public virtual void OnUpdate()

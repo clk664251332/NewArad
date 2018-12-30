@@ -8,7 +8,7 @@ public class Actor : Entity
     private Vector3 m_position = Vector3.zero;
     protected AbilityManager m_AbilityManager;
     private int m_direction = 1;
-    private uint m_partConfigId;
+    private uint m_fashionConfigId;
 
     private bool m_bCanMove;
     private bool m_bCanJump;
@@ -114,16 +114,16 @@ public class Actor : Entity
         }
     }
 
-    public uint PartConfigId
+    public uint FashionConfigId
     {
         get
         {
-            return m_partConfigId;
+            return m_fashionConfigId;
         }
 
         set
         {
-            m_partConfigId = value;
+            m_fashionConfigId = value;
         }
     }
 

@@ -8,6 +8,10 @@ public abstract class BaseMovementState : BaseState
 
     public BaseMovementState(Actor actor, EActionState eState) : base(actor, eState)
     {
+        if (m_inputAbility == null)
+        {
+            m_inputAbility = m_owner.GetAbility<HeroInputAbility>();
+        }
     }
 
     public override void EnterState(EActionState eState)
@@ -19,12 +23,6 @@ public abstract class BaseMovementState : BaseState
         m_owner.CanJump = true;
         m_owner.CanAttack = true;
         m_owner.CanSkill = true;
-
-
-        if (m_inputAbility == null)
-        {
-            m_inputAbility = m_owner.GetAbility<HeroInputAbility>();
-        }
     }
 
     public override void OnUpdate()
