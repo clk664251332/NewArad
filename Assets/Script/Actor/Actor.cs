@@ -9,6 +9,7 @@ public class Actor : Entity
     protected AbilityManager m_AbilityManager;
     private int m_direction = 1;
     private uint m_fashionConfigId;
+    private uint m_skillConfigId;
 
     private bool m_bCanMove;
     private bool m_bCanJump;
@@ -124,6 +125,19 @@ public class Actor : Entity
         set
         {
             m_fashionConfigId = value;
+        }
+    }
+
+    public uint SkillConfigId
+    {
+        get
+        {
+            return m_skillConfigId;
+        }
+
+        set
+        {
+            m_skillConfigId = value;
         }
     }
 

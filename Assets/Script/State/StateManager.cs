@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Game.Config;
+using System;
 
 public class StateManager
 {
@@ -16,7 +18,7 @@ public class StateManager
         m_lstState.Add(new JumpState(actor));
         m_lstState.Add(new RunState(actor));
         m_lstState.Add(new WalkState(actor));
-        m_lstState.Add(new SkillState(actor));
+        //m_lstState.Add(new SkillState(actor));
         m_lstState.Add(new RunAttackState(actor));
         m_lstState.Add(new Attack1State(actor));
         m_lstState.Add(new Attack2State(actor));
@@ -47,6 +49,12 @@ public class StateManager
                 m_lstState[i].EnterState(eLastState);
             }
         }
+    }
+
+    public void EnterState(string strStateName)
+    {
+        EActionState eState = (EActionState)Enum.Parse(typeof(EActionState), strStateName);
+        EnterState(eState);
     }
 
     public BaseState GetState(EActionState eState)

@@ -23,7 +23,7 @@ public class AnimationAbility : BaseAbility
     {
         base.Initialize();
 
-        var playerData = ConfigManager.Instance.GetData<PlayerLoader, PlayerLoader.Data>(m_owner.Id);
+        var playerData = ConfigManager.Instance.GetData<ProfessionLoader, ProfessionLoader.Data>(m_owner.Id);
         string animatorName = playerData.AnimatorName;
 
         GameObject loadGameObject = Resources.Load<GameObject>("Animator/" + animatorName);

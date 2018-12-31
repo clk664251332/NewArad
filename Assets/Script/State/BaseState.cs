@@ -13,6 +13,7 @@ public abstract class BaseState
     protected tk2dSpriteAnimator tk2DSpriteAnimator;
     protected StateManager m_stateManager;
     protected HeroInputAbility m_inputAbility;
+    
 
     public BaseState(Actor actor, EActionState eState)
     {

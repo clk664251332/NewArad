@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillState : BaseBattleState
 {
-    public SkillState(Actor actor) : base(actor, EActionState.Skill)
+    public SkillState(Actor actor) : base(actor, EActionState.Skill1)
     {
 
     }

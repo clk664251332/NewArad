@@ -26,11 +26,12 @@ public class CharacterManager : SingletonObject<CharacterManager>
         else
             actor = new T();
 
-        var playerData = ConfigManager.Instance.GetData<PlayerLoader, PlayerLoader.Data>(playerId);
+        var professionData = ConfigManager.Instance.GetData<ProfessionLoader, ProfessionLoader.Data>(playerId);
 
-        actor.Id = playerData.Id;
-        actor.Name = playerData.Name;
-        actor.FashionConfigId = playerData.DefaultFashionId;
+        actor.Id = professionData.Id;
+        actor.Name = professionData.Name;
+        actor.FashionConfigId = professionData.DefaultFashionId;
+        actor.SkillConfigId = professionData.DefaultSkillId;
         m_lstCharacterList.Add(actor);
         //角色创建出来立刻进行初始化
         actor.Initialize();
