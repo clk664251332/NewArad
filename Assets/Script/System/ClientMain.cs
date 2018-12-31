@@ -7,6 +7,11 @@ using Game.Config;
 /// </summary>
 public class ClientMain : SingletonBehaviour<ClientMain>
 {
+    public void Awake()
+    {
+        Application.targetFrameRate = 90;
+    }
+
     public void Start()
     {
         Initialize();
