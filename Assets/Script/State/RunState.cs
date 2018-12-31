@@ -6,7 +6,6 @@ public class RunState : BaseMovementState
 {
     public RunState(Actor actor) : base(actor, EActionState.Run)
     {
-
     }
 
     public override void EnterState(EActionState eState)
@@ -25,5 +24,9 @@ public class RunState : BaseMovementState
     public override void OnUpdate()
     {
         base.OnUpdate();
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            m_stateManager.EnterState(EActionState.RunAttack);
+        }
     }
 }

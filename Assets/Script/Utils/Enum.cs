@@ -9,7 +9,9 @@ public enum EActionState
     Walk,
     Run,
     Jump,
-    Attack,
+    Attack1,
+    Attack2,
+    Attack3,
     RunAttack,//冲刺斩
     JumpAttack,//跳斩
     Skill,

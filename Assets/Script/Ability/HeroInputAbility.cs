@@ -13,6 +13,19 @@ public class HeroInputAbility : BaseAbility
     private Vector2 m_velocity = Vector2.zero;
     private float m_speed = 100f;
 
+    public Vector2 Velocity
+    {
+        get
+        {
+            return m_velocity;
+        }
+
+        set
+        {
+            m_velocity = value;
+        }
+    }
+
     public override void Initialize()
     {
         base.Initialize();
@@ -48,7 +61,7 @@ public class HeroInputAbility : BaseAbility
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        m_rig2d.velocity = new Vector2(h * m_speed, v * m_speed);
+        m_velocity = new Vector2(h * m_speed, v * m_speed);
 
         if (h > 0)
             m_owner.Direction = 1;
@@ -71,6 +84,11 @@ public class HeroInputAbility : BaseAbility
         }
         else
             SingletonObject<Hero>.Instance.GetStateMgr().EnterState(EActionState.Idle);
+    }
+
+    public void MoveX(float speed)
+    {
+        m_velocity = new Vector2(m_owner.Direction * speed, 0);
     }
 
     private void CheckDoubleClick()

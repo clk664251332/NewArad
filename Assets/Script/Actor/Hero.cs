@@ -60,4 +60,9 @@ public class Hero : Actor
     {
         return m_stateMgr;
     }
+
+    public StateManager GetStateManager()
+    {
+        return m_stateMgr;
+    }
 }

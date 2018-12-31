@@ -105,11 +105,15 @@
     <Compile Include="Assets\Script\ConfigSystem\StaticData\GuitextLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\PartLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\PlayerLoader.cs" />
+    <Compile Include="Assets\Script\State\Attack1State.cs" />
+    <Compile Include="Assets\Script\State\Attack2State.cs" />
+    <Compile Include="Assets\Script\State\Attack3State.cs" />
     <Compile Include="Assets\Script\State\BaseBattleState.cs" />
     <Compile Include="Assets\Script\State\BaseMovementState.cs" />
     <Compile Include="Assets\Script\State\BaseState.cs" />
     <Compile Include="Assets\Script\State\IdleState.cs" />
     <Compile Include="Assets\Script\State\JumpState.cs" />
+    <Compile Include="Assets\Script\State\RunAttackState.cs" />
     <Compile Include="Assets\Script\State\RunState.cs" />
     <Compile Include="Assets\Script\State\SkillState.cs" />
     <Compile Include="Assets\Script\State\StateManager.cs" />

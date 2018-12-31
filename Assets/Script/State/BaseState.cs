@@ -8,19 +8,26 @@ public abstract class BaseState
 {
     protected Actor m_owner;
     protected EActionState m_eState;
-    protected float m_fStartTime = 0;
-    protected float m_fActionSpeed = 1.0f;
+    //protected float m_fStartTime = 0;
+    //protected float m_fActionSpeed = 1.0f;
     protected tk2dSpriteAnimator tk2DSpriteAnimator;
+    protected StateManager m_stateManager;
+    protected HeroInputAbility m_inputAbility;
 
     public BaseState(Actor actor, EActionState eState)
     {
         m_owner = actor;
         m_eState = eState;
+
+        if (m_inputAbility == null)
+        {
+            m_inputAbility = m_owner.GetAbility<HeroInputAbility>();
+        }
     }
 
     public virtual void Reset()
     {
-        m_fActionSpeed = 1.0f;
+        //m_fActionSpeed = 1.0f;
     }
     /// <summary>
     /// 
@@ -30,6 +37,11 @@ public abstract class BaseState
     {
         if (tk2DSpriteAnimator == null)
             tk2DSpriteAnimator = m_owner.GetAbility<AnimationAbility>().GetTk2dSpriteAnimator();
+
+        if (m_stateManager == null)
+            m_stateManager = SingletonObject<Hero>.Instance.GetStateManager();
+
+        tk2DSpriteAnimator.AnimationCompleted = OnAnimationComplete;
     }
 
     public virtual void OnUpdate()
@@ -58,5 +70,10 @@ public abstract class BaseState
     public EActionState GetState()
     {
         return m_eState;
+    }
+
+    public virtual void OnAnimationComplete(tk2dSpriteAnimator animator, tk2dSpriteAnimationClip animationClip)
+    {
+
     }
 }

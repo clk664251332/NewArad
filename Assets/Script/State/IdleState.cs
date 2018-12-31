@@ -6,7 +6,6 @@ public class IdleState : BaseMovementState
 {
     public IdleState(Actor actor) : base(actor, EActionState.Idle)
     {
-
     }
 
     public override void EnterState(EActionState eState)

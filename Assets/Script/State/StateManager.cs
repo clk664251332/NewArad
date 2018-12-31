@@ -17,6 +17,10 @@ public class StateManager
         m_lstState.Add(new RunState(actor));
         m_lstState.Add(new WalkState(actor));
         m_lstState.Add(new SkillState(actor));
+        m_lstState.Add(new RunAttackState(actor));
+        m_lstState.Add(new Attack1State(actor));
+        m_lstState.Add(new Attack2State(actor));
+        m_lstState.Add(new Attack3State(actor));
     }
 
     public void EnterState(EActionState eState)

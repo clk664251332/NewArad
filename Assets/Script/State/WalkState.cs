@@ -6,7 +6,6 @@ public class WalkState : BaseMovementState
 {
     public WalkState(Actor actor) : base(actor, EActionState.Walk)
     {
-
     }
 
     public override void EnterState(EActionState eState)

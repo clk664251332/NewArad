@@ -39,7 +39,10 @@ public class ClientMain : SingletonBehaviour<ClientMain>
     public void OnGUI()
     {
         EActionState state = SingletonObject<Hero>.Instance.GetStateMgr().GetCurrActionState();
-        GUI.Label(new Rect(30, 10, 100, 200), state.ToString());
-        
+        Vector2 velocity = SingletonObject<Hero>.Instance.GetAbility<HeroInputAbility>().Velocity;
+
+        GUILayout.BeginVertical();
+        GUI.Label(new Rect(30, 10, 100, 200), "状态："+state.ToString());
+        GUI.Label(new Rect(30, 30, 200, 200), "速度:" + velocity.ToString());
     }
 }

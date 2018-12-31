@@ -4,14 +4,9 @@ using UnityEngine;
 
 public abstract class BaseMovementState : BaseState
 {
-    HeroInputAbility m_inputAbility;
-
     public BaseMovementState(Actor actor, EActionState eState) : base(actor, eState)
     {
-        if (m_inputAbility == null)
-        {
-            m_inputAbility = m_owner.GetAbility<HeroInputAbility>();
-        }
+        
     }
 
     public override void EnterState(EActionState eState)
@@ -28,6 +23,10 @@ public abstract class BaseMovementState : BaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
+        if (Input.GetKeyDown(KeyCode.X) && SingletonObject<Hero>.Instance.IsRun == false)
+        {
+            m_stateManager.EnterState(EActionState.Attack1);
+        }
     }
 
     public override void OnFixedUpdate()
