@@ -8,6 +8,7 @@ public class Hero : Actor
     //protected BuffManager m_buffMgr;
     //protected SkillManager m_skillMgr;
     private bool m_bIsRun = false;
+    private bool m_bIsJump = false;
 
     public bool IsRun
     {
@@ -19,6 +20,19 @@ public class Hero : Actor
         set
         {
             m_bIsRun = value;
+        }
+    }
+
+    public bool IsJump
+    {
+        get
+        {
+            return m_bIsJump;
+        }
+
+        set
+        {
+            m_bIsJump = value;
         }
     }
 

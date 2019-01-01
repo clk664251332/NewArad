@@ -68,6 +68,12 @@ public class HeroInputAbility : BaseAbility
         else if (h < 0)
             m_owner.Direction = -1;
 
+        if (SingletonObject<Hero>.Instance.IsJump)
+        {
+            m_speed = 100f;
+            return;
+        }
+
         if (h != 0 || v != 0)
         {
             if ((h > 0 && Time.time - m_fRightArrowKeyUpTime < m_fClickDeltaTime) ||

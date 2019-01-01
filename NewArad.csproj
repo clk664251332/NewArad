@@ -105,10 +105,14 @@
     <Compile Include="Assets\Script\State\Attack2State.cs" />
     <Compile Include="Assets\Script\State\Attack3State.cs" />
     <Compile Include="Assets\Script\State\BaseBattleState.cs" />
+    <Compile Include="Assets\Script\State\BaseJumpState.cs" />
     <Compile Include="Assets\Script\State\BaseMovementState.cs" />
     <Compile Include="Assets\Script\State\BaseState.cs" />
     <Compile Include="Assets\Script\State\IdleState.cs" />
-    <Compile Include="Assets\Script\State\JumpState.cs" />
+    <Compile Include="Assets\Script\State\JumpDownState.cs" />
+    <Compile Include="Assets\Script\State\JumpFallState.cs" />
+    <Compile Include="Assets\Script\State\JumpPrepareState.cs" />
+    <Compile Include="Assets\Script\State\JumpUpState.cs" />
     <Compile Include="Assets\Script\State\RunAttackState.cs" />
     <Compile Include="Assets\Script\State\RunState.cs" />
     <Compile Include="Assets\Script\State\SkillState.cs" />

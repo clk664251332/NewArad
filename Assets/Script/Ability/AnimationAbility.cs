@@ -7,6 +7,7 @@ public class AnimationAbility : BaseAbility
 {
     private tk2dSprite m_skinSprite;
     private tk2dSpriteAnimator m_tk2dSpriteAnimator;
+    public Transform m_animationTrans;
 
     private List<tk2dSprite> m_lstPartSprite = new List<tk2dSprite>();
     public tk2dSprite GetTk2dSprite()
@@ -36,6 +37,7 @@ public class AnimationAbility : BaseAbility
         go.transform.position = Vector3.zero;
         go.transform.parent = m_owner.Transform;
         go.name = "AnimationAbility";
+        m_animationTrans = go.transform;
 
         m_skinSprite = go.GetComponent<tk2dSprite>();
         m_tk2dSpriteAnimator = go.GetComponent<tk2dSpriteAnimator>();

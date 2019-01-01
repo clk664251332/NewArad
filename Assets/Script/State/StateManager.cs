@@ -15,7 +15,10 @@ public class StateManager
         m_owner = actor;
 
         m_lstState.Add(new IdleState(actor));
-        m_lstState.Add(new JumpState(actor));
+        m_lstState.Add(new JumpPrepareState(actor));
+        m_lstState.Add(new JumpUpState(actor));
+        m_lstState.Add(new JumpFallState(actor));
+        m_lstState.Add(new JumpDownState(actor));
         m_lstState.Add(new RunState(actor));
         m_lstState.Add(new WalkState(actor));
         //m_lstState.Add(new SkillState(actor));

@@ -11,6 +11,16 @@ public class Attack2State : BaseBattleState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
+        if (Input.GetAxisRaw("Horizontal") > 0)
+        {
+            m_owner.Direction = 1;
+            m_fAttackMoveSpeed *= 5f;
+        }
+        else if(Input.GetAxisRaw("Horizontal") < 0)
+        {
+            m_owner.Direction = -1;
+            m_fAttackMoveSpeed *= 5f;
+        }
     }
 
     public override void BreakState(EActionState eState)
