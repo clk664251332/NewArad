@@ -27,10 +27,10 @@ public abstract class BaseMovementState : BaseState
         {
             m_stateManager.EnterState(EActionState.Attack1);
         }
-        //if(Input.GetKeyDown(KeyCode.C) && SingletonObject<Hero>.Instance.CanJump == true)
-        //{
-        //    m_stateManager.EnterState(EActionState.Jump_Prepare);
-        //}
+        if(Input.GetKeyDown(KeyCode.C) && SingletonObject<Hero>.Instance.CanJump == true)
+        {
+            m_stateManager.EnterState(EActionState.Jump_Prepare);
+        }
     }
 
     public override void OnFixedUpdate()

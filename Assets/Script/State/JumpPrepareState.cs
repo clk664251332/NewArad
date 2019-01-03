@@ -18,10 +18,6 @@ public class JumpPrepareState : BaseJumpState
     {
         base.EnterState(eState);
         tk2DSpriteAnimator.Play("Jump_Prepare");
-
-        m_fV0 = 30f;
-        m_fGravity = 1.5f;
-        m_fOffset = 0;
     }
 
     public override void OnAnimationComplete(tk2dSpriteAnimator animator, tk2dSpriteAnimationClip animationClip)

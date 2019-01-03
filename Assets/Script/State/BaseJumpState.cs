@@ -4,11 +4,26 @@ using UnityEngine;
 
 public class BaseJumpState : BaseMovementState
 {
-    protected float m_fV0;
+    private float fV0;
     protected float m_fGravity;
     protected float m_fOffset;
+    protected bool m_bStartUp = false;
 
     protected Transform m_animationTrans;
+
+    protected float V0
+    {
+        get
+        {
+            return fV0;
+        }
+
+        set
+        {
+            fV0 = value;
+        }
+    }
+
     public BaseJumpState(Actor actor, EActionState eState) : base(actor, eState)
     {
 
@@ -23,9 +38,9 @@ public class BaseJumpState : BaseMovementState
         m_owner.CanAttack = true;
         m_owner.CanSkill = false;
         SingletonObject<Hero>.Instance.IsJump = true;
-        m_animationTrans = m_owner.GetAbility<AnimationAbility>().m_animationTrans;
 
-        Debug.Log(m_eState.ToString());
+        if (m_animationTrans == null)
+            m_animationTrans = m_owner.GetAbility<AnimationAbility>().m_animationTrans;
     }
 
     public override void BreakState(EActionState eState)
@@ -36,18 +51,15 @@ public class BaseJumpState : BaseMovementState
     public override void OnUpdate()
     {
         base.OnUpdate();
-
-       
-
-        //m_animationTrans.Translate(Vector3.up * m_fV0 * Time.smoothDeltaTime);
-
     }
+
     public override void OnFixedUpdate()
     {
         base.OnFixedUpdate();
 
-        m_fV0 -= 0.8f;
-        m_fOffset += m_fV0;
+        if (!m_bStartUp) return;
+        V0 -= 0.8f;
+        m_fOffset += V0;
 
         if (m_fOffset >= 0)
             m_animationTrans.localPosition = new Vector2(m_animationTrans.localPosition.x, m_fOffset);
