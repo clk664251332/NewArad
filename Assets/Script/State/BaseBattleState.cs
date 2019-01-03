@@ -42,7 +42,7 @@ public abstract class BaseBattleState : BaseState
         //连招检测
         if (m_skillData.NextActionName != "0")
         {
-            if (tk2DSpriteAnimator.CurrentFrame >= m_skillData.EarlyEndFramIndex && Input.GetKeyDown(KeyCode.X))
+            if (tk2DSpriteAnimator.CurrentFrame >= m_skillData.EarlyEndFramIndex && Input.GetKey(KeyCode.X))
             {
                 m_stateManager.EnterState(m_skillData.NextActionName);
             }

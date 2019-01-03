@@ -23,7 +23,7 @@ public abstract class BaseMovementState : BaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
-        if (Input.GetKeyDown(KeyCode.X) && m_owner.CanAttack && SingletonObject<Hero>.Instance.IsRun == false)
+        if (Input.GetKey(KeyCode.X) && m_owner.CanAttack && SingletonObject<Hero>.Instance.IsRun == false)
         {
             m_stateManager.EnterState(EActionState.Attack1);
         }
