@@ -4,25 +4,12 @@ using UnityEngine;
 
 public class BaseJumpState : BaseMovementState
 {
-    private float fV0;
+    protected float m_fV0;
     protected float m_fGravity;
     protected float m_fOffset;
-    protected bool m_bStartUp = false;
 
     protected Transform m_animationTrans;
 
-    protected float V0
-    {
-        get
-        {
-            return fV0;
-        }
-
-        set
-        {
-            fV0 = value;
-        }
-    }
 
     public BaseJumpState(Actor actor, EActionState eState) : base(actor, eState)
     {
@@ -35,7 +22,7 @@ public class BaseJumpState : BaseMovementState
 
         m_owner.CanMove = true;
         m_owner.CanJump = false;
-        m_owner.CanAttack = true;
+        m_owner.CanAttack = false;
         m_owner.CanSkill = false;
         SingletonObject<Hero>.Instance.IsJump = true;
 
@@ -57,11 +44,10 @@ public class BaseJumpState : BaseMovementState
     {
         base.OnFixedUpdate();
 
-        if (!m_bStartUp) return;
-        V0 -= 0.8f;
-        m_fOffset += V0;
+        m_fV0 -= m_fGravity;
+        m_fOffset += m_fV0;
 
-        if (m_fOffset >= 0)
+        if (m_fOffset > 0)
             m_animationTrans.localPosition = new Vector2(m_animationTrans.localPosition.x, m_fOffset);
         else
             m_animationTrans.localPosition = new Vector2(m_animationTrans.localPosition.x, 0);

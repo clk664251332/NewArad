@@ -54,6 +54,32 @@ public class StateManager
         }
     }
 
+    public void EnterState(EActionState eState, params object[] paramList)
+    {
+        if (m_currState != null)
+        {
+            if (m_currState.GetState() == eState)
+                return;
+        }
+
+        EActionState eLastState = EActionState.None;
+
+        if (m_currState != null)
+        {
+            eLastState = m_currState.GetState();
+            m_currState.BreakState(eState);
+        }
+
+        for (int i = 0; i < m_lstState.Count; ++i)
+        {
+            if (m_lstState[i].GetState() == eState)
+            {
+                m_currState = m_lstState[i];
+                m_lstState[i].EnterState(eLastState, paramList);
+            }
+        }
+    }
+
     public void EnterState(string strStateName)
     {
         EActionState eState = (EActionState)Enum.Parse(typeof(EActionState), strStateName);

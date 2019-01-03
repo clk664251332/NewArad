@@ -12,7 +12,7 @@ public class JumpDownState : BaseJumpState
     public override void BreakState(EActionState eState)
     {
         base.BreakState(eState);
-        m_animationTrans.position = new Vector2(m_animationTrans.position.x, 0);
+        m_animationTrans.localPosition = new Vector2(m_animationTrans.localPosition.x, 0);
     }
 
     public override void EnterState(EActionState eState)

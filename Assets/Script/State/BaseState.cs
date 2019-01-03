@@ -45,6 +45,11 @@ public abstract class BaseState
         tk2DSpriteAnimator.AnimationCompleted = OnAnimationComplete;
     }
 
+    public virtual void EnterState(EActionState eState, params object[] paramList)
+    {
+        EnterState(eState);
+    }
+
     public virtual void OnUpdate()
     {
 

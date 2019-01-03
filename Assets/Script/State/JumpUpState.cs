@@ -18,9 +18,9 @@ public class JumpUpState : BaseJumpState
     {
         base.EnterState(eState);
 
-        V0 = 10f;
+        m_fV0 = 10f;
+        m_fGravity = 0.8f;
         m_fOffset = 0;
-        m_bStartUp = true;
         tk2DSpriteAnimator.Play("Jump_Up");
     }
 
@@ -38,8 +38,8 @@ public class JumpUpState : BaseJumpState
     {
         base.OnUpdate();
 
-        if (V0 < 0)
-            m_stateManager.EnterState(EActionState.Jump_Fall);
+        if (m_fV0 < 0)
+            m_stateManager.EnterState(EActionState.Jump_Fall, new object[] { m_fV0, m_fOffset });
     }
 
     public override void Release()
