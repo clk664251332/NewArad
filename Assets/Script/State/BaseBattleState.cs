@@ -6,7 +6,7 @@ using Game.Config;
 public abstract class BaseBattleState : BaseState
 {
     protected float m_fAttackMoveSpeed = 0;
-    protected float m_fAttackMoveTime = 0;
+    protected float m_fAttackMoveFriction = 0;
 
     private ProfessionSkillLoader.Data m_professionSkillLoaderData;
     protected SkillLoader.Data m_skillData;
@@ -22,7 +22,7 @@ public abstract class BaseBattleState : BaseState
         GetSkillData();
 
         m_fAttackMoveSpeed = m_skillData.MoveSpeed;
-        m_fAttackMoveTime = m_skillData.MoveTime;
+        m_fAttackMoveFriction = m_skillData.MoveFriction;
 
         m_owner.CanMove = false;
         m_owner.CanJump = false;
@@ -63,9 +63,9 @@ public abstract class BaseBattleState : BaseState
         base.OnFixedUpdate();
 
         //动作位移
-        if (m_fAttackMoveSpeed != 0 && m_fAttackMoveTime != 0)
+        if (m_fAttackMoveSpeed != 0 && m_fAttackMoveFriction != 0)
         {
-            m_fAttackMoveSpeed = Mathf.Lerp(m_fAttackMoveSpeed, 0, m_fAttackMoveTime);
+            m_fAttackMoveSpeed = Mathf.Lerp(m_fAttackMoveSpeed, 0, Time.deltaTime * m_fAttackMoveFriction);
             m_inputAbility.MoveX(m_fAttackMoveSpeed);
         }
     }

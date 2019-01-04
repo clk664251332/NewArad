@@ -17,7 +17,7 @@ namespace Game.Config
             public string ActionName; // 动作名称
             public string NextActionName; // 下连动作名称
             public float MoveSpeed; // 动作位移速度
-            public float MoveTime; // 动作位移时间
+            public float MoveFriction; // 位移摩擦阻力
             public uint EarlyEndFramIndex; // 提前结束帧序号
         }
 

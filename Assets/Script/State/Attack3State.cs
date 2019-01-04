@@ -14,12 +14,12 @@ public class Attack3State : BaseBattleState
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
             m_owner.Direction = 1;
-            m_fAttackMoveSpeed *= 5f;
+            m_fAttackMoveSpeed *= 4f;
         }
         else if (Input.GetAxisRaw("Horizontal") < 0)
         {
             m_owner.Direction = -1;
-            m_fAttackMoveSpeed *= 5f;
+            m_fAttackMoveSpeed *= 4f;
         }
     }
 
