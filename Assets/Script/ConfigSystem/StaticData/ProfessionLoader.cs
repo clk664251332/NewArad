@@ -16,6 +16,7 @@ namespace Game.Config
             public string AnimatorName; // 动画Prefab名字
             public uint DefaultFashionId; // 默认时装配置
             public uint DefaultSkillId; // 默认技能配置
+            public uint DefaultAttrId; // 默认属性配置
         }
 
         public List<Data> datas = new List<Data>();

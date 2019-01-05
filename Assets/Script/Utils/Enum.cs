@@ -34,3 +34,45 @@ public enum EActionState
     Stun,//麻痹
     Die,//死亡
 }
+
+public enum EEventType
+{
+    AttrChange = 100,
+}
+
+public enum EActorAttr
+{
+    //移动控制属性
+    WalkSpeed,
+    RunSpeed,
+    AttackSpeed,
+    JumpSpeed,
+    JumpGravity,
+
+    //基础属性
+    HP,
+    MP,
+    MaxHP,
+    MaxMP,
+    HpRecoverSpeed,
+    MpRecoverSpeed,
+    Level,
+    CurExp,
+    UpLevelNeedExp,
+    Gold,
+
+    //战斗属性
+    Strength,       //力量
+    Endurance,      //体力
+    Intelligence,   //智力
+    Spirit,         //精神
+    PhysicalAttack, //物理攻击
+    PhysicalDefence,//物理防御
+    MagicAttack,    //魔法攻击
+    MagicDefence,   //魔法防御
+    CriticalChance, //暴击几率
+    CriticalDamage, //暴击伤害
+
+    AttrEnd
+}
+

@@ -32,6 +32,7 @@ public class CharacterManager : SingletonObject<CharacterManager>
         actor.Name = professionData.Name;
         actor.FashionConfigId = professionData.DefaultFashionId;
         actor.SkillConfigId = professionData.DefaultSkillId;
+        actor.AttrConfigId = professionData.DefaultAttrId;
         m_lstCharacterList.Add(actor);
         //角色创建出来立刻进行初始化
         actor.Initialize();

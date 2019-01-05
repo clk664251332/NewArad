@@ -7,9 +7,11 @@ public class Actor : Entity
     private Transform m_transform = null;
     private Vector3 m_position = Vector3.zero;
     protected AbilityManager m_AbilityManager;
+    public ActorEventHandler m_actorEventHandler;
     private int m_direction = 1;
     private uint m_fashionConfigId;
     private uint m_skillConfigId;
+    private uint m_attrConfigId;
 
     private bool m_bCanMove;
     private bool m_bCanJump;
@@ -74,6 +76,7 @@ public class Actor : Entity
         m_AbilityManager = new AbilityManager();
         //Ability对象也在构造函数中创建
         AddAbility();
+        m_actorEventHandler = new ActorEventHandler();
     }
 
     public Vector3 Position
@@ -141,6 +144,19 @@ public class Actor : Entity
         }
     }
 
+    public uint AttrConfigId
+    {
+        get
+        {
+            return m_attrConfigId;
+        }
+
+        set
+        {
+            m_attrConfigId = value;
+        }
+    }
+
 
     /// <summary>
     /// 在场景中创建游戏对象，并把物体放到合适的位置
@@ -171,6 +187,7 @@ public class Actor : Entity
     {
         m_AbilityManager.AddAbility<AnimationAbility>(this);
         m_AbilityManager.AddAbility<SoundAbility>(this);
+        m_AbilityManager.AddAbility<AttrAbility>(this);
     }
 
     public AbilityManager GetAbilityManager()
@@ -217,5 +234,11 @@ public class Actor : Entity
         }
 
         return null;
+    }
+
+    public void SendEvent(EEventType eEventType)
+    {
+        if (m_actorEventHandler != null)
+            m_actorEventHandler.SendEvent(eEventType);
     }
 }
