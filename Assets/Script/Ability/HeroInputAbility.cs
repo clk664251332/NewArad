@@ -11,7 +11,10 @@ public class HeroInputAbility : BaseAbility
 
     private Rigidbody2D m_rig2d;
     private Vector2 m_velocity = Vector2.zero;
-    private float m_speed = 100f;
+    private float m_curSpeed = 100f;
+
+    private float m_walkSpeed;
+    private float m_runSpeed;
 
     public Vector2 Velocity
     {
@@ -35,7 +38,13 @@ public class HeroInputAbility : BaseAbility
 
         m_rig2d = Common.GetOrAddComponent<Rigidbody2D>(gameObject);
         m_rig2d.gravityScale = 0;
-        m_rig2d.bodyType = RigidbodyType2D.Kinematic;      
+        m_rig2d.bodyType = RigidbodyType2D.Kinematic;
+
+        m_walkSpeed = m_owner.GetAttr(EActorAttr.WalkSpeed).Value;
+        m_runSpeed = m_owner.GetAttr(EActorAttr.RunSpeed).Value;
+
+        m_owner.m_actorEventHandler.AddEvent(EEventType.AttrChange + (int)EActorAttr.WalkSpeed, new Callback(OnWalkSpeedChange));
+        m_owner.m_actorEventHandler.AddEvent(EEventType.AttrChange + (int)EActorAttr.RunSpeed, new Callback(OnRunSpeedChange));
     }
 
     public override void GetComponent()
@@ -61,7 +70,7 @@ public class HeroInputAbility : BaseAbility
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        m_velocity = new Vector2(h * m_speed, v * m_speed);
+        m_velocity = new Vector2(h * m_curSpeed, v * m_curSpeed);
 
         if (h > 0)
             m_owner.Direction = 1;
@@ -70,7 +79,7 @@ public class HeroInputAbility : BaseAbility
 
         if (SingletonObject<Hero>.Instance.IsJump)
         {
-            m_speed = 100f;
+            m_curSpeed = m_walkSpeed;
             return;
         }
 
@@ -80,12 +89,12 @@ public class HeroInputAbility : BaseAbility
                 (h < 0 && Time.time - m_fLeftArrowKeyUpTime < m_fClickDeltaTime))
             {
                 SingletonObject<Hero>.Instance.GetStateMgr().EnterState(EActionState.Run);
-                m_speed = 160f;
+                m_curSpeed = m_runSpeed;
             }
             else if (!SingletonObject<Hero>.Instance.IsRun)
             {
                 SingletonObject<Hero>.Instance.GetStateMgr().EnterState(EActionState.Walk);
-                m_speed = 100f;
+                m_curSpeed = m_walkSpeed;
             } 
         }
         else
@@ -116,5 +125,15 @@ public class HeroInputAbility : BaseAbility
             return true;
         else
             return false;
+    }
+
+    private void OnWalkSpeedChange()
+    {
+        m_walkSpeed = m_owner.GetAttr(EActorAttr.WalkSpeed).Value;
+    }
+
+    private void OnRunSpeedChange()
+    {
+        m_runSpeed = m_owner.GetAttr(EActorAttr.RunSpeed).Value;
     }
 }

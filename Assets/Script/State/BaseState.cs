@@ -10,7 +10,7 @@ public abstract class BaseState
     protected EActionState m_eState;
     //protected float m_fStartTime = 0;
     //protected float m_fActionSpeed = 1.0f;
-    protected tk2dSpriteAnimator tk2DSpriteAnimator;
+    protected tk2dSpriteAnimator m_tk2DSpriteAnimator;
     protected StateManager m_stateManager;
     protected HeroInputAbility m_inputAbility;
     
@@ -36,13 +36,13 @@ public abstract class BaseState
     /// <param name="eState">进入新状态后上一个状态</param>
     public virtual void EnterState(EActionState eState)
     {
-        if (tk2DSpriteAnimator == null)
-            tk2DSpriteAnimator = m_owner.GetAbility<AnimationAbility>().GetTk2dSpriteAnimator();
+        if (m_tk2DSpriteAnimator == null)
+            m_tk2DSpriteAnimator = m_owner.GetAbility<AnimationAbility>().GetTk2dSpriteAnimator();
 
         if (m_stateManager == null)
             m_stateManager = SingletonObject<Hero>.Instance.GetStateManager();
 
-        tk2DSpriteAnimator.AnimationCompleted = OnAnimationComplete;
+        m_tk2DSpriteAnimator.AnimationCompleted = OnAnimationComplete;
     }
 
     public virtual void EnterState(EActionState eState, params object[] paramList)

@@ -12,7 +12,7 @@ public class RunAttackState : BaseBattleState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
-        tk2DSpriteAnimator.Play("RunAttack");
+        m_tk2DSpriteAnimator.Play("RunAttack");
     }
 
     public override void BreakState(EActionState eState)

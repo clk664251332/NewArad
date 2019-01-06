@@ -185,9 +185,9 @@ public class Actor : Entity
 
     public virtual void AddAbility()
     {
+        m_AbilityManager.AddAbility<AttrAbility>(this);
         m_AbilityManager.AddAbility<AnimationAbility>(this);
         m_AbilityManager.AddAbility<SoundAbility>(this);
-        m_AbilityManager.AddAbility<AttrAbility>(this);
     }
 
     public AbilityManager GetAbilityManager()
@@ -240,5 +240,11 @@ public class Actor : Entity
     {
         if (m_actorEventHandler != null)
             m_actorEventHandler.SendEvent(eEventType);
+    }
+
+    public AttrValue GetAttr(EActorAttr eActorAttr)
+    {
+        AttrAbility attrAbility = GetAbility<AttrAbility>();
+        return attrAbility.GetAttr(eActorAttr);
     }
 }

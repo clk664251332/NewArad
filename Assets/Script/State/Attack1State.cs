@@ -11,6 +11,7 @@ public class Attack1State : BaseBattleState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
+        m_tk2DSpriteAnimator.ClipFps = m_owner.GetAttr(EActorAttr.AttackSpeed).Value;
     }
 
     public override void BreakState(EActionState eState)

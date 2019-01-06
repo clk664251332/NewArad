@@ -7,18 +7,15 @@ public class AttributeNode
     private AttributeNode m_Parent;
     private List<AttributeNode> m_childNodeList = new List<AttributeNode>();
     protected AttrAbility m_attrAbility;
+    public List<AttrValue> m_lstValues = new List<AttrValue>();
 
-    public Dictionary<EActorAttr, AttrValue> m_dicValue = new Dictionary<EActorAttr, AttrValue>();
-    //private List<AttrValue> m_lstValues = new List<AttrValue>();
-    //public AttrData m_attrData;
-    public AttributeNode(AttrAbility attrAbility)
+    public AttributeNode(AttrAbility attrAbility, bool bListen = false)
     {
         m_attrAbility = attrAbility;
-        //m_attrData = new AttrData(attrAbility);
-        for(int i = 0; i < (int)EActorAttr.AttrEnd; i++)
+        for (int i = 0; i < (int)EActorAttr.AttrEnd; i++)
         {
-            AttrValue attrValue = new AttrValue((EActorAttr)i, attrAbility);
-            m_dicValue.Add((EActorAttr)i, attrValue);
+            AttrValue attrValue = new AttrValue((EActorAttr)i, attrAbility, bListen);
+            m_lstValues.Add(attrValue);
         }
     }
 
@@ -29,45 +26,60 @@ public class AttributeNode
 
     public void Calculate()
     {
-        //最顶层和中间层归零
-        if (GetParent() == null)// || GetChildNodeCount() <= 0)
+        foreach (AttributeNode childNode in m_childNodeList)
         {
-            //ResetValue();
+            if (childNode.GetChildNodeCount() > 0)
+            {
+                ResetValue();
+                childNode.Calculate();
+            }
+
+            for (int i = 0; i < (int)EActorAttr.AttrEnd; i++)
+            {
+                m_lstValues[i].PlusValue(childNode.m_lstValues[i].Value);
+            }
         }
+    }
+
+    public void Calculate(EActorAttr eActorAttr)
+    {
+        if (GetParent() == null) ResetValue(eActorAttr);
 
         foreach (AttributeNode childNode in m_childNodeList)
         {
             if (childNode.GetChildNodeCount() > 0)
             {
-                childNode.Calculate();
+                ResetValue(eActorAttr);
+                childNode.Calculate(eActorAttr);
             }
 
-            foreach (var dicElement in m_dicValue)
+            for (int i = 0; i < (int)EActorAttr.AttrEnd; i++)
             {
-                AttrValue outValue;
-                if (childNode.m_dicValue.TryGetValue(dicElement.Key, out outValue))
-                {
-                    dicElement.Value.PlusValue(outValue.Value);
-                }
+                if ((int)eActorAttr == i)
+                    m_lstValues[i].PlusValue(childNode.m_lstValues[i].Value);
             }
         }
     }
 
     public void SetAttrValue(EActorAttr eActorAttr, float value)
     {
-        AttrValue attrValue;
-        bool result = m_dicValue.TryGetValue(eActorAttr, out attrValue);
-        if (result)
-        {
-            attrValue.SetValue(value);
-        }
+        m_lstValues[(int)eActorAttr].SetValue(value);
     }
 
     public void ResetValue()
     {
-        foreach (var dicElement in m_dicValue)
+        for (int i = 0; i < (int)EActorAttr.AttrEnd; i++)
         {
-            dicElement.Value.SetValue(0);
+            m_lstValues[i].SetValue(0);
+        }
+    }
+
+    public void ResetValue(EActorAttr eActorAttr)
+    {
+        for (int i = 0; i < (int)EActorAttr.AttrEnd; i++)
+        {
+            if ((int)eActorAttr == i)
+                m_lstValues[i].SetValue(0);
         }
     }
 

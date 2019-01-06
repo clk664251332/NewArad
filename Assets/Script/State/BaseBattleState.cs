@@ -32,7 +32,7 @@ public abstract class BaseBattleState : BaseState
         m_inputAbility.MoveX(0);
 
         //播放动画
-        tk2DSpriteAnimator.Play(m_skillData.ActionName);
+        m_tk2DSpriteAnimator.Play(m_skillData.ActionName);
     }
 
     public override void OnUpdate()
@@ -42,7 +42,7 @@ public abstract class BaseBattleState : BaseState
         //连招检测
         if (m_skillData.NextActionName != "0")
         {
-            if (tk2DSpriteAnimator.CurrentFrame >= m_skillData.EarlyEndFramIndex && Input.GetKey(KeyCode.X))
+            if (m_tk2DSpriteAnimator.CurrentFrame >= m_skillData.EarlyEndFramIndex && Input.GetKey(KeyCode.X))
             {
                 m_stateManager.EnterState(m_skillData.NextActionName);
             }

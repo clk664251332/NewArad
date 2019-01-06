@@ -17,7 +17,7 @@ public class JumpPrepareState : BaseJumpState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
-        tk2DSpriteAnimator.Play("Jump_Prepare");
+        m_tk2DSpriteAnimator.Play("Jump_Prepare");
     }
 
     public override void OnAnimationComplete(tk2dSpriteAnimator animator, tk2dSpriteAnimationClip animationClip)

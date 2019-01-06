@@ -8,7 +8,7 @@ public class AttrValue
     private EActorAttr m_eActorAttr;
     private float m_lastValue;
     private float m_curValue;
-    private bool m_bSave;//是否存档
+    private bool m_bListen;//是否监听事件
 
     private AttrAbility m_attrAbility;
 
@@ -25,10 +25,11 @@ public class AttrValue
         }
     }
 
-    public AttrValue(EActorAttr eActorAttr, AttrAbility attrAbility, bool isSave = false)
+    public AttrValue(EActorAttr eActorAttr, AttrAbility attrAbility, bool isListen = false)
     {
         m_eActorAttr = eActorAttr;
         m_attrAbility = attrAbility;
+        m_bListen = isListen;
     }
 
     public void SetValue(float newValue)
@@ -38,9 +39,9 @@ public class AttrValue
         m_lastValue = m_curValue;
         m_curValue = newValue;
 
-        if (m_attrAbility != null)
+        if (m_attrAbility != null && m_bListen)
         {
-            //m_attrAbility.m_owner.SendEvent(EEventType.AttrChange + (int)m_eActorAttr);
+            m_attrAbility.m_owner.SendEvent(EEventType.AttrChange + (int)m_eActorAttr);
             //m_attrAbility.m_owner.SendEvent(EEventType.AttrChange);
         }
     }

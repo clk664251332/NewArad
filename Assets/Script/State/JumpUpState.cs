@@ -18,10 +18,10 @@ public class JumpUpState : BaseJumpState
     {
         base.EnterState(eState);
 
-        m_fV0 = 10f;
-        m_fGravity = 0.8f;
+        m_fV0 = m_owner.GetAttr(EActorAttr.JumpSpeed).Value;
+        m_fGravity = m_owner.GetAttr(EActorAttr.JumpGravity).Value;
         m_fOffset = 0;
-        tk2DSpriteAnimator.Play("Jump_Up");
+        m_tk2DSpriteAnimator.Play("Jump_Up");
     }
 
     public override void OnAnimationComplete(tk2dSpriteAnimator animator, tk2dSpriteAnimationClip animationClip)

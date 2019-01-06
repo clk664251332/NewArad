@@ -17,9 +17,8 @@ public class AttrAbility : BaseAbility
     public override void Initialize()
     {
         base.Initialize();
-        //当升级/装备武器/增减Buff时发送该事件进行属性重新计算
-        m_owner.m_actorEventHandler.AddEvent(EEventType.AttrChange, new Callback(ReCalculate));
-        m_attributeAll = new AttributeNode(this);
+
+        m_attributeAll = new AttributeNode(this, true);//最终结果属性进行事件监听
         m_attributeGrowth = new GrowthAttrNode(this);
         m_attributeEquip = new EquipAttrNode(this);
         m_attributeBuff = new BuffAttrNode(this);
@@ -45,21 +44,37 @@ public class AttrAbility : BaseAbility
         base.Update();
         if (Input.GetKeyDown(KeyCode.P))
         {
-            foreach(var dic in m_attributeAll.m_dicValue)
+            for (int i = 0; i < (int)EActorAttr.AttrEnd; i++)
             {
-                Debug.Log("类型：" + dic.Key.ToString() + " 值：" + dic.Value.Value);
+                var attrValue = m_attributeAll.m_lstValues[i];
+                Debug.Log("类型：" + ((EActorAttr)i).ToString() + " 值：" + attrValue.Value);
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            var buff = m_attributeBuff as BuffAttrNode;
+            buff.ChangeWalkSpeedTest();
         }
     }
 
     public AttrValue GetAttr(EActorAttr eActorAttr)
     {
-        AttrValue attrValue;
-        bool result = m_attributeAll.m_dicValue.TryGetValue(eActorAttr, out attrValue);
-        return attrValue;
+        for (int i = 0; i < (int)EActorAttr.AttrEnd; i++)
+        {
+            if ((int)eActorAttr == i)
+                return m_attributeAll.m_lstValues[i];
+        }
+        return null;
     }
 
-    public void ReCalculate()
+    //重新计算某个属性，会触发该属性的变化事件
+    public void ReCalculate(EActorAttr eActorAttr)
+    {
+        m_attributeAll.Calculate(eActorAttr);
+    }
+
+    public void ReCalculateAll()
     {
         m_attributeAll.Calculate();
     }

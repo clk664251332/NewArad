@@ -12,4 +12,11 @@ public class BuffAttrNode : AttributeNode
     {
         base.Initialize();
     }
+
+    public void ChangeWalkSpeedTest()
+    {
+        Debug.Log("Buff：行走速度+200");
+        SetAttrValue(EActorAttr.WalkSpeed, 200);
+        m_attrAbility.ReCalculate(EActorAttr.WalkSpeed);
+    }
 }

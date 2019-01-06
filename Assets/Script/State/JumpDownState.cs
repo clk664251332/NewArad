@@ -18,7 +18,7 @@ public class JumpDownState : BaseJumpState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
-        tk2DSpriteAnimator.Play("Jump_Down");
+        m_tk2DSpriteAnimator.Play("Jump_Down");
     }
 
     public override void OnAnimationComplete(tk2dSpriteAnimator animator, tk2dSpriteAnimationClip animationClip)

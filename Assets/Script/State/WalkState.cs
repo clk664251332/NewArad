@@ -12,7 +12,7 @@ public class WalkState : BaseMovementState
     {
         base.EnterState(eState);
         SingletonObject<Hero>.Instance.IsRun = false;
-        tk2DSpriteAnimator.Play("Walk");
+        m_tk2DSpriteAnimator.Play("Walk");
     }
 
     public override void BreakState(EActionState eState)

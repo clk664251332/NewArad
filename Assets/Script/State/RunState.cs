@@ -12,7 +12,7 @@ public class RunState : BaseMovementState
     {
         base.EnterState(eState);
         SingletonObject<Hero>.Instance.IsRun = true;
-        tk2DSpriteAnimator.Play("Run");
+        m_tk2DSpriteAnimator.Play("Run");
     }
 
     public override void BreakState(EActionState eState)

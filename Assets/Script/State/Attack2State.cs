@@ -11,12 +11,14 @@ public class Attack2State : BaseBattleState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
+        m_tk2DSpriteAnimator.ClipFps = m_owner.GetAttr(EActorAttr.AttackSpeed).Value;
+
         if (Input.GetAxisRaw("Horizontal") > 0)
         {
             m_owner.Direction = 1;
             m_fAttackMoveSpeed *= 4f;
         }
-        else if(Input.GetAxisRaw("Horizontal") < 0)
+        else if (Input.GetAxisRaw("Horizontal") < 0)
         {
             m_owner.Direction = -1;
             m_fAttackMoveSpeed *= 4f;

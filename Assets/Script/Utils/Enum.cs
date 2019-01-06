@@ -42,6 +42,7 @@ public enum EEventType
 
 public enum EActorAttr
 {
+    AttrBegin,
     //移动控制属性
     WalkSpeed,
     RunSpeed,
