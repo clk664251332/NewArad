@@ -11,6 +11,7 @@ public abstract class BaseBattleState : BaseState
     private ProfessionSkillLoader.Data m_professionSkillLoaderData;
     protected SkillLoader.Data m_skillData;
 
+    private bool m_bCanHit;
     public BaseBattleState(Actor actor, EActionState eState) : base(actor, eState)
     {
        
@@ -33,6 +34,8 @@ public abstract class BaseBattleState : BaseState
 
         //播放动画
         m_tk2DSpriteAnimator.Play(m_skillData.ActionName);
+        //暂时设定在Update中只造成一次伤害
+        m_bCanHit = true;
     }
 
     public override void OnUpdate()
@@ -47,11 +50,27 @@ public abstract class BaseBattleState : BaseState
                 m_stateManager.EnterState(m_skillData.NextActionName);
             }
         }
+        //碰撞检测
+        if(m_tk2DSpriteAnimator.CurrentFrame == m_skillData.AttackFramIndex)
+        {
+            var coliders = Physics2D.OverlapBoxAll(m_owner.m_attackBounds.center, m_owner.m_attackBounds.extents, 0);
+
+            for (int i = 0; i < coliders.Length; i++)
+            {
+                if (coliders[i].CompareTag("Animator") && m_bCanHit)
+                {
+                    GameObject actorObj = coliders[i].transform.parent.gameObject;
+                    Debug.Log(actorObj.name);
+                    m_bCanHit = false;
+                }
+            }
+        }
     }
 
     public override void BreakState(EActionState eNextState)
     {
         base.BreakState(eNextState);
+        m_bCanHit = false;
     }
 
     public override void Reset()

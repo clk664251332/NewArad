@@ -50,4 +50,14 @@ public class ClientMain : SingletonBehaviour<ClientMain>
         GUI.Label(new Rect(30, 10, 200, 200), "状态："+state.ToString());
         GUI.Label(new Rect(30, 30, 200, 200), "速度:" + velocity.ToString());
     }
+
+    public void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        var characterList = CharacterManager.Instance.GetCharacterList();
+        for (int i = 0; i < characterList.Count; i++)
+        {
+            Gizmos.DrawWireCube(characterList[i].m_attackBounds.center, characterList[i].m_attackBounds.extents);
+        }
+    }
 }

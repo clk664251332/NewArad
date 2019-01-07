@@ -64,4 +64,9 @@ public class CharacterManager : SingletonObject<CharacterManager>
 
         m_lstCharacterList.Clear();
     }
+
+    public List<Actor> GetCharacterList()
+    {
+        return m_lstCharacterList;
+    }
 }

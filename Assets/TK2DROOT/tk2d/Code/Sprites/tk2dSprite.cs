@@ -261,12 +261,12 @@ public class tk2dSprite : tk2dBaseSprite
             if (sprite.bodyColliderVertices.Length != 0)
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawWireCube(Vector3.Scale(sprite.bodyColliderVertices[0], _scale), Vector3.Scale(sprite.bodyColliderVertices[1], _scale));
+                //Gizmos.DrawWireCube(Vector3.Scale(sprite.bodyColliderVertices[0], _scale), Vector3.Scale(sprite.bodyColliderVertices[1], _scale));
             }
             if (sprite.attackColliderVertices.Length != 0)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireCube(Vector3.Scale(sprite.attackColliderVertices[0], _scale), Vector3.Scale(sprite.attackColliderVertices[1], _scale));
+                //Gizmos.DrawWireCube(Vector3.Scale(sprite.attackColliderVertices[0], _scale), Vector3.Scale(sprite.attackColliderVertices[1], _scale));
             }
             Gizmos.matrix = Matrix4x4.identity;
         }

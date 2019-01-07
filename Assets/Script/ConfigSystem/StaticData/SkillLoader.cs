@@ -19,6 +19,7 @@ namespace Game.Config
             public float MoveSpeed; // 动作位移速度
             public float MoveFriction; // 位移摩擦阻力
             public uint EarlyEndFramIndex; // 提前结束帧序号
+            public uint AttackFramIndex; // 攻击判定帧序号
         }
 
         public List<Data> datas = new List<Data>();

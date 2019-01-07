@@ -18,6 +18,7 @@ public class Actor : Entity
     private bool m_bCanAttack;
     private bool m_bCanSkill;
 
+    public Bounds m_attackBounds;
     public bool CanMove
     {
         get

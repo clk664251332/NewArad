@@ -6,6 +6,7 @@ using Game.Config;
 public class AnimationAbility : BaseAbility
 {
     private tk2dSprite m_skinSprite;
+    private tk2dSprite m_weaponSprite;
     private tk2dSpriteAnimator m_tk2dSpriteAnimator;
     public Transform m_animationTrans;
 
@@ -276,6 +277,7 @@ public class AnimationAbility : BaseAbility
             //weapon_1Sprite.SortingOrder = 8;
             weapon_1Sprite.SortingLevel = 2;
 
+            m_weaponSprite = weapon_1Sprite;
             m_lstPartSprite.Add(weapon_1Sprite);
         }
 
@@ -301,6 +303,10 @@ public class AnimationAbility : BaseAbility
         {
             m_lstPartSprite[i].SetSprite(m_skinSprite.spriteId);
             m_lstPartSprite[i].SortingOrder = 600 - (int)m_owner.Transform.position.y + m_lstPartSprite[i].SortingLevel;
+
+            var bounds= m_weaponSprite.GetBounds();
+            Bounds newbounds = new Bounds(bounds.center + m_owner.Transform.position, bounds.extents * 4);
+            m_owner.m_attackBounds = newbounds;
         }
     }
 }
