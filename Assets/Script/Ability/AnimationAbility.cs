@@ -97,7 +97,8 @@ public class AnimationAbility : BaseAbility
             var skinSprite = Common.GetOrAddComponent<tk2dSprite>(skinObj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             skinSprite.SetSprite(tk2DSpriteCollectionData, 0);
-            skinSprite.SortingOrder = 0;
+            //skinSprite.SortingOrder = 0;
+            skinSprite.SortingLevel = 0;
 
             m_lstPartSprite.Add(skinSprite);
         }
@@ -112,7 +113,8 @@ public class AnimationAbility : BaseAbility
             var coat_1Sprite = Common.GetOrAddComponent<tk2dSprite>(coat_1Obj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             coat_1Sprite.SetSprite(tk2DSpriteCollectionData, 0);
-            coat_1Sprite.SortingOrder = 1;
+            //coat_1Sprite.SortingOrder = 1;
+            coat_1Sprite.SortingLevel = 1;
 
             m_lstPartSprite.Add(coat_1Sprite);
         }
@@ -127,7 +129,8 @@ public class AnimationAbility : BaseAbility
             var coat_2Sprite = Common.GetOrAddComponent<tk2dSprite>(coat_2Obj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             coat_2Sprite.SetSprite(tk2DSpriteCollectionData, 0);
-            coat_2Sprite.SortingOrder = 1;
+            //coat_2Sprite.SortingOrder = 1;
+            coat_2Sprite.SortingLevel = 1;
 
             m_lstPartSprite.Add(coat_2Sprite);
         }
@@ -142,7 +145,8 @@ public class AnimationAbility : BaseAbility
             var chestSprite = Common.GetOrAddComponent<tk2dSprite>(chestObj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             chestSprite.SetSprite(tk2DSpriteCollectionData, 0);
-            chestSprite.SortingOrder = 2;
+            //chestSprite.SortingOrder = 2;
+            chestSprite.SortingLevel = 1;
 
             m_lstPartSprite.Add(chestSprite);
         }
@@ -157,7 +161,8 @@ public class AnimationAbility : BaseAbility
             var hairSprite = Common.GetOrAddComponent<tk2dSprite>(hairObj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             hairSprite.SetSprite(tk2DSpriteCollectionData, 0);
-            hairSprite.SortingOrder = 3;
+            //hairSprite.SortingOrder = 3;
+            hairSprite.SortingLevel = 1;
 
             m_lstPartSprite.Add(hairSprite);
         }
@@ -172,7 +177,8 @@ public class AnimationAbility : BaseAbility
             var capSprite = Common.GetOrAddComponent<tk2dSprite>(capObj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             capSprite.SetSprite(tk2DSpriteCollectionData, 0);
-            capSprite.SortingOrder = 4;
+            //capSprite.SortingOrder = 4;
+            capSprite.SortingLevel = 2;
 
             m_lstPartSprite.Add(capSprite);
         }
@@ -187,7 +193,8 @@ public class AnimationAbility : BaseAbility
             var pant_1Sprite = Common.GetOrAddComponent<tk2dSprite>(pant_1Obj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             pant_1Sprite.SetSprite(tk2DSpriteCollectionData, 0);
-            pant_1Sprite.SortingOrder = 5;
+            //pant_1Sprite.SortingOrder = 5;
+            pant_1Sprite.SortingLevel = 1;
 
             m_lstPartSprite.Add(pant_1Sprite);
         }
@@ -202,7 +209,8 @@ public class AnimationAbility : BaseAbility
             var pant_2Sprite = Common.GetOrAddComponent<tk2dSprite>(pant_2Obj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             pant_2Sprite.SetSprite(tk2DSpriteCollectionData, 0);
-            pant_2Sprite.SortingOrder = 5;
+            //pant_2Sprite.SortingOrder = 5;
+            pant_2Sprite.SortingLevel = 1;
 
             m_lstPartSprite.Add(pant_2Sprite);
         }
@@ -217,7 +225,8 @@ public class AnimationAbility : BaseAbility
             var shoes_1Sprite = Common.GetOrAddComponent<tk2dSprite>(shoes_1Obj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             shoes_1Sprite.SetSprite(tk2DSpriteCollectionData, 0);
-            shoes_1Sprite.SortingOrder = 6;
+            //shoes_1Sprite.SortingOrder = 6;
+            shoes_1Sprite.SortingLevel = 1;
 
             m_lstPartSprite.Add(shoes_1Sprite);
         }
@@ -232,7 +241,8 @@ public class AnimationAbility : BaseAbility
             var shoes_2Sprite = Common.GetOrAddComponent<tk2dSprite>(shoes_2Obj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             shoes_2Sprite.SetSprite(tk2DSpriteCollectionData, 0);
-            shoes_2Sprite.SortingOrder = 6;
+            //shoes_2Sprite.SortingOrder = 6;
+            shoes_2Sprite.SortingLevel = 1;
 
             m_lstPartSprite.Add(shoes_2Sprite);
         }
@@ -247,7 +257,8 @@ public class AnimationAbility : BaseAbility
             var beltSprite = Common.GetOrAddComponent<tk2dSprite>(beltObj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             beltSprite.SetSprite(tk2DSpriteCollectionData, 0);
-            beltSprite.SortingOrder = 7;
+            //beltSprite.SortingOrder = 7;
+            beltSprite.SortingLevel = 2;
 
             m_lstPartSprite.Add(beltSprite);
         }
@@ -262,7 +273,8 @@ public class AnimationAbility : BaseAbility
             var weapon_1Sprite = Common.GetOrAddComponent<tk2dSprite>(weapon_1Obj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             weapon_1Sprite.SetSprite(tk2DSpriteCollectionData, 0);
-            weapon_1Sprite.SortingOrder = 8;
+            //weapon_1Sprite.SortingOrder = 8;
+            weapon_1Sprite.SortingLevel = 2;
 
             m_lstPartSprite.Add(weapon_1Sprite);
         }
@@ -277,7 +289,8 @@ public class AnimationAbility : BaseAbility
             var weapon_2Sprite = Common.GetOrAddComponent<tk2dSprite>(weapon_2Obj);
             tk2dSpriteCollectionData tk2DSpriteCollectionData = tk2dSystem.LoadResourceByName<tk2dSpriteCollectionData>(partData.CollectionName);
             weapon_2Sprite.SetSprite(tk2DSpriteCollectionData, 0);
-            weapon_2Sprite.SortingOrder = 8;
+            //weapon_2Sprite.SortingOrder = 8;
+            weapon_2Sprite.SortingLevel = 2;
 
             m_lstPartSprite.Add(weapon_2Sprite);
         }
@@ -287,6 +300,7 @@ public class AnimationAbility : BaseAbility
         for (int i = 0; i < m_lstPartSprite.Count; i++)
         {
             m_lstPartSprite[i].SetSprite(m_skinSprite.spriteId);
+            m_lstPartSprite[i].SortingOrder = 600 - (int)m_owner.Transform.position.y + m_lstPartSprite[i].SortingLevel;
         }
     }
 }

@@ -93,6 +93,7 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 			collectionInst = collection.inst;
 	}
 
+    private int _sortingLevel;
 	/// <summary>
 	/// Gets or sets the color.
 	/// </summary>
@@ -524,10 +525,23 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 		}
 	}
 
-	/// <summary>
-	/// Used for sprite resizing in Editor, and UILayout.
-	/// </summary>
-	public virtual void ReshapeBounds(Vector3 dMin, Vector3 dMax) {
+    public int SortingLevel
+    {
+        get
+        {
+            return _sortingLevel;
+        }
+
+        set
+        {
+            _sortingLevel = value;
+        }
+    }
+
+    /// <summary>
+    /// Used for sprite resizing in Editor, and UILayout.
+    /// </summary>
+    public virtual void ReshapeBounds(Vector3 dMin, Vector3 dMax) {
 		;
 	}
 
