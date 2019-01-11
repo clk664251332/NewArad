@@ -7,6 +7,8 @@ using Game.Config;
 public class CharacterManager : SingletonObject<CharacterManager>
 {
     protected List<Actor> m_lstCharacterList = new List<Actor>();
+    //存储物体TransForm组件的ID与Actor的映射，便于后面查找
+    public Dictionary<int, Actor> m_dicActors = new Dictionary<int, Actor>();
 
     public  void Initialize()
     {
@@ -63,6 +65,7 @@ public class CharacterManager : SingletonObject<CharacterManager>
         }
 
         m_lstCharacterList.Clear();
+        m_dicActors.Clear();
     }
 
     public List<Actor> GetCharacterList()

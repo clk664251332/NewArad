@@ -11,10 +11,24 @@ public class tk2dSpriteAnimator : MonoBehaviour
 	[SerializeField] tk2dSpriteAnimation library;
 	[SerializeField] int defaultClipId = 0;
 
-	/// <summary>
-	/// Interface option to play the animation automatically when instantiated / game is started. Useful for background looping animations.
-	/// </summary>
-	public bool playAutomatically = false;
+    private int _currentSpriteId;
+    public int CurrentSpriteId
+    {
+        get
+        {
+            return _currentSpriteId;
+        }
+
+        set
+        {
+            _currentSpriteId = value;
+        }
+    }
+
+    /// <summary>
+    /// Interface option to play the animation automatically when instantiated / game is started. Useful for background looping animations.
+    /// </summary>
+    public bool playAutomatically = false;
 	
 	// This is now an int so we'll be able to or bitmasks
 	static State globalState = 0;
@@ -113,9 +127,10 @@ public class tk2dSpriteAnimator : MonoBehaviour
 	State state = State.Init; // init state. Do not use elsewhere
 	
 	void OnEnable() {
-		if (Sprite == null) {
-			enabled = false;
-		}
+        //if (Sprite == null)
+        //{
+        //    enabled = false;
+        //}
 	}
 
 	void Start()
@@ -134,7 +149,7 @@ public class tk2dSpriteAnimator : MonoBehaviour
 			if (_sprite == null) {
 				_sprite = GetComponent<tk2dBaseSprite>();
 				if (_sprite == null) {
-					Debug.LogError("Sprite not found attached to tk2dSpriteAnimator.");
+					//Debug.LogError("Sprite not found attached to tk2dSpriteAnimator.");
 				}
 			}
 			return _sprite;
@@ -701,7 +716,7 @@ public class tk2dSpriteAnimator : MonoBehaviour
 		if (previousFrame != currFrame)
 		{
 			SetSprite( currentClip.frames[currFrame].spriteCollection, currentClip.frames[currFrame].spriteId );
-			previousFrame = currFrame;
+            previousFrame = currFrame;
 		}
 	}
 	
@@ -736,6 +751,7 @@ public class tk2dSpriteAnimator : MonoBehaviour
 	}
 
 	public virtual void SetSprite(tk2dSpriteCollectionData spriteCollection, int spriteId) {
+        _currentSpriteId = spriteId;
         if (Sprite == null) return;
         Sprite.SetSprite(spriteCollection, spriteId);
 	}

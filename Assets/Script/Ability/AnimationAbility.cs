@@ -5,16 +5,11 @@ using Game.Config;
 
 public class AnimationAbility : BaseAbility
 {
-    private tk2dSprite m_skinSprite;
     private tk2dSprite m_weaponSprite;
     private tk2dSpriteAnimator m_tk2dSpriteAnimator;
     public Transform m_animationTrans;
 
     private List<tk2dSprite> m_lstPartSprite = new List<tk2dSprite>();
-    public tk2dSprite GetTk2dSprite()
-    {
-        return m_skinSprite;
-    }
 
     public tk2dSpriteAnimator GetTk2dSpriteAnimator()
     {
@@ -40,7 +35,6 @@ public class AnimationAbility : BaseAbility
         go.name = "AnimationAbility";
         m_animationTrans = go.transform;
 
-        m_skinSprite = go.GetComponent<tk2dSprite>();
         m_tk2dSpriteAnimator = go.GetComponent<tk2dSpriteAnimator>();
 
         var fashionData = ConfigManager.Instance.GetData<FashionLoader, FashionLoader.Data>(m_owner.FashionConfigId);
@@ -301,7 +295,8 @@ public class AnimationAbility : BaseAbility
     {
         for (int i = 0; i < m_lstPartSprite.Count; i++)
         {
-            m_lstPartSprite[i].SetSprite(m_skinSprite.spriteId);
+            m_lstPartSprite[i].SetSprite(m_tk2dSpriteAnimator.CurrentSpriteId);
+            
             m_lstPartSprite[i].SortingOrder = 600 - (int)m_owner.Transform.position.y + m_lstPartSprite[i].SortingLevel;
 
             var bounds= m_weaponSprite.GetBounds();

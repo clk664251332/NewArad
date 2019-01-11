@@ -212,6 +212,8 @@ public class Actor : Entity
         {
             m_transform.parent = objGroup.transform;
         }
+
+        CharacterManager.Instance.m_dicActors.Add(m_transform.GetInstanceID(), this);
     }
 
     public virtual void AddAbility()
@@ -282,6 +284,11 @@ public class Actor : Entity
     public BaseStateManager GetStateMgr()
     {
         return m_stateMgr;
+    }
+
+    public void BeHit(Actor attackActor)
+    {
+        m_stateMgr.EnterState(EActionState.Behit);
     }
 
     public override string ToString()

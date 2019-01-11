@@ -57,19 +57,22 @@ public abstract class BaseBattleState : BaseState
             }
         }
         //碰撞检测
-        if(m_tk2DSpriteAnimator.CurrentFrame == m_skillData.AttackFramIndex)
+        if (m_tk2DSpriteAnimator.CurrentFrame == m_skillData.AttackFramIndex && m_bCanHit)
         {
             var coliders = Physics2D.OverlapBoxAll(m_owner.m_attackBounds.center, m_owner.m_attackBounds.extents, 0);
-
             for (int i = 0; i < coliders.Length; i++)
             {
-                if (coliders[i].CompareTag("Animator") && m_bCanHit)
+                int transId = coliders[i].transform.parent.parent.GetInstanceID();
+
+                Actor actor;
+                CharacterManager.Instance.m_dicActors.TryGetValue(transId, out actor);
+                if (actor != null && actor is Hero == false)
                 {
-                    GameObject actorObj = coliders[i].transform.parent.gameObject;
-                    Debug.Log(actorObj.name);
-                    m_bCanHit = false;
+                    actor.BeHit(m_owner);
                 }
             }
+
+            m_bCanHit = false;
         }
     }
 

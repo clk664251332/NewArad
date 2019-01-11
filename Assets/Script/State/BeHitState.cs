@@ -12,7 +12,7 @@ public class BeHitState : BaseState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
-        int randomIndex = Random.Range(1, 2);
+        int randomIndex = Random.Range(1, 3);
         m_tk2DSpriteAnimator.Play("Behit" + randomIndex.ToString());
     }
 
@@ -24,7 +24,6 @@ public class BeHitState : BaseState
     public override void OnAnimationComplete(tk2dSpriteAnimator animator, tk2dSpriteAnimationClip animationClip)
     {
         base.OnAnimationComplete(animator, animationClip);
-
         m_stateManager.EnterState(EActionState.Idle);
     }
 
