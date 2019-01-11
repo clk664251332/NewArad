@@ -11,20 +11,20 @@ public class RunState : BaseMovementState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
-        SingletonObject<Hero>.Instance.IsRun = true;
+        m_owner.IsRun = true;
         m_tk2DSpriteAnimator.Play("Run");
     }
 
     public override void BreakState(EActionState eState)
     {
         base.BreakState(eState);
-        SingletonObject<Hero>.Instance.IsRun = false;
+        m_owner.IsRun = false;
     }
 
     public override void OnUpdate()
     {
         base.OnUpdate();
-        if (Input.GetKeyDown(KeyCode.X))
+        if (m_owner is Hero && Input.GetKeyDown(KeyCode.X))
         {
             m_stateManager.EnterState(EActionState.RunAttack);
         }

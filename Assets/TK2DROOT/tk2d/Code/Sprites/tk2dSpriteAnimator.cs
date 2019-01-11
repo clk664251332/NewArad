@@ -736,7 +736,8 @@ public class tk2dSpriteAnimator : MonoBehaviour
 	}
 
 	public virtual void SetSprite(tk2dSpriteCollectionData spriteCollection, int spriteId) {
-		Sprite.SetSprite(spriteCollection, spriteId);
+        if (Sprite == null) return;
+        Sprite.SetSprite(spriteCollection, spriteId);
 	}
 
 #if UNITY_EDITOR

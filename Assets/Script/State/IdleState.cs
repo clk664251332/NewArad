@@ -12,7 +12,7 @@ public class IdleState : BaseMovementState
     {
         base.EnterState(eState);
         m_tk2DSpriteAnimator.Play("Idle");
-        SingletonObject<Hero>.Instance.IsJump = false;
+        m_owner.IsJump = false;
     }
 
     public override void BreakState(EActionState eState)

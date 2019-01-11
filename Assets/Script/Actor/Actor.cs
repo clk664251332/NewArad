@@ -7,6 +7,7 @@ public class Actor : Entity
     private Transform m_transform = null;
     private Vector3 m_position = Vector3.zero;
     protected AbilityManager m_AbilityManager;
+    protected BaseStateManager m_stateMgr;
     public ActorEventHandler m_actorEventHandler;
     private int m_direction = 1;
     private uint m_fashionConfigId;
@@ -17,6 +18,9 @@ public class Actor : Entity
     private bool m_bCanJump;
     private bool m_bCanAttack;
     private bool m_bCanSkill;
+
+    private bool m_bIsRun = false;
+    private bool m_bIsJump = false;
 
     public Bounds m_attackBounds;
     public bool CanMove
@@ -68,6 +72,32 @@ public class Actor : Entity
         set
         {
             m_bCanSkill = value;
+        }
+    }
+
+    public bool IsRun
+    {
+        get
+        {
+            return m_bIsRun;
+        }
+
+        set
+        {
+            m_bIsRun = value;
+        }
+    }
+
+    public bool IsJump
+    {
+        get
+        {
+            return m_bIsJump;
+        }
+
+        set
+        {
+            m_bIsJump = value;
         }
     }
 
@@ -247,5 +277,15 @@ public class Actor : Entity
     {
         AttrAbility attrAbility = GetAbility<AttrAbility>();
         return attrAbility.GetAttr(eActorAttr);
+    }
+
+    public BaseStateManager GetStateMgr()
+    {
+        return m_stateMgr;
+    }
+
+    public override string ToString()
+    {
+        return Name +":";
     }
 }

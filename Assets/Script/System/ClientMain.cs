@@ -43,12 +43,18 @@ public class ClientMain : SingletonBehaviour<ClientMain>
 
     public void OnGUI()
     {
-        EActionState state = SingletonObject<Hero>.Instance.GetStateMgr().GetCurrActionState();
-        Vector2 velocity = SingletonObject<Hero>.Instance.GetAbility<HeroInputAbility>().Velocity;
+        //EActionState state = SingletonObject<Hero>.Instance.GetStateMgr().GetCurrActionState();
+        //Vector2 velocity = SingletonObject<Hero>.Instance.GetAbility<HeroInputAbility>().Velocity;
 
-        GUILayout.BeginVertical();
-        GUI.Label(new Rect(30, 10, 200, 200), "状态："+state.ToString());
-        GUI.Label(new Rect(30, 30, 200, 200), "速度:" + velocity.ToString());
+        //GUILayout.BeginVertical();
+        //GUI.Label(new Rect(30, 10, 200, 200), "状态："+state.ToString());
+        //GUI.Label(new Rect(30, 30, 200, 200), "速度:" + velocity.ToString());
+
+        var characterList = CharacterManager.Instance.GetCharacterList();
+        for (int i = 0; i < characterList.Count; i++)
+        {
+            GUI.Label(new Rect(30, i * 15, 300, 200), characterList[i].ToString());
+        }
     }
 
     public void OnDrawGizmos()

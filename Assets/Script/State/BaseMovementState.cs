@@ -23,20 +23,24 @@ public abstract class BaseMovementState : BaseState
     public override void OnUpdate()
     {
         base.OnUpdate();
-        if (Input.GetKey(KeyCode.X) && m_owner.CanAttack && SingletonObject<Hero>.Instance.IsRun == false)
+        if(m_owner is Hero)
         {
-            m_stateManager.EnterState(EActionState.Attack1);
-        }
-        if(Input.GetKeyDown(KeyCode.C) && SingletonObject<Hero>.Instance.CanJump == true)
-        {
-            m_stateManager.EnterState(EActionState.Jump_Prepare);
+            if (Input.GetKey(KeyCode.X) && m_owner.CanAttack && m_owner.IsRun == false)
+            {
+                m_stateManager.EnterState(EActionState.Attack1);
+            }
+            if (Input.GetKeyDown(KeyCode.C) && m_owner.CanJump == true)
+            {
+                m_stateManager.EnterState(EActionState.Jump_Prepare);
+            }
         }
     }
 
     public override void OnFixedUpdate()
     {
         base.OnFixedUpdate();
-        m_inputAbility.InputLogic();
+        if (m_inputAbility != null)
+            m_inputAbility.InputLogic();
     }
 
     public override void BreakState(EActionState eState)

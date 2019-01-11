@@ -13,15 +13,18 @@ public class Attack3State : BaseBattleState
         base.EnterState(eState);
         m_tk2DSpriteAnimator.ClipFps = m_owner.GetAttr(EActorAttr.AttackSpeed).Value;
 
-        if (Input.GetAxisRaw("Horizontal") > 0)
+        if (m_owner is Hero)
         {
-            m_owner.Direction = 1;
-            m_fAttackMoveSpeed *= 4f;
-        }
-        else if (Input.GetAxisRaw("Horizontal") < 0)
-        {
-            m_owner.Direction = -1;
-            m_fAttackMoveSpeed *= 4f;
+            if (Input.GetAxisRaw("Horizontal") > 0)
+            {
+                m_owner.Direction = 1;
+                m_fAttackMoveSpeed *= 4f;
+            }
+            else if (Input.GetAxisRaw("Horizontal") < 0)
+            {
+                m_owner.Direction = -1;
+                m_fAttackMoveSpeed *= 4f;
+            }
         }
     }
 

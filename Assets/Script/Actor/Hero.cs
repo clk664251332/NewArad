@@ -4,42 +4,12 @@ using UnityEngine;
 
 public class Hero : Actor
 {
-    protected StateManager m_stateMgr;
     protected SkillManager m_skillMgr;
     //protected BuffManager m_buffMgr;
-    //protected SkillManager m_skillMgr;
-    private bool m_bIsRun = false;
-    private bool m_bIsJump = false;
-
-    public bool IsRun
-    {
-        get
-        {
-            return m_bIsRun;
-        }
-
-        set
-        {
-            m_bIsRun = value;
-        }
-    }
-
-    public bool IsJump
-    {
-        get
-        {
-            return m_bIsJump;
-        }
-
-        set
-        {
-            m_bIsJump = value;
-        }
-    }
 
     public Hero() : base()
     {
-        m_stateMgr = new StateManager(this as Actor);
+        m_stateMgr = new PlayerStateManager(this as Actor);
         m_skillMgr = new SkillManager(this as Actor);
     }
 
@@ -75,13 +45,13 @@ public class Hero : Actor
         m_skillMgr.Release();
     }
 
-    public StateManager GetStateMgr()
-    {
-        return m_stateMgr;
-    }
-
     public SkillManager GetSkillMgr()
     {
         return m_skillMgr;
+    }
+
+    public override string ToString()
+    {
+        return base.ToString() + " 状态---" + m_stateMgr.GetCurrActionState().ToString();
     }
 }

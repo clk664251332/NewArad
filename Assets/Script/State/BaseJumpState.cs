@@ -24,7 +24,7 @@ public class BaseJumpState : BaseMovementState
         m_owner.CanJump = false;
         m_owner.CanAttack = false;
         m_owner.CanSkill = false;
-        SingletonObject<Hero>.Instance.IsJump = true;
+        m_owner.IsJump = true;
 
         if (m_animationTrans == null)
             m_animationTrans = m_owner.GetAbility<AnimationAbility>().m_animationTrans;

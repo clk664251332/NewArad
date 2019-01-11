@@ -11,7 +11,7 @@ public abstract class BaseState
     //protected float m_fStartTime = 0;
     //protected float m_fActionSpeed = 1.0f;
     protected tk2dSpriteAnimator m_tk2DSpriteAnimator;
-    protected StateManager m_stateManager;
+    protected BaseStateManager m_stateManager;
     protected HeroInputAbility m_inputAbility;
     
 

@@ -552,14 +552,15 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 	protected virtual void UpdateCollider()
 	{
 		tk2dSpriteDefinition sprite = collectionInst.spriteDefinitions[_spriteId];
-
-		if (sprite.physicsEngine == tk2dSpriteDefinition.PhysicsEngine.Physics3D) {
+        
+        if (sprite.physicsEngine == tk2dSpriteDefinition.PhysicsEngine.Physics3D) {
 			if (sprite.colliderType == tk2dSpriteDefinition.ColliderType.Box && boxCollider == null)
 			{
 				// Has the user created a box collider?
 				boxCollider = gameObject.GetComponent<BoxCollider>();
-				
-				if (boxCollider == null)
+                tk2dSpriteAnimator animator = gameObject.GetComponent<tk2dSpriteAnimator>();
+
+                if (boxCollider == null && animator == null)
 				{
 					// create box collider at runtime. this won't get removed from the object
 					boxCollider = gameObject.AddComponent<BoxCollider>();
@@ -593,10 +594,12 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 #if !(UNITY_3_5 || UNITY_4_0 || UNITY_4_0_1 || UNITY_4_1 || UNITY_4_2)
 				if (sprite.colliderType == tk2dSpriteDefinition.ColliderType.Box)
 				{
-					if (boxCollider2D == null) {
+                
+                if (boxCollider2D == null) {
 						// Has the user created a box collider?
 						boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
-						if (boxCollider2D == null)
+                    tk2dSpriteAnimator animator = gameObject.GetComponent<tk2dSpriteAnimator>();
+                    if (boxCollider2D == null && animator == null)
 						{
 							// create box collider at runtime. this won't get removed from the object
 							boxCollider2D = gameObject.AddComponent<BoxCollider2D>();
@@ -620,15 +623,19 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 						}
 					}
 
-					if (!boxCollider2D.enabled) {
-						boxCollider2D.enabled = true;
-					}
+                if (boxCollider2D != null && !boxCollider2D.enabled)
+                {
+                    boxCollider2D.enabled = true;
+                }
 #if (UNITY_3_5 || UNITY_4_0 || UNITY_4_1 || UNITY_4_2 || UNITY_4_3 || UNITY_4_4 || UNITY_4_5 || UNITY_4_6 || UNITY_4_7 || UNITY_4_8 || UNITY_4_9)
-					boxCollider2D.center = new Vector2(sprite.colliderVertices[0].x * _scale.x, sprite.colliderVertices[0].y * _scale.y);
+				if(boxCollider2D != null)	
+                boxCollider2D.center = new Vector2(sprite.colliderVertices[0].x * _scale.x, sprite.colliderVertices[0].y * _scale.y);
 #else
-					boxCollider2D.offset = new Vector2(sprite.bodyColliderVertices[0].x * _scale.x, sprite.bodyColliderVertices[0].y * _scale.y);
+                if (boxCollider2D != null)
+                    boxCollider2D.offset = new Vector2(sprite.bodyColliderVertices[0].x * _scale.x, sprite.bodyColliderVertices[0].y * _scale.y);
 #endif
-					boxCollider2D.size = new Vector2(Mathf.Abs(2 * sprite.bodyColliderVertices[1].x * _scale.x), Mathf.Abs(2 * sprite.bodyColliderVertices[1].y * _scale.y));
+                if (boxCollider2D != null)
+                    boxCollider2D.size = new Vector2(Mathf.Abs(2 * sprite.bodyColliderVertices[1].x * _scale.x), Mathf.Abs(2 * sprite.bodyColliderVertices[1].y * _scale.y));
 				}
 				else if (sprite.colliderType == tk2dSpriteDefinition.ColliderType.Mesh)
 				{
@@ -749,7 +756,8 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 			
 			if ((NeedBoxCollider() || sprite.colliderType == tk2dSpriteDefinition.ColliderType.Box) && meshCollider == null)
 			{
-				if (boxCollider == null)
+                tk2dSpriteAnimator animator = gameObject.GetComponent<tk2dSpriteAnimator>();
+                if (boxCollider == null && animator == null)
 				{
 					boxCollider = gameObject.AddComponent<BoxCollider>();
 				}
@@ -965,7 +973,9 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 			}
 #endif
 			boxCollider = GetComponent<BoxCollider>();
-			if (boxCollider == null) {
+            tk2dSpriteAnimator animator = gameObject.GetComponent<tk2dSpriteAnimator>();
+
+            if (boxCollider == null && animator == null) {
 				boxCollider = gameObject.AddComponent<BoxCollider>();
 			}
 		}
@@ -976,7 +986,9 @@ public abstract class tk2dBaseSprite : MonoBehaviour, tk2dRuntime.ISpriteCollect
 				Object.DestroyImmediate(boxCollider, true);
 			}
 			boxCollider2D = GetComponent<BoxCollider2D>();
-			if (boxCollider2D == null) {
+            tk2dSpriteAnimator animator = gameObject.GetComponent<tk2dSpriteAnimator>();
+
+            if (boxCollider2D == null && animator == null) {
 				boxCollider2D = gameObject.AddComponent<BoxCollider2D>();
 			}
 #endif

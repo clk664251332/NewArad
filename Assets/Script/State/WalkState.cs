@@ -11,7 +11,7 @@ public class WalkState : BaseMovementState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
-        SingletonObject<Hero>.Instance.IsRun = false;
+        m_owner.IsRun = false;
         m_tk2DSpriteAnimator.Play("Walk");
     }
 
@@ -22,6 +22,6 @@ public class WalkState : BaseMovementState
 
     public override void OnUpdate()
     {
-        base.OnUpdate();
+        base.OnUpdate();    
     }
 }

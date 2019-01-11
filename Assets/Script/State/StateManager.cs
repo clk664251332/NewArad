@@ -4,28 +4,15 @@ using UnityEngine;
 using Game.Config;
 using System;
 
-public class StateManager
+public class BaseStateManager
 {
-    private Actor m_owner;
-    private BaseState m_currState;
-    private List<BaseState> m_lstState = new List<BaseState>();
+    protected Actor m_owner;
+    protected BaseState m_currState;
+    protected List<BaseState> m_lstState = new List<BaseState>();
 
-    public StateManager(Actor actor)
+    public BaseStateManager(Actor actor)
     {
         m_owner = actor;
-
-        m_lstState.Add(new IdleState(actor));
-        m_lstState.Add(new JumpPrepareState(actor));
-        m_lstState.Add(new JumpUpState(actor));
-        m_lstState.Add(new JumpFallState(actor));
-        m_lstState.Add(new JumpDownState(actor));
-        m_lstState.Add(new RunState(actor));
-        m_lstState.Add(new WalkState(actor));
-        //m_lstState.Add(new SkillState(actor));
-        m_lstState.Add(new RunAttackState(actor));
-        m_lstState.Add(new Attack1State(actor));
-        m_lstState.Add(new Attack2State(actor));
-        m_lstState.Add(new Attack3State(actor));
     }
 
     public void EnterState(EActionState eState)
