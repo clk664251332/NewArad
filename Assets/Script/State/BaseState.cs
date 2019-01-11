@@ -40,7 +40,7 @@ public abstract class BaseState
             m_tk2DSpriteAnimator = m_owner.GetAbility<AnimationAbility>().GetTk2dSpriteAnimator();
 
         if (m_stateManager == null)
-            m_stateManager = SingletonObject<Hero>.Instance.GetStateManager();
+            m_stateManager = SingletonObject<Hero>.Instance.GetStateMgr();
 
         m_tk2DSpriteAnimator.AnimationCompleted = OnAnimationComplete;
     }

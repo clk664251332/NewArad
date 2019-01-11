@@ -5,6 +5,7 @@ using UnityEngine;
 public class Hero : Actor
 {
     protected StateManager m_stateMgr;
+    protected SkillManager m_skillMgr;
     //protected BuffManager m_buffMgr;
     //protected SkillManager m_skillMgr;
     private bool m_bIsRun = false;
@@ -39,6 +40,7 @@ public class Hero : Actor
     public Hero() : base()
     {
         m_stateMgr = new StateManager(this as Actor);
+        m_skillMgr = new SkillManager(this as Actor);
     }
 
     public override void AddAbility()
@@ -57,6 +59,7 @@ public class Hero : Actor
     {
         base.Update();
         m_stateMgr.Update();
+        m_skillMgr.Update();
     }
 
     public override void FixedUpdate()
@@ -68,6 +71,8 @@ public class Hero : Actor
     public override void Release()
     {
         base.Release();
+        m_stateMgr.Release();
+        m_skillMgr.Release();
     }
 
     public StateManager GetStateMgr()
@@ -75,8 +80,8 @@ public class Hero : Actor
         return m_stateMgr;
     }
 
-    public StateManager GetStateManager()
+    public SkillManager GetSkillMgr()
     {
-        return m_stateMgr;
+        return m_skillMgr;
     }
 }
