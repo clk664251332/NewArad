@@ -290,6 +290,9 @@ public class AnimationAbility : BaseAbility
 
             m_lstPartSprite.Add(weapon_2Sprite);
         }
+
+        GameObject effectObj = new GameObject("Effect");
+        effectObj.transform.parent = rootTrans;
     }
     private void UpdatePartSprite()
     {

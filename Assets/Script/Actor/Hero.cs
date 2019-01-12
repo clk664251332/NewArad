@@ -52,6 +52,6 @@ public class Hero : Actor
 
     public override string ToString()
     {
-        return base.ToString() + " 状态---" + m_stateMgr.GetCurrActionState().ToString() + "跳斩" + CanJumpAttack;
+        return base.ToString() + " 状态---" + m_stateMgr.GetCurrActionState().ToString();
     }
 }

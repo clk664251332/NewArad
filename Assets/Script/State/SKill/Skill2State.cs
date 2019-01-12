@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillState : BaseBattleState
+public class Skill2State : BaseSkillState
 {
-    public SkillState(Actor actor) : base(actor, EActionState.Skill1)
+    public Skill2State(Actor actor) : base(actor, EActionState.Skill2)
     {
 
     }
@@ -22,5 +22,10 @@ public class SkillState : BaseBattleState
     public override void OnUpdate()
     {
         base.OnUpdate();
+    }
+
+    public override void OnAnimationComplete(tk2dSpriteAnimator animator, tk2dSpriteAnimationClip animationClip)
+    {
+        base.OnAnimationComplete(animator, animationClip);
     }
 }

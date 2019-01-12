@@ -33,6 +33,10 @@ public abstract class BaseMovementState : BaseState
             {
                 m_stateManager.EnterState(EActionState.Jump_Prepare);
             }
+            if (Input.GetKeyDown(KeyCode.S) && m_owner.CanSkill)
+            {
+                m_stateManager.EnterState(EActionState.Skill2);
+            }
         }
     }
 
