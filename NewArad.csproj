@@ -134,6 +134,9 @@
     <Compile Include="Assets\Script\ConfigSystem\StaticData\ProfessionLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\ProfessionSkillLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\SkillLoader.cs" />
+    <Compile Include="Assets\Script\Skills\BuffSkill.cs" />
+    <Compile Include="Assets\Script\Skills\EffectSkill.cs" />
+    <Compile Include="Assets\Script\Skills\NormalSkill.cs" />
     <Compile Include="Assets\Script\Skills\SkillBase.cs" />
     <Compile Include="Assets\Script\Skills\SkillManager.cs" />
     <Compile Include="Assets\Script\State\Attack1State.cs" />
