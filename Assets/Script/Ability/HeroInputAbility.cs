@@ -12,6 +12,7 @@ public class HeroInputAbility : BaseAbility
     private Rigidbody2D m_rig2d;
     private Vector2 m_velocity = Vector2.zero;
     private float m_curSpeed = 100f;
+    private float m_jumpYMoveSpeed;
 
     private float m_walkSpeed;
     private float m_runSpeed;
@@ -80,6 +81,8 @@ public class HeroInputAbility : BaseAbility
         if (SingletonObject<Hero>.Instance.IsJump)
         {
             m_curSpeed = m_walkSpeed;
+            m_jumpYMoveSpeed = m_walkSpeed * 0.3f;
+            m_velocity = new Vector2(h * m_curSpeed, v * m_jumpYMoveSpeed);
             return;
         }
 

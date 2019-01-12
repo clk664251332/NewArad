@@ -49,7 +49,10 @@ public class JumpFallState : BaseJumpState
         {
             m_fOffset = 0;
             m_stateManager.EnterState(EActionState.Jump_Down);
-        } 
+        }
+
+        if (Input.GetKeyDown(KeyCode.X) && m_owner.CanJumpAttack)
+            m_stateManager.EnterState(EActionState.JumpAttack, new object[] { m_fV0, m_fOffset });
     }
 
     public override void Release()

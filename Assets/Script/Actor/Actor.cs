@@ -18,6 +18,7 @@ public class Actor : Entity
     private bool m_bCanJump;
     private bool m_bCanAttack;
     private bool m_bCanSkill;
+    private bool m_bCanJumpAttack;
 
     private bool m_bIsRun = false;
     private bool m_bIsJump = false;
@@ -185,6 +186,19 @@ public class Actor : Entity
         set
         {
             m_attrConfigId = value;
+        }
+    }
+
+    public bool CanJumpAttack
+    {
+        get
+        {
+            return m_bCanJumpAttack;
+        }
+
+        set
+        {
+            m_bCanJumpAttack = value;
         }
     }
 

@@ -19,5 +19,6 @@ public class PlayerStateManager : BaseStateManager
         m_lstState.Add(new Attack2State(actor));
         m_lstState.Add(new Attack3State(actor));
         m_lstState.Add(new BeHitState(actor));
+        m_lstState.Add(new JumpAttackState(actor));
     }
 }

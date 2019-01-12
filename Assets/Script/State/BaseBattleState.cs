@@ -155,6 +155,8 @@ public abstract class BaseBattleState : BaseState
             skillId = m_professionSkillLoaderData.Skill9Id;
         else if (eState == EActionState.RunAttack)
             skillId = m_professionSkillLoaderData.RunAttackId;
+        else if (eState == EActionState.JumpAttack)
+            skillId = m_professionSkillLoaderData.JumpAttackId;
         else
             skillId = 0;
     }

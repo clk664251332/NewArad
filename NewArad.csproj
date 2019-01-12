@@ -145,6 +145,7 @@
     <Compile Include="Assets\Script\State\BaseState.cs" />
     <Compile Include="Assets\Script\State\BeHitState.cs" />
     <Compile Include="Assets\Script\State\IdleState.cs" />
+    <Compile Include="Assets\Script\State\JumpAttackState.cs" />
     <Compile Include="Assets\Script\State\JumpDownState.cs" />
     <Compile Include="Assets\Script\State\JumpFallState.cs" />
     <Compile Include="Assets\Script\State\JumpPrepareState.cs" />

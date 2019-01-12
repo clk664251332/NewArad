@@ -18,6 +18,7 @@ namespace Game.Config
             public uint Attack3Id; // 普攻3
             public uint Attack4Id; // 普攻4
             public uint RunAttackId; // 冲刺
+            public uint JumpAttackId; // 跳斩
             public uint Skill1Id; // 技能1
             public uint Skill2Id; // 技能2
             public uint Skill3Id; // 技能3
