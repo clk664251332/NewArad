@@ -28,13 +28,13 @@ public class JumpUpState : BaseJumpState
     public override void EnterState(EActionState eState, params object[] paramList)
     {
         base.EnterState(eState, paramList);
-        m_owner.CanJumpAttack = true;
 
         m_tk2DSpriteAnimator.Play("Jump_Up");
         if (paramList.Length > 0)
         {
             m_fV0 = (float)paramList.GetValue(0);
             m_fOffset = (float)paramList.GetValue(1);
+            m_owner.CanJumpAttack = false;
         }
         m_fGravity = m_owner.GetAttr(EActorAttr.JumpGravity).Value;
     }

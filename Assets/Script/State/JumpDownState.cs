@@ -18,6 +18,7 @@ public class JumpDownState : BaseJumpState
     public override void EnterState(EActionState eState)
     {
         base.EnterState(eState);
+        m_owner.CanJumpAttack = false;
         m_tk2DSpriteAnimator.Play("Jump_Down");
     }
 
