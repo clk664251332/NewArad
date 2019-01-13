@@ -20,7 +20,10 @@ namespace Game.Config
             public float MoveFriction; // 位移摩擦阻力
             public uint EarlyEndFramIndex; // 提前结束帧序号
             public uint AttackFramIndex; // 攻击判定帧序号
+            public uint SkillType; // 技能类型1武器2特效3Buff
             public string FixedEffectId; // 技能固定特效Id
+            public string SkillEffectId; // 技能特效
+            public uint CreateSkillEffectFrame; // 释放技能特效帧Id
         }
 
         public List<Data> datas = new List<Data>();

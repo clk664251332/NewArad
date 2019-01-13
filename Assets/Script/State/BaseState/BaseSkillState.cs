@@ -31,10 +31,10 @@ public class BaseSkillState : BaseBattleState
 
         if (m_lstFixedEffectId == null)
         {
-            m_lstFixedEffectId = m_skillLoader.GetEffectIdList(m_skillData.Id);
+            m_lstFixedEffectId = m_skillLoader.GetFixedEffectIdList(m_skillData.Id);
         }
 
-        if (m_lstFixedEffectId.Count > 0)
+        if (m_lstFixedEffectId != null && m_lstFixedEffectId.Count > 0)
         {
             for (int i = 0; i < m_lstFixedEffectId.Count; i++)
             {

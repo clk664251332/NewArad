@@ -10,8 +10,11 @@ public abstract class BaseBattleState : BaseState
 
     private ProfessionSkillLoader.Data m_professionSkillLoaderData;
     protected SkillLoader.Data m_skillData;
+    protected uint m_nSkillId;
 
+    private List<uint> m_lstSkillEffectId;
     private bool m_bCanHit;
+    private bool m_bCanCreateEffect;
     public BaseBattleState(Actor actor, EActionState eState) : base(actor, eState)
     {
        
@@ -36,6 +39,8 @@ public abstract class BaseBattleState : BaseState
         m_tk2DSpriteAnimator.Play(m_skillData.ActionName);
         //暂时设定在Update中只造成一次伤害
         m_bCanHit = true;
+        m_bCanCreateEffect = true;
+        m_lstSkillEffectId = ConfigManager.Instance.GetLoader<SkillLoader>().GetSkillEffectIdList(m_nSkillId);
     }
 
     public override void OnUpdate()
@@ -73,6 +78,18 @@ public abstract class BaseBattleState : BaseState
             }
 
             m_bCanHit = false;
+        }
+        //创建技能特效
+        if (m_lstSkillEffectId != null && m_lstSkillEffectId.Count > 0 && m_skillData.CreateSkillEffectFrame != 0 && m_bCanCreateEffect)
+        {
+            if (m_tk2DSpriteAnimator.CurrentSpriteId == m_skillData.CreateSkillEffectFrame)
+            {
+                for (int i = 0; i < m_lstSkillEffectId.Count; i++)
+                {
+                    SkillEffectManager.Instance.CreatSkillEffect(m_lstSkillEffectId[i], m_owner);
+                }
+                m_bCanCreateEffect = false;
+            }
         }
     }
 
@@ -122,7 +139,10 @@ public abstract class BaseBattleState : BaseState
         GetSkillIdByState(m_eState, out skillId);
 
         if (skillId != 0 && m_skillData == null)
+        {
             m_skillData = ConfigManager.Instance.GetData<SkillLoader, SkillLoader.Data>(skillId);
+            m_nSkillId = skillId;
+        } 
     }
 
     private void GetSkillIdByState(EActionState eState, out uint skillId)
@@ -159,5 +179,12 @@ public abstract class BaseBattleState : BaseState
             skillId = m_professionSkillLoaderData.JumpAttackId;
         else
             skillId = 0;
+    }
+
+    //创建技能特效
+    public void CreatSkillEffect(uint effectId)
+    {
+        //Id--特效动画名字--创建特效物体对象--播放相应的动画
+        //Id--特效数量、起始点、速度、存在时间、碰撞检测、
     }
 }

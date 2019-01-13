@@ -14,12 +14,25 @@ namespace Game.Config
             }
         }
 
-        public List<uint> GetEffectIdList(uint uIndex)
+        public List<uint> GetFixedEffectIdList(uint uIndex)
         {
             string strTemp = this.GetData<SkillLoader.Data>(uIndex).FixedEffectId;
             List<uint> listTemp = new List<uint>();
 
             CommonHelper.TransStrToUintList(listTemp, strTemp, '~');
+            if (listTemp.Count == 1 && listTemp[0] == 0)
+                return null;
+            return listTemp;
+        }
+
+        public List<uint> GetSkillEffectIdList(uint uIndex)
+        {
+            string strTemp = this.GetData<SkillLoader.Data>(uIndex).SkillEffectId;
+            List<uint> listTemp = new List<uint>();
+
+            CommonHelper.TransStrToUintList(listTemp, strTemp, '~');
+            if (listTemp.Count == 1 && listTemp[0] == 0)
+                return null;
             return listTemp;
         }
     }

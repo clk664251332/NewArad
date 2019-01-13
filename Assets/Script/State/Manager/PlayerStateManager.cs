@@ -15,6 +15,7 @@ public class PlayerStateManager : BaseStateManager
         m_lstState.Add(new WalkState(actor));
         m_lstState.Add(new Skill1State(actor));
         m_lstState.Add(new Skill2State(actor));
+        m_lstState.Add(new Skill3State(actor));
         m_lstState.Add(new RunAttackState(actor));
         m_lstState.Add(new Attack1State(actor));
         m_lstState.Add(new Attack2State(actor));

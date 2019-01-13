@@ -117,6 +117,7 @@
     <Compile Include="Assets\Script\Actor\Hero.cs" />
     <Compile Include="Assets\Script\Actor\Monster.cs" />
     <Compile Include="Assets\Script\Actor\NPC.cs" />
+    <Compile Include="Assets\Script\Actor\SkillEffect.cs" />
     <Compile Include="Assets\Script\Attr\AttrData.cs" />
     <Compile Include="Assets\Script\Attr\AttrValue.cs" />
     <Compile Include="Assets\Script\Attr\AttributeNode.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Assets\Script\ConfigSystem\StaticData\ProfessionAttrLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\ProfessionLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\ProfessionSkillLoader.cs" />
+    <Compile Include="Assets\Script\ConfigSystem\StaticData\SkillEffectLoader.cs" />
     <Compile Include="Assets\Script\ConfigSystem\StaticData\SkillLoader.cs" />
     <Compile Include="Assets\Script\Skills\BuffSkill.cs" />
     <Compile Include="Assets\Script\Skills\EffectSkill.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="Assets\Script\State\Move\WalkState.cs" />
     <Compile Include="Assets\Script\State\SKill\Skill1State.cs" />
     <Compile Include="Assets\Script\State\SKill\Skill2State.cs" />
+    <Compile Include="Assets\Script\State\SKill\Skill3State.cs" />
     <Compile Include="Assets\Script\System\ActorEventHandler.cs" />
     <Compile Include="Assets\Script\System\BaseSystem.cs" />
     <Compile Include="Assets\Script\System\CharacterManager.cs" />
@@ -172,6 +175,7 @@
     <Compile Include="Assets\Script\System\SingletonBehaviour.cs" />
     <Compile Include="Assets\Script\System\SingletonInstances.cs" />
     <Compile Include="Assets\Script\System\SingletonObject.cs" />
+    <Compile Include="Assets\Script\System\SkillEffectManager.cs" />
     <Compile Include="Assets\Script\Utils\Common.cs" />
     <Compile Include="Assets\Script\Utils\Enum.cs" />
     <Compile Include="Assets\Script\Utils\GameObjectGroupHandler.cs" />

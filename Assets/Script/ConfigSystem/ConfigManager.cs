@@ -36,6 +36,7 @@ public class ConfigManager: SingletonObject<ConfigManager>
         m_dic.Add("SkillLoader.asset", typeof(SkillLoader));
         m_dic.Add("ProfessionAttrLoader.asset", typeof(ProfessionAttrLoader));
         m_dic.Add("FixedEffectLoader.asset", typeof(FixedEffectLoader));
+        m_dic.Add("SkillEffectLoader.asset", typeof(SkillEffectLoader));
     }
     private void LoadFile(string strPath)
     {

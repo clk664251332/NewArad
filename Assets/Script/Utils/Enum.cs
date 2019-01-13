@@ -77,3 +77,11 @@ public enum EActorAttr
     AttrEnd
 }
 
+public enum SkillType
+{
+    None,
+    WeaponType,//根据武器判定造成伤害
+    EffectType,//根据特效判定造成伤害
+    BuffType,//增加Buff的技能
+}
+

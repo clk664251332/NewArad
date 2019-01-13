@@ -28,6 +28,7 @@ public class ClientMain : SingletonBehaviour<ClientMain>
     {
         ConfigManager.Instance.Update();
         CharacterManager.Instance.Update();
+        SkillEffectManager.Instance.Update();
     }
 
     public void FixedUpdate()
