@@ -77,7 +77,7 @@ public enum EActorAttr
     AttrEnd
 }
 
-public enum SkillType
+public enum ESkillType
 {
     None,
     WeaponType,//根据武器判定造成伤害

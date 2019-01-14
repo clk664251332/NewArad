@@ -21,6 +21,14 @@ namespace Game.Config
             CommonHelper.TransToVector2(ref startPosOffset, strTemp, '~');
             return startPosOffset;
         }
+
+        public Vector2 GetCreatePosOffset(uint uIndex)
+        {
+            string strTemp = this.GetData<SkillEffectLoader.Data>(uIndex).CreatPosOffset;
+            Vector2 createPosOffset = Vector2.zero;
+            CommonHelper.TransToVector2(ref createPosOffset, strTemp, '~');
+            return createPosOffset;
+        }
     }
 
 }

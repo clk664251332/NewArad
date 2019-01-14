@@ -35,6 +35,12 @@ namespace Game.Config
                 return null;
             return listTemp;
         }
+
+        public ESkillType GetSKillType(uint uIndex)
+        {
+            uint nTemp = this.GetData<SkillLoader.Data>(uIndex).SkillType;
+            return (ESkillType)nTemp;
+        }
     }
 
 }

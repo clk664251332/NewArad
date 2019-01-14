@@ -3,32 +3,95 @@ using System.Collections.Generic;
 using UnityEngine;
 using Game.Config;
 
+public class SkillEffectCreator
+{
+    private Actor m_owner;
+    private SkillEffectLoader.Data m_skillEffectData;
+    private Vector2 m_startPosOffset;
+    private Vector2 m_createPosOffset;
+    private GameObject m_loadObj;
+    private Transform m_rootTrans;
+    private List<SkillEffect> m_lstSkillList = new List<SkillEffect>();
+
+    public SkillEffectCreator(uint id, Actor owner)
+    {
+        m_owner = owner;
+        m_skillEffectData = ConfigManager.Instance.GetData<SkillEffectLoader, SkillEffectLoader.Data>(id);
+        m_startPosOffset = ConfigManager.Instance.GetLoader<SkillEffectLoader>().GetStartPosOffset(id);
+        m_createPosOffset = ConfigManager.Instance.GetLoader<SkillEffectLoader>().GetCreatePosOffset(id);
+        m_loadObj = Resources.Load<GameObject>("Animator/" + m_skillEffectData.PrefabName);
+        GameObject go = new GameObject("SkillEffect_" + id);
+        m_rootTrans = go.transform;
+    }
+
+    public void CreateSkillEffect()
+    {
+        uint count = m_skillEffectData.Number;
+        if (count <= 0) return;
+
+        bool hasInit = count == m_lstSkillList.Count;
+
+        float startShowTime = 0;
+        Vector2 startPos = (Vector2)m_owner.Transform.position + m_startPosOffset;
+
+        for (int i = 0; i < count; i++)
+        {
+            if (!hasInit)
+            {
+                SkillEffect skillEffect = new SkillEffect(m_skillEffectData);
+                m_lstSkillList.Add(skillEffect);
+                skillEffect.Initialize(startShowTime, startPos, m_owner.Direction, m_loadObj, m_rootTrans);
+            }
+            else
+            {
+                m_lstSkillList[i].Initialize(startShowTime, startPos, m_owner.Direction, m_loadObj, m_rootTrans);
+            }
+
+            startShowTime += m_skillEffectData.CreatDeltaTime;
+            startPos += m_createPosOffset;
+        }
+    }
+
+    public void Update()
+    {
+        for (int i = 0; i < m_lstSkillList.Count; i++)
+        {
+            m_lstSkillList[i].Update();
+        }
+    }
+
+    public void Release()
+    {
+        for (int i = 0; i < m_lstSkillList.Count; i++)
+        {
+            m_lstSkillList[i].Release();
+        }
+    }
+}
+
 public class SkillEffect
 {
     private SkillEffectLoader.Data m_skillEffectData;
     private tk2dSprite m_tk2DSprite;
     private GameObject m_effectObj;
-    private Actor m_owner;
     private Rigidbody2D m_rig2d;
-    private float m_createTime;
+    private Vector2 m_velocity;
+    private float m_createTimeSave;
+    private float m_showTimeSave = -1;
     private tk2dSpriteAnimator m_tk2DSpriteAnimator;
-
-    private Vector2 m_startPosOffset;
-    public SkillEffect(uint id, Actor owner)
+    private float m_delayShowTimeDelta;
+    //public bool m_bEndLife;
+    public SkillEffect(SkillEffectLoader.Data skillEffectData)
     {
-        m_owner = owner;
-        m_skillEffectData = ConfigManager.Instance.GetData<SkillEffectLoader, SkillEffectLoader.Data>(id);
-        m_startPosOffset = ConfigManager.Instance.GetLoader<SkillEffectLoader>().GetStartPosOffset(id);
-        if (m_skillEffectData != null)
-            Initialize();
+        m_skillEffectData = skillEffectData;
     }
 
-    public void Initialize()
+    public void Initialize(float showTimeDelta, Vector2 startPos, int direction, GameObject loadObj, Transform rootTrans)
     {
         if (m_effectObj == null)
         {
-            GameObject loadEffectObj = Resources.Load<GameObject>("Animator/" + m_skillEffectData.PrefabName);
-            m_effectObj = Object.Instantiate(loadEffectObj, (Vector2)m_owner.Transform.position + m_startPosOffset, Quaternion.identity);
+            m_effectObj = Object.Instantiate(loadObj, startPos, Quaternion.identity);
+            m_effectObj.transform.parent = rootTrans;
         }
         if (m_tk2DSpriteAnimator == null)
         {
@@ -45,19 +108,32 @@ public class SkillEffect
             m_rig2d.bodyType = RigidbodyType2D.Kinematic;
         }
 
-        m_effectObj.SetActive(true);
-        m_effectObj.transform.position = m_owner.Transform.position;
-        m_tk2DSprite.FlipX = m_owner.Direction == 1 ? false : true;
+        m_tk2DSprite.FlipX = direction == 1 ? false : true;
         m_tk2DSpriteAnimator.Play(m_skillEffectData.AnimationName);
-        m_rig2d.velocity = new Vector2(m_owner.Direction * m_skillEffectData.Speed, 0);
-        m_createTime = Time.time;
+        m_velocity = new Vector2(direction * m_skillEffectData.Speed, 0);
+        m_createTimeSave = Time.time;
+        m_delayShowTimeDelta = showTimeDelta;
+        m_showTimeSave = m_createTimeSave + m_delayShowTimeDelta;
+        m_effectObj.transform.position = startPos;
+        m_effectObj.SetActive(false);
     }
 
     public void Update()
     {
         m_tk2DSprite.SortingOrder = 600 - (int)m_effectObj.transform.position.y + 4;
-        if (m_skillEffectData.LifeTime != 0 && Time.time - m_createTime > m_skillEffectData.LifeTime)
+
+        if (Time.time - m_createTimeSave >= m_delayShowTimeDelta)
+        {
+            m_effectObj.SetActive(true);
+            m_rig2d.velocity = m_velocity;
+            //m_bEndLife = false;
+        }
+
+        if (m_skillEffectData.LifeTime != 0 && m_showTimeSave != -1 && Time.time - m_showTimeSave > m_skillEffectData.LifeTime)
+        {
             m_effectObj.SetActive(false);
+            //m_bEndLife = true;
+        }    
     }
 
     public void Release()

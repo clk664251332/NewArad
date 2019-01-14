@@ -4,21 +4,22 @@ using UnityEngine;
 
 public class SkillEffectManager : SingletonObject<SkillEffectManager>
 {
-    private List<SkillEffect> m_lstSkillEffects = new List<SkillEffect>();
-    private Dictionary<uint, SkillEffect> m_dicSkillEffects = new Dictionary<uint, SkillEffect>();
+    private List<SkillEffectCreator> m_lstSkillEffects = new List<SkillEffectCreator>();
+    private Dictionary<uint, SkillEffectCreator> m_dicSkillEffects = new Dictionary<uint, SkillEffectCreator>();
 
     public void CreatSkillEffect(uint id, Actor owner)
     {
         //如果该特效已经存在，就拿出来显示重新用
         if (m_dicSkillEffects.ContainsKey(id))
         {
-            SkillEffect getSkillEffect;
+            SkillEffectCreator getSkillEffect;
             m_dicSkillEffects.TryGetValue(id, out getSkillEffect);
-            getSkillEffect.Initialize();
+            getSkillEffect.CreateSkillEffect();
         }
         else
         {
-            SkillEffect skillEffect = new SkillEffect(id, owner);
+            SkillEffectCreator skillEffect = new SkillEffectCreator(id, owner);
+            skillEffect.CreateSkillEffect();
             m_lstSkillEffects.Add(skillEffect);
             m_dicSkillEffects.Add(id, skillEffect);
         }

@@ -11,6 +11,7 @@ public abstract class BaseBattleState : BaseState
     private ProfessionSkillLoader.Data m_professionSkillLoaderData;
     protected SkillLoader.Data m_skillData;
     protected uint m_nSkillId;
+    protected ESkillType m_eSkillType;
 
     private List<uint> m_lstSkillEffectId;
     private bool m_bCanHit;
@@ -24,6 +25,7 @@ public abstract class BaseBattleState : BaseState
     {
         base.EnterState(eLastState);
         GetSkillData();
+        m_eSkillType = ConfigManager.Instance.GetLoader<SkillLoader>().GetSKillType(m_nSkillId);
 
         m_fAttackMoveSpeed = m_skillData.MoveSpeed;
         m_fAttackMoveFriction = m_skillData.MoveFriction;
@@ -62,7 +64,7 @@ public abstract class BaseBattleState : BaseState
             }
         }
         //碰撞检测
-        if (m_tk2DSpriteAnimator.CurrentFrame == m_skillData.AttackFramIndex && m_bCanHit)
+        if (m_tk2DSpriteAnimator.CurrentFrame == m_skillData.AttackFramIndex && m_bCanHit && m_eSkillType == ESkillType.WeaponType)
         {
             var coliders = Physics2D.OverlapBoxAll(m_owner.m_attackBounds.center, m_owner.m_attackBounds.extents, 0);
             for (int i = 0; i < coliders.Length; i++)
@@ -80,7 +82,7 @@ public abstract class BaseBattleState : BaseState
             m_bCanHit = false;
         }
         //创建技能特效
-        if (m_lstSkillEffectId != null && m_lstSkillEffectId.Count > 0 && m_skillData.CreateSkillEffectFrame != 0 && m_bCanCreateEffect)
+        if (m_lstSkillEffectId != null && m_lstSkillEffectId.Count > 0 && m_skillData.CreateSkillEffectFrame != 0 && m_bCanCreateEffect && m_eSkillType == ESkillType.EffectType)
         {
             if (m_tk2DSpriteAnimator.CurrentSpriteId == m_skillData.CreateSkillEffectFrame)
             {
