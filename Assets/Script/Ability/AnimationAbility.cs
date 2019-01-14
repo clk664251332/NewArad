@@ -46,11 +46,6 @@ public class AnimationAbility : BaseAbility
         base.GetComponent();
     }
 
-    public override void Release()
-    {
-        base.Release();
-    }
-
     public override void Update()
     {
         base.Update();
@@ -306,5 +301,15 @@ public class AnimationAbility : BaseAbility
             Bounds newbounds = new Bounds(bounds.center + m_owner.Transform.position, bounds.extents * 4);
             m_owner.m_attackBounds = newbounds;
         }
+    }
+
+    public override void Release()
+    {
+        base.Release();
+        //foreach(var sprite in m_lstPartSprite)
+        //{
+        //    sprite = null;
+        //}
+        GameObject.Destroy(m_animationTrans.gameObject);
     }
 }

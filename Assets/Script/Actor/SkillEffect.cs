@@ -12,10 +12,13 @@ public class SkillEffect
     private Rigidbody2D m_rig2d;
     private float m_createTime;
     private tk2dSpriteAnimator m_tk2DSpriteAnimator;
+
+    private Vector2 m_startPosOffset;
     public SkillEffect(uint id, Actor owner)
     {
         m_owner = owner;
         m_skillEffectData = ConfigManager.Instance.GetData<SkillEffectLoader, SkillEffectLoader.Data>(id);
+        m_startPosOffset = ConfigManager.Instance.GetLoader<SkillEffectLoader>().GetStartPosOffset(id);
         if (m_skillEffectData != null)
             Initialize();
     }
@@ -25,7 +28,7 @@ public class SkillEffect
         if (m_effectObj == null)
         {
             GameObject loadEffectObj = Resources.Load<GameObject>("Animator/" + m_skillEffectData.PrefabName);
-            m_effectObj = Object.Instantiate(loadEffectObj, m_owner.Transform.position, Quaternion.identity);
+            m_effectObj = Object.Instantiate(loadEffectObj, (Vector2)m_owner.Transform.position + m_startPosOffset, Quaternion.identity);
         }
         if (m_tk2DSpriteAnimator == null)
         {
@@ -44,8 +47,9 @@ public class SkillEffect
 
         m_effectObj.SetActive(true);
         m_effectObj.transform.position = m_owner.Transform.position;
+        m_tk2DSprite.FlipX = m_owner.Direction == 1 ? false : true;
         m_tk2DSpriteAnimator.Play(m_skillEffectData.AnimationName);
-        m_rig2d.velocity = new Vector2(m_skillEffectData.Speed, 0);
+        m_rig2d.velocity = new Vector2(m_owner.Direction * m_skillEffectData.Speed, 0);
         m_createTime = Time.time;
     }
 

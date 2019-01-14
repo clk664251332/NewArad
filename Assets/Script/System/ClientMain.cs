@@ -40,6 +40,7 @@ public class ClientMain : SingletonBehaviour<ClientMain>
     {
         ConfigManager.Instance.Release();
         CharacterManager.Instance.Release();
+        SkillEffectManager.Instance.Release();
     }
 
     public void OnGUI()
@@ -56,6 +57,11 @@ public class ClientMain : SingletonBehaviour<ClientMain>
         {
             GUI.Label(new Rect(30, i * 15, 300, 200), characterList[i].ToString());
         }
+
+        //if(GUI.Button(new Rect(30, 40, 100, 50), "释放"))
+        //{
+        //    Release();
+        //}
     }
 
     public void OnDrawGizmos()

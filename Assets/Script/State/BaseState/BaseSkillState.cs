@@ -111,7 +111,8 @@ public class BaseSkillState : BaseBattleState
 
         m_lstEffectObj.Clear();
         m_lstEffectSprite.Clear();
-        m_lstFixedEffectId.Clear();
+        if (m_lstFixedEffectId != null)
+            m_lstFixedEffectId.Clear();
         m_lstStartFramName.Clear();
         m_lstEndFramName.Clear();
     }
