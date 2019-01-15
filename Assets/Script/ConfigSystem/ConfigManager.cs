@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-using UnityEditor;
 using Game.Config;
 
 /// <summary>
@@ -11,7 +10,9 @@ using Game.Config;
 /// </summary>
 public class ConfigManager: SingletonObject<ConfigManager>
 {
-    private string strObjectPath = "Assets/Resources/ScriptableObject/";
+    //private string strObjectPath = "Assets/Resources/ScriptableObject/";
+    private string strObjectPath = "ScriptableObject/";
+
     private Dictionary<string, Type> m_dic = new Dictionary<string, Type>();
     public Dictionary<Type, ScriptableObjectBase> m_dictObjs = new Dictionary<Type, ScriptableObjectBase>();
 
@@ -29,22 +30,22 @@ public class ConfigManager: SingletonObject<ConfigManager>
 
     private void InitLoaderInfo()
     {
-        m_dic.Add("FashionLoader.asset", typeof(FashionLoader));
-        m_dic.Add("PartLoader.asset", typeof(PartLoader));
-        m_dic.Add("ProfessionLoader.asset", typeof(ProfessionLoader));
-        m_dic.Add("ProfessionSkillLoader.asset", typeof(ProfessionSkillLoader));
-        m_dic.Add("SkillLoader.asset", typeof(SkillLoader));
-        m_dic.Add("ProfessionAttrLoader.asset", typeof(ProfessionAttrLoader));
-        m_dic.Add("FixedEffectLoader.asset", typeof(FixedEffectLoader));
-        m_dic.Add("SkillEffectLoader.asset", typeof(SkillEffectLoader));
+        m_dic.Add("FashionLoader", typeof(FashionLoader));
+        m_dic.Add("PartLoader", typeof(PartLoader));
+        m_dic.Add("ProfessionLoader", typeof(ProfessionLoader));
+        m_dic.Add("ProfessionSkillLoader", typeof(ProfessionSkillLoader));
+        m_dic.Add("SkillLoader", typeof(SkillLoader));
+        m_dic.Add("ProfessionAttrLoader", typeof(ProfessionAttrLoader));
+        m_dic.Add("FixedEffectLoader", typeof(FixedEffectLoader));
+        m_dic.Add("SkillEffectLoader", typeof(SkillEffectLoader));
     }
     private void LoadFile(string strPath)
     {
-        if (Directory.Exists(strPath))
+        //if (Directory.Exists(strPath))
         {
             foreach (var v in m_dic)
             {
-                var temp = AssetDatabase.LoadAssetAtPath(strPath + v.Key, v.Value);
+                var temp = Resources.Load(strPath + v.Key, v.Value);
                 ScriptableObjectBase tempObject = temp as ScriptableObjectBase;
                 m_dictObjs.Add(v.Value, tempObject);
                 tempObject.FillDic();

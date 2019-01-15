@@ -40,11 +40,11 @@ public class SkillEffectCreator
             {
                 SkillEffect skillEffect = new SkillEffect(m_skillEffectData);
                 m_lstSkillList.Add(skillEffect);
-                skillEffect.Initialize(startShowTime, startPos, m_owner.Direction, m_loadObj, m_rootTrans);
+                skillEffect.Initialize(startShowTime, startPos, m_owner.Direction, m_loadObj, m_rootTrans, m_owner);
             }
             else
             {
-                m_lstSkillList[i].Initialize(startShowTime, startPos, m_owner.Direction, m_loadObj, m_rootTrans);
+                m_lstSkillList[i].Initialize(startShowTime, startPos, m_owner.Direction, m_loadObj, m_rootTrans, m_owner);
             }
 
             startShowTime += m_skillEffectData.CreatDeltaTime;
@@ -80,13 +80,16 @@ public class SkillEffect
     private float m_showTimeSave = -1;
     private tk2dSpriteAnimator m_tk2DSpriteAnimator;
     private float m_delayShowTimeDelta;
-    //public bool m_bEndLife;
+    private Actor m_owner;
+    //private int m_hitCount;
+    private bool m_bCanHit;
+
     public SkillEffect(SkillEffectLoader.Data skillEffectData)
     {
         m_skillEffectData = skillEffectData;
     }
 
-    public void Initialize(float showTimeDelta, Vector2 startPos, int direction, GameObject loadObj, Transform rootTrans)
+    public void Initialize(float showTimeDelta, Vector2 startPos, int direction, GameObject loadObj, Transform rootTrans, Actor owner)
     {
         if (m_effectObj == null)
         {
@@ -108,6 +111,7 @@ public class SkillEffect
             m_rig2d.bodyType = RigidbodyType2D.Kinematic;
         }
 
+        m_owner = owner;
         m_tk2DSprite.FlipX = direction == 1 ? false : true;
         m_tk2DSpriteAnimator.Play(m_skillEffectData.AnimationName);
         m_velocity = new Vector2(direction * m_skillEffectData.Speed, 0);
@@ -115,6 +119,7 @@ public class SkillEffect
         m_delayShowTimeDelta = showTimeDelta;
         m_showTimeSave = m_createTimeSave + m_delayShowTimeDelta;
         m_effectObj.transform.position = startPos;
+        m_bCanHit = true;
         m_effectObj.SetActive(false);
     }
 
@@ -126,13 +131,32 @@ public class SkillEffect
         {
             m_effectObj.SetActive(true);
             m_rig2d.velocity = m_velocity;
-            //m_bEndLife = false;
+
+            //检测碰撞
+            if (m_bCanHit)
+            {
+                var coliders = Physics2D.OverlapBoxAll(m_tk2DSprite.GetBounds().center + m_effectObj.transform.position, m_tk2DSprite.GetBounds().extents, 0);
+                for (int i = 0; i < coliders.Length; i++)
+                {
+                    int transId = coliders[i].transform.parent.parent.GetInstanceID();
+
+                    Actor actor;
+                    CharacterManager.Instance.m_dicActors.TryGetValue(transId, out actor);
+                    if (actor != null && actor is Hero == false)
+                    {
+                        actor.BeHit(m_owner);
+                        m_bCanHit = false;
+                        //m_hitCount++;
+                        if (m_skillEffectData.AutoDestory == 1)
+                            m_effectObj.SetActive(false);
+                    }
+                }
+            }
         }
 
         if (m_skillEffectData.LifeTime != 0 && m_showTimeSave != -1 && Time.time - m_showTimeSave > m_skillEffectData.LifeTime)
         {
             m_effectObj.SetActive(false);
-            //m_bEndLife = true;
         }    
     }
 
