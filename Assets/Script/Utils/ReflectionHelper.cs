@@ -58,4 +58,21 @@ public class ReflectionHelper
 
         return ret;
     }
+    
+    public static List<Type> GetAllSubclassByType(Type typeBase)
+    {
+        List<Type> lstType = new List<Type>();
+        Assembly assembly = Assembly.GetExecutingAssembly();//获取当前程序集
+        Type[] types = assembly.GetExportedTypes();
+        for(int i=0;i< types.Length; i++)
+        {
+            var t = types[i];
+            if (t.IsClass && t.IsSubclassOf(typeBase))
+            {
+                lstType.Add(t);
+            }
+        }
+
+        return lstType;
+    }
 }
